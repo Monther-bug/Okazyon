@@ -15,18 +15,19 @@ return new class extends Migration {
             $table->string('first_name');
             $table->string('last_name');
             $table->string('phone_number')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('role', ['admin', 'seller', 'buyer'])->default('buyer');
+            $table->boolean('is_verified')->default(false);
             $table->string('status')->default('active');
             $table->date('date_of_birth')->nullable();
-            $table->string('gender');
+            $table->string('gender')->nullable();
             $table->string('type')->default('user');
             $table->rememberToken();
             $table->timestamps();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email')->primary();
+            $table->string('phone_number')->primary();
             $table->string('token');
             $table->timestamp('created_at')->nullable();
         });
