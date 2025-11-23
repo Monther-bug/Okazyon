@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Utility\Enums\UserStatusEnum;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -13,7 +15,7 @@ use Spatie\Permission\Traits\HasRoles;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class User extends Authenticatable implements HasMedia
+class User extends Authenticatable implements HasMedia, FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasApiTokens, HasRoles, InteractsWithMedia;
@@ -32,7 +34,29 @@ class User extends Authenticatable implements HasMedia
         'password',
         'type',
         'status',
+        'role',
+        'is_verified',
     ];
+
+    /**
+     * Get the name of the unique identifier for the user.
+     *
+     * @return string
+     */
+    public function getAuthIdentifierName()
+    {
+        return 'phone_number';
+    }
+
+    /**
+     * Get the column name for the "email" equivalent (phone_number in our case)
+     *
+     * @return string
+     */
+    public function getEmailForPasswordReset()
+    {
+        return $this->phone_number;
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -51,6 +75,8 @@ class User extends Authenticatable implements HasMedia
      */
     protected $casts = [
         'status' => UserStatusEnum::class,
+        'is_verified' => 'boolean',
+        'password' => 'hashed',
     ];
 
     /**
@@ -129,5 +155,21 @@ class User extends Authenticatable implements HasMedia
     public function readNotifications()
     {
         return $this->belongsToMany(Notification::class, 'user_notification_reads')->withTimestamps();
+    }
+
+    /**
+     * Determine if the user can access the given Filament panel.
+     */
+    public function canAccessPanel(Panel $panel): bool
+    {
+        if ($panel->getId() === 'admin') {
+            return $this->role === 'admin';
+        }
+
+        if ($panel->getId() === 'seller') {
+            return $this->role === 'seller';
+        }
+
+        return false;
     }
 }
