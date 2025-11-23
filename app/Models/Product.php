@@ -22,6 +22,7 @@ class Product extends Model
         'price',
         'discounted_price',
         'status',
+        'images',
         'is_featured',
         'expiration_date',
         'storage_instructions',
@@ -44,6 +45,7 @@ class Product extends Model
         'discounted_price' => 'decimal:2',
         'expiration_date' => 'date',
         'is_featured' => 'boolean',
+        'images' => 'array',
     ];
 
     /**
