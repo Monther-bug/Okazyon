@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Admin Theme for Okazyon */
+:root {
+    --primary: #E53935;
+    --primary-hover: #C62828;
+}
+
+/* Modern styling overrides */
+@layer components {
+    /* Cards with modern styling */
+    .fi-section {
+        @apply rounded-xl shadow-sm;
+    }
+
+    /* Enhanced sidebar */
+    .fi-sidebar-nav-item {
+        @apply rounded-lg transition-all duration-200 hover:scale-105;
+    }
+
+    /* Modern buttons */
+    .fi-btn {
+        @apply rounded-lg shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5;
+    }
+
+    /* Dashboard stats cards */
+    .fi-wi-stats-overview-stat {
+        @apply rounded-xl shadow-md hover:shadow-xl transition-all duration-300;
+    }
+}
