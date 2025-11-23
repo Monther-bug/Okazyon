@@ -2,8 +2,8 @@
 
 namespace App\Providers\Filament;
 
-use App\Filament\Pages\Auth\Login;
-use App\Filament\Pages\Auth\Register;
+use App\Filament\Seller\Pages\Auth\SellerLogin;
+use App\Filament\Seller\Pages\Auth\SellerRegister;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -27,8 +27,8 @@ class SellerPanelProvider extends PanelProvider
         return $panel
             ->id('seller')
             ->path('seller')
-            ->login(Login::class)
-            ->registration(Register::class)
+            ->login(SellerLogin::class)
+            ->registration(SellerRegister::class)
             ->brandName('Okazyon Seller')
             ->colors([
                 'primary' => '#E53935',
