@@ -80,6 +80,16 @@ class User extends Authenticatable implements HasMedia, FilamentUser
     ];
 
     /**
+     * Get the user's full name.
+     *
+     * @return string
+     */
+    public function getNameAttribute(): string
+    {
+        return trim("{$this->first_name} {$this->last_name}");
+    }
+
+    /**
      * Get the FCM tokens associated with the user.
      */
     public function fcmTokens()
@@ -163,11 +173,11 @@ class User extends Authenticatable implements HasMedia, FilamentUser
     public function canAccessPanel(Panel $panel): bool
     {
         if ($panel->getId() === 'admin') {
-            return $this->role === 'admin';
+            return $this->type === 'admin';
         }
 
         if ($panel->getId() === 'seller') {
-            return $this->role === 'seller';
+            return $this->type === 'seller';
         }
 
         return false;
