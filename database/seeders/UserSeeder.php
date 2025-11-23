@@ -15,26 +15,27 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create Admin Users
-        $admin1 = User::create([
+        // Create Admin User
+        $admin = User::create([
             'first_name' => 'Admin',
             'last_name' => 'User',
-            'phone_number' => '+1234567890',
+            'phone_number' => '0916880943',
             'date_of_birth' => '1990-01-01',
             'gender' => 'male',
-            'password' => Hash::make('password123'),
+            'password' => Hash::make('password'),
             'type' => 'admin',
             'status' => UserStatusEnum::ACTIVE,
         ]);
 
-        $admin2 = User::create([
-            'first_name' => 'Sarah',
-            'last_name' => 'Administrator',
-            'phone_number' => '+1234567891',
-            'date_of_birth' => '1988-05-15',
-            'gender' => 'female',
-            'password' => Hash::make('password123'),
-            'type' => 'admin',
+        // Create Seller User
+        $seller = User::create([
+            'first_name' => 'Seller',
+            'last_name' => 'User',
+            'phone_number' => '0913519105',
+            'date_of_birth' => '1992-05-15',
+            'gender' => 'male',
+            'password' => Hash::make('password'),
+            'type' => 'seller',
             'status' => UserStatusEnum::ACTIVE,
         ]);
 
@@ -110,7 +111,8 @@ class UserSeeder extends Seeder
         User::factory(20)->create();
 
         $this->command->info('Created users:');
-        $this->command->info('- 2 Admin users (password: password123)');
+        $this->command->info('- Admin: 0916880943 / password: password');
+        $this->command->info('- Seller: 0913519105 / password: password');
         $this->command->info('- 6 Regular users with different statuses (password: password123)');
         $this->command->info('- 20 Random users via factory');
         $this->command->info('Total: ' . User::count() . ' users');
