@@ -48,7 +48,7 @@ class SalesChart extends ChartWidget
                 ->where('orders.status', 'delivered')
                 ->where('orders.created_at', '>=', $startDate)
                 ->select(
-                    DB::raw('HOUR(orders.created_at) as period'),
+                    DB::raw("CAST(strftime('%H', orders.created_at) AS INTEGER) as period"),
                     DB::raw('SUM(order_items.price * order_items.quantity) as total')
                 )
                 ->groupBy('period')
@@ -61,7 +61,7 @@ class SalesChart extends ChartWidget
                 ->where('orders.status', 'delivered')
                 ->where('orders.created_at', '>=', $startDate)
                 ->select(
-                    DB::raw('DATE(orders.created_at) as period'),
+                    DB::raw("DATE(orders.created_at) as period"),
                     DB::raw('SUM(order_items.price * order_items.quantity) as total')
                 )
                 ->groupBy('period')
@@ -74,14 +74,13 @@ class SalesChart extends ChartWidget
                 ->where('orders.status', 'delivered')
                 ->where('orders.created_at', '>=', $startDate)
                 ->select(
-                    DB::raw('MONTH(orders.created_at) as period'),
+                    DB::raw("CAST(strftime('%m', orders.created_at) AS INTEGER) as period"),
                     DB::raw('SUM(order_items.price * order_items.quantity) as total')
                 )
                 ->groupBy('period')
                 ->pluck('total', 'period');
         }
         
-        // Map data to labels
         $data = [];
         foreach ($labels as $index => $label) {
             if ($groupBy === 'hour') {
