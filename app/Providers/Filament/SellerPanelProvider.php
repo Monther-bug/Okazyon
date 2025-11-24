@@ -49,7 +49,7 @@ class SellerPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Seller/Widgets'), for: 'App\\Filament\\Seller\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
+                // Dashboard widgets are auto-discovered
             ])
             ->middleware([
                 EncryptCookies::class,
