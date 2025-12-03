@@ -19,7 +19,7 @@ class ProductResource extends Resource
     protected static ?string $model = Product::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-shopping-bag';
-    
+
     protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
@@ -41,7 +41,7 @@ class ProductResource extends Resource
                             ->columnSpan(2),
                     ])
                     ->columns(2),
-                
+
                 Forms\Components\Section::make('Product Information')
                     ->description('Details submitted by the seller')
                     ->schema([
@@ -50,26 +50,26 @@ class ProductResource extends Resource
                             ->required()
                             ->maxLength(255)
                             ->readOnly(),
-                        
+
                         Forms\Components\Select::make('category_id')
                             ->label('Category')
                             ->relationship('category', 'name')
                             ->required()
-                            ->readOnly(),
-                        
+                            ->disabled(),
+
                         Forms\Components\RichEditor::make('description')
                             ->label('Description')
                             ->required()
                             ->columnSpan(2)
                             ->readOnly(),
-                        
+
                         Forms\Components\TextInput::make('price')
                             ->label('Regular Price')
                             ->required()
                             ->numeric()
                             ->prefix('$')
                             ->readOnly(),
-                        
+
                         Forms\Components\TextInput::make('discounted_price')
                             ->label('Discounted Price')
                             ->numeric()
@@ -77,7 +77,7 @@ class ProductResource extends Resource
                             ->readOnly(),
                     ])
                     ->columns(2),
-                
+
                 Forms\Components\Section::make('Product Images')
                     ->schema([
                         Forms\Components\FileUpload::make('images')
@@ -89,7 +89,7 @@ class ProductResource extends Resource
                             ->columnSpan(2),
                     ])
                     ->columns(2),
-                
+
                 Forms\Components\Section::make('Seller Information')
                     ->schema([
                         Forms\Components\Select::make('user_id')
@@ -118,47 +118,47 @@ class ProductResource extends Resource
                         }
                         return null;
                     }),
-                
+
                 Tables\Columns\TextColumn::make('name')
                     ->label('Product Name')
                     ->searchable()
                     ->sortable()
                     ->limit(30),
-                
+
                 Tables\Columns\TextColumn::make('user.name')
                     ->label('Seller')
                     ->searchable(['first_name', 'last_name'])
                     ->sortable(),
-                
+
                 Tables\Columns\TextColumn::make('category.name')
                     ->label('Category')
                     ->searchable()
                     ->sortable()
                     ->badge()
                     ->color('info'),
-                
+
                 Tables\Columns\TextColumn::make('price')
                     ->label('Price')
                     ->money('USD')
                     ->sortable(),
-                
+
                 Tables\Columns\TextColumn::make('status')
                     ->label('Status')
                     ->badge()
-                    ->color(fn (string $state): string => match ($state) {
+                    ->color(fn(string $state): string => match ($state) {
                         'pending' => 'warning',
                         'approved' => 'success',
                         'rejected' => 'danger',
                         default => 'gray',
                     })
-                    ->icon(fn (string $state): string => match ($state) {
+                    ->icon(fn(string $state): string => match ($state) {
                         'pending' => 'heroicon-o-clock',
                         'approved' => 'heroicon-o-check-circle',
                         'rejected' => 'heroicon-o-x-circle',
                         default => 'heroicon-o-question-mark-circle',
                     })
-                    ->formatStateUsing(fn (string $state): string => ucfirst($state)),
-                
+                    ->formatStateUsing(fn(string $state): string => ucfirst($state)),
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Submitted')
                     ->dateTime()
@@ -175,7 +175,7 @@ class ProductResource extends Resource
                         'rejected' => 'Rejected',
                     ])
                     ->default('pending'),
-                
+
                 Tables\Filters\SelectFilter::make('category')
                     ->relationship('category', 'name')
                     ->label('Category'),
@@ -183,32 +183,32 @@ class ProductResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                
+
                 Tables\Actions\Action::make('approve')
                     ->label('Approve')
                     ->icon('heroicon-o-check-circle')
                     ->color('success')
-                    ->visible(fn ($record) => $record->status !== 'approved')
+                    ->visible(fn($record) => $record->status !== 'approved')
                     ->requiresConfirmation()
                     ->action(function (Product $record) {
                         $record->update(['status' => 'approved']);
-                        
+
                         Notification::make()
                             ->success()
                             ->title('Product Approved')
                             ->body("'{$record->name}' has been approved and is now live.")
                             ->send();
                     }),
-                
+
                 Tables\Actions\Action::make('reject')
                     ->label('Reject')
                     ->icon('heroicon-o-x-circle')
                     ->color('danger')
-                    ->visible(fn ($record) => $record->status !== 'rejected')
+                    ->visible(fn($record) => $record->status !== 'rejected')
                     ->requiresConfirmation()
                     ->action(function (Product $record) {
                         $record->update(['status' => 'rejected']);
-                        
+
                         Notification::make()
                             ->warning()
                             ->title('Product Rejected')
@@ -227,14 +227,14 @@ class ProductResource extends Resource
                         ->action(function (Collection $records) {
                             $count = $records->count();
                             $records->each->update(['status' => 'approved']);
-                            
+
                             Notification::make()
                                 ->success()
                                 ->title('Products Approved')
                                 ->body("{$count} product(s) have been approved.")
                                 ->send();
                         }),
-                    
+
                     Tables\Actions\BulkAction::make('reject')
                         ->label('Reject Selected')
                         ->icon('heroicon-o-x-circle')
@@ -244,14 +244,14 @@ class ProductResource extends Resource
                         ->action(function (Collection $records) {
                             $count = $records->count();
                             $records->each->update(['status' => 'rejected']);
-                            
+
                             Notification::make()
                                 ->warning()
                                 ->title('Products Rejected')
                                 ->body("{$count} product(s) have been rejected.")
                                 ->send();
                         }),
-                    
+
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
@@ -272,12 +272,12 @@ class ProductResource extends Resource
             'edit' => Pages\EditProduct::route('/{record}/edit'),
         ];
     }
-    
+
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::where('status', 'pending')->count() ?: null;
     }
-    
+
     public static function getNavigationBadgeColor(): ?string
     {
         return 'warning';
