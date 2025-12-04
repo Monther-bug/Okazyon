@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -14,10 +13,10 @@ return new class extends Migration
         Schema::create('banners', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('subtitle');
-            $table->string('image_url');
-            $table->string('link');
-            $table->boolean('is_active')->default(true);
+            $table->text('subtitle')->nullable();
+            $table->string('image');
+            $table->string('link')->nullable();
+            $table->boolean('is_active')->default(false);
             $table->timestamps();
         });
     }

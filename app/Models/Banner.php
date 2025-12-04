@@ -14,23 +14,25 @@ class Banner extends Model
     protected $fillable = [
         'title',
         'subtitle',
-        'image_url',
+        'image',
         'link',
         'is_active',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'is_active' => 'boolean',
     ];
 
-    /**
-     * Scope to get only active banners.
-     */
+    protected static function booted()
+    {
+        static::saving(function ($banner) {
+            if ($banner->is_active) {
+                static::where('id', '!=', $banner->id)
+                    ->update(['is_active' => false]);
+            }
+        });
+    }
+
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
