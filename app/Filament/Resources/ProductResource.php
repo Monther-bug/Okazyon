@@ -61,7 +61,7 @@ class ProductResource extends Resource
                             ->label('Description')
                             ->required()
                             ->columnSpan(2)
-                            ->readOnly(),
+                            ->disabled(),
 
                         Forms\Components\TextInput::make('price')
                             ->label('Regular Price')
