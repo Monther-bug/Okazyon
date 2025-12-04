@@ -92,7 +92,7 @@ class SellerRegister extends BaseRegister
 
         // Send OTP
         $otpService = app(OtpService::class);
-        $otpService->send($data['phone_number']);
+        $otpService->generateOtp($data['phone_number'], 'registration');
 
         // Store phone number for verification page
         session(['otp_phone_number' => $data['phone_number']]);
