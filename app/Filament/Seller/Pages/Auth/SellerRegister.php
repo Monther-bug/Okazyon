@@ -80,7 +80,8 @@ class SellerRegister extends BaseRegister
 
         // Store registration data in session
         session([
-            'seller_registration_data' => [
+            'registration_data' => [
+                'name' => $data['first_name'] . ' ' . $data['last_name'], // VerifyOtp expects 'name'
                 'first_name' => $data['first_name'],
                 'last_name' => $data['last_name'],
                 'phone_number' => $data['phone_number'],
@@ -94,7 +95,7 @@ class SellerRegister extends BaseRegister
         $otpService->send($data['phone_number']);
 
         // Store phone number for verification page
-        session(['phone_number' => $data['phone_number']]);
+        session(['otp_phone_number' => $data['phone_number']]);
 
         Notification::make()
             ->title('OTP Sent')
@@ -103,8 +104,8 @@ class SellerRegister extends BaseRegister
             ->send();
 
         // Redirect to OTP verification page
-        redirect()->route('seller.verify-otp');
-        
+        redirect()->route('filament.seller.auth.verify-otp');
+
         return null;
     }
 }
