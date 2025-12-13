@@ -81,7 +81,8 @@ class VerifyOtpController extends Controller
 
         // Create the user
         $user = User::create([
-            'name' => $registrationData['name'],
+            'first_name' => $registrationData['first_name'],
+            'last_name' => $registrationData['last_name'],
             'phone_number' => $phoneNumber,
             'email' => $registrationData['email'] ?? null,
             'password' => $registrationData['password'], // Already hashed in RegisterController
