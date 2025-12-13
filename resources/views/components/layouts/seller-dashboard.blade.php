@@ -63,7 +63,8 @@
     </style>
 </head>
 
-<body class="font-sans antialiased bg-gray-50 text-gray-900 overflow-hidden" x-data="{ sidebarOpen: false }">
+<body class="font-sans antialiased bg-slate-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 overflow-hidden"
+    x-data="{ sidebarOpen: false }">
 
     <!-- Mobile Sidebar Overlay -->
     <div x-show="sidebarOpen" @click="sidebarOpen = false" x-cloak
@@ -111,21 +112,20 @@
 
                 <p class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider mt-6 mb-2">Management</p>
 
-                <!-- Placeholder Links -->
-                <a href="#"
-                    class="flex items-center px-4 py-3.5 text-sm font-medium rounded-xl transition-all duration-200 group nav-item-inactive">
-                    <svg class="w-6 h-6 mr-3.5 text-gray-500 group-hover:text-gray-300" fill="none"
-                        stroke="currentColor" viewBox="0 0 24 24">
+                <a href="{{ route('seller.products.index') }}"
+                    class="flex items-center px-4 py-3.5 text-sm font-medium rounded-xl transition-all duration-200 group {{ request()->routeIs('seller.products.*') ? 'nav-item-active shadow-lg shadow-red-900/20' : 'nav-item-inactive' }}">
+                    <svg class="w-6 h-6 mr-3.5 {{ request()->routeIs('seller.products.*') ? 'text-red-400' : 'text-gray-500 group-hover:text-gray-300' }}"
+                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                     </svg>
                     Products
                 </a>
 
-                <a href="#"
-                    class="flex items-center px-4 py-3.5 text-sm font-medium rounded-xl transition-all duration-200 group nav-item-inactive">
-                    <svg class="w-6 h-6 mr-3.5 text-gray-500 group-hover:text-gray-300" fill="none"
-                        stroke="currentColor" viewBox="0 0 24 24">
+                <a href="{{ route('seller.orders.index') }}"
+                    class="flex items-center px-4 py-3.5 text-sm font-medium rounded-xl transition-all duration-200 group {{ request()->routeIs('seller.orders.*') ? 'nav-item-active shadow-lg shadow-red-900/20' : 'nav-item-inactive' }}">
+                    <svg class="w-6 h-6 mr-3.5 {{ request()->routeIs('seller.orders.*') ? 'text-red-400' : 'text-gray-500 group-hover:text-gray-300' }}"
+                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
                         </path>
