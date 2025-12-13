@@ -44,4 +44,9 @@ Route::prefix('seller')->group(function () {
         Route::get('/reset-password', [App\Http\Controllers\SellerAuth\ResetPasswordController::class, 'show'])->name('password.reset');
         Route::post('/reset-password', [App\Http\Controllers\SellerAuth\ResetPasswordController::class, 'update'])->name('password.update');
     });
+
+    // Seller Dashboard Routes (Protected)
+    Route::middleware(['auth', 'role:seller'])->name('seller.')->prefix('seller')->group(function () {
+        Route::get('/dashboard', [App\Http\Controllers\Seller\DashboardController::class, 'index'])->name('dashboard');
+    });
 });

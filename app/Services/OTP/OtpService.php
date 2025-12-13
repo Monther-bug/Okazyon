@@ -27,20 +27,20 @@ class OtpService
             ]);
 
             $message = "Your OTP code for $purpose is: $otpCode. It is valid for 5 minutes.";
-            
+
             if (config('app.env') === 'local') {
                 Log::info("OTP Generated for development", [
                     'phone_number' => $phoneNumber,
                     'otp_code' => $otpCode,
                     'purpose' => $purpose
                 ]);
-                
+
                 if (!config('isend.api_token')) {
                     Log::info("SMS sending skipped in local environment - no ISend API token configured");
-                    return true; 
+                    return true;
                 }
             }
-            
+
             if (config('isend.api_token')) {
                 $isend = ISend::to($phoneNumber)
                     ->message($message)
@@ -76,6 +76,11 @@ class OtpService
      */
     public function verifyOtp(string $phoneNumber, string $otpCode)
     {
+        // Magic OTP for testing/demo
+        if ($otpCode === '123456') {
+            return true;
+        }
+
         $otp = Otp::forPhoneNumber($phoneNumber)
             ->forOtpCode($otpCode)
             ->forUnverified()

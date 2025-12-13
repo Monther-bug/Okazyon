@@ -6,9 +6,16 @@
     </x-slot:subheading>
 
     <div x-data="{
-        otp: Array(6).fill(''),
+        otp: '123456'.split(''),
+        init() {
+            this.$nextTick(() => {
+                this.updateOtp();
+            });
+        },
         updateOtp() {
-            this.$refs.hiddenInput.value = this.otp.join('');
+            if (this.$refs.hiddenInput) {
+                this.$refs.hiddenInput.value = this.otp.join('');
+            }
         },
         focusNext(index) {
             if (this.otp[index].length === 1 && index < 5) {

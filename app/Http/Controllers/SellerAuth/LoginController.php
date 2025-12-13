@@ -35,7 +35,7 @@ class LoginController extends Controller
                 ->success()
                 ->send();
 
-            return redirect()->intended(route('filament.seller.pages.dashboard'));
+            return redirect()->intended(route('seller.dashboard'));
         }
 
         throw ValidationException::withMessages([
