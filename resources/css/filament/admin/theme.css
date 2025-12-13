@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 /* Custom Admin Theme for Okazyon */
 :root {
@@ -10,6 +8,7 @@
 
 /* Modern styling overrides */
 @layer components {
+
     /* Cards with modern styling */
     .fi-section {
         @apply rounded-xl shadow-sm;

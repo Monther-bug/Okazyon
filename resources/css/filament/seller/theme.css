@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 /* Custom Seller Theme for Okazyon */
 :root {
@@ -10,6 +8,7 @@
 
 /* Modern styling overrides */
 @layer components {
+
     /* Cards with modern styling */
     .fi-section {
         @apply rounded-xl shadow-sm;
@@ -29,7 +28,7 @@
     .fi-wi-stats-overview-stat {
         @apply rounded-xl shadow-md hover:shadow-xl transition-all duration-300;
     }
-    
+
     /* Product cards for sellers */
     .fi-product-card {
         @apply rounded-xl shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer;

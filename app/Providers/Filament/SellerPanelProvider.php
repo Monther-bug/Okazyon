@@ -27,8 +27,8 @@ class SellerPanelProvider extends PanelProvider
         return $panel
             ->id('seller')
             ->path('seller')
-            ->login(SellerLogin::class)
-            ->registration(SellerRegister::class)
+            // ->login(SellerLogin::class) // Disabled for custom Blade auth
+            // ->registration(SellerRegister::class) // Disabled for custom Blade auth
             ->brandName('Okazyon Seller')
             ->colors([
                 'primary' => '#E53935',
@@ -64,8 +64,8 @@ class SellerPanelProvider extends PanelProvider
             ])
             ->authMiddleware(
                 [
-                Authenticate::class,
-            ]
-        );
+                    Authenticate::class,
+                ]
+            );
     }
 }
