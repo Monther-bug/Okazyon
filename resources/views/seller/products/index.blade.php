@@ -299,7 +299,7 @@
                                                 class="block text-sm font-bold text-gray-900 dark:text-white mb-2">Product
                                                 Name</label>
                                             <input type="text" name="name" id="name" required
-                                                class="w-full rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-white placeholder-gray-400 focus:bg-white dark:focus:bg-gray-800 focus:border-red-500 focus:ring-4 focus:ring-red-500/10 transition-all py-3"
+                                                class="w-full rounded-xl border-gray-200 dark:border-gray-700 bg-[#eeecec] dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 focus:bg-white dark:focus:bg-gray-800 focus:border-red-500 focus:ring-4 focus:ring-red-500/10 transition-all py-3"
                                                 placeholder="e.g. Wireless Headphones">
                                         </div>
 
@@ -313,7 +313,7 @@
                                                         <span class="text-gray-500 font-bold">$</span>
                                                     </div>
                                                     <input type="number" name="price" id="price" step="0.01" required
-                                                        class="w-full pl-7 pr-4 rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-white placeholder-gray-400 focus:bg-white dark:focus:bg-gray-800 focus:border-red-500 focus:ring-4 focus:ring-red-500/10 transition-all py-3 font-medium"
+                                                        class="w-full pl-7 pr-4 rounded-xl border-gray-200 dark:border-gray-700 bg-[#eeecec] dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 focus:bg-white dark:focus:bg-gray-800 focus:border-red-500 focus:ring-4 focus:ring-red-500/10 transition-all py-3 font-medium"
                                                         placeholder="0.00">
                                                 </div>
                                             </div>
@@ -328,7 +328,7 @@
                                                     </div>
                                                     <input type="number" name="discounted_price" id="discounted_price"
                                                         step="0.01"
-                                                        class="w-full pl-7 pr-4 rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-white placeholder-gray-400 focus:bg-white dark:focus:bg-gray-800 focus:border-red-500 focus:ring-4 focus:ring-red-500/10 transition-all py-3 font-medium"
+                                                        class="w-full pl-7 pr-4 rounded-xl border-gray-200 dark:border-gray-700 bg-[#eeecec] dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 focus:bg-white dark:focus:bg-gray-800 focus:border-red-500 focus:ring-4 focus:ring-red-500/10 transition-all py-3 font-medium"
                                                         placeholder="0.00">
                                                 </div>
                                             </div>
@@ -339,7 +339,7 @@
                                                 class="block text-sm font-bold text-gray-900 dark:text-white mb-2">Category</label>
                                             <div class="relative">
                                                 <select name="category_id" id="category_id" required
-                                                    class="w-full appearance-none rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-white focus:bg-white dark:focus:bg-gray-800 focus:border-red-500 focus:ring-4 focus:ring-red-500/10 transition-all py-3 pl-4 pr-10">
+                                                    class="w-full appearance-none rounded-xl border-gray-200 dark:border-gray-700 bg-[#eeecec] dark:bg-gray-700 text-gray-900 dark:text-white focus:bg-white dark:focus:bg-gray-800 focus:border-red-500 focus:ring-4 focus:ring-red-500/10 transition-all py-3 pl-4 pr-10">
                                                     <option value="">Select a category</option>
                                                     @foreach($categories as $category)
                                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -360,7 +360,7 @@
                                             <label for="description"
                                                 class="block text-sm font-bold text-gray-900 dark:text-white mb-2">Description</label>
                                             <textarea name="description" id="description" rows="4" required
-                                                class="w-full rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-white placeholder-gray-400 focus:bg-white dark:focus:bg-gray-800 focus:border-red-500 focus:ring-4 focus:ring-red-500/10 transition-all py-3"
+                                                class="w-full rounded-xl border-gray-200 dark:border-gray-700 bg-[#eeecec] dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 focus:bg-white dark:focus:bg-gray-800 focus:border-red-500 focus:ring-4 focus:ring-red-500/10 transition-all py-3"
                                                 placeholder="Describe your product..."></textarea>
                                         </div>
                                     </div>

@@ -144,6 +144,14 @@ class User extends Authenticatable implements HasMedia, FilamentUser
     }
 
     /**
+     * Get the products for the seller.
+     */
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
+
+    /**
      * Get the reviews for the user.
      */
     public function reviews(): HasMany

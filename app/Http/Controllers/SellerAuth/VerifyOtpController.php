@@ -79,18 +79,23 @@ class VerifyOtpController extends Controller
             return redirect()->route('seller.register');
         }
 
-        // Create the user
-        $user = User::create([
-            'first_name' => $registrationData['first_name'],
-            'last_name' => $registrationData['last_name'],
-            'phone_number' => $phoneNumber,
-            'email' => $registrationData['email'] ?? null,
-            'password' => $registrationData['password'], // Already hashed in RegisterController
-            'type' => 'seller',
-        ]);
+        // Create or update the user
+        $user = User::updateOrCreate(
+            ['phone_number' => $phoneNumber],
+            [
+                'first_name' => $registrationData['first_name'],
+                'last_name' => $registrationData['last_name'],
+                'email' => $registrationData['email'] ?? null,
+                'password' => $registrationData['password'], // Already hashed in RegisterController
+                'type' => 'seller',
+            ]
+        );
+
+        // Ensure seller role exists
+        \Spatie\Permission\Models\Role::firstOrCreate(['name' => 'seller', 'guard_name' => 'web']);
 
         // Assign seller role
-        $user->assignRole('seller'); // Assuming Spatie Permission or similar method exists
+        $user->assignRole('seller');
 
         // Clear session data
         Session::forget(['otp_phone_number', 'registration_data']);

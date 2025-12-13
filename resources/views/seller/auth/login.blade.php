@@ -12,10 +12,11 @@
 
         <div class="space-y-4 rounded-md shadow-sm">
             <div>
-                <label for="phone_number" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                <label for="phone_number" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Phone
+                    Number</label>
                 <div class="mt-1 relative rounded-md shadow-sm">
                     <input id="phone_number" name="phone_number" type="tel" autocomplete="tel" required
-                        class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm transition duration-150 ease-in-out @error('phone_number') border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500 @enderror"
+                        class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm transition duration-150 ease-in-out bg-[#eeecec] dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 @error('phone_number') border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500 @enderror"
                         value="{{ old('phone_number') }}">
                     @error('phone_number')
                         <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
@@ -32,11 +33,30 @@
                 @enderror
             </div>
 
-            <div class="mt-4">
-                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+            <div class="mt-4" x-data="{ show: false }">
+                <label for="password"
+                    class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
                 <div class="mt-1 relative rounded-md shadow-sm">
-                    <input id="password" name="password" type="password" autocomplete="current-password" required
-                        class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm transition duration-150 ease-in-out @error('password') border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500 @enderror">
+                    <input id="password" name="password" :type="show ? 'text' : 'password'"
+                        autocomplete="current-password" required
+                        class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm transition duration-150 ease-in-out bg-[#eeecec] dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 @error('password') border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500 @enderror">
+                    <button type="button" @click="show = !show"
+                        class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 focus:outline-none">
+                        <!-- Eye Icon (Show) -->
+                        <svg x-show="!show" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                        <!-- Eye Off Icon (Hide) -->
+                        <svg x-show="show" x-cloak class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a10.05 10.05 0 011.574-2.59M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3l18 18" />
+                        </svg>
+                    </button>
                 </div>
                 @error('password')
                     <p class="mt-2 text-sm text-red-600">{{ $message }}</p>

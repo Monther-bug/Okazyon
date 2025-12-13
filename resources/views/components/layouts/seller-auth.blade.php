@@ -17,7 +17,7 @@
 </head>
 
 <body
-    class="font-sans antialiased text-gray-900 bg-gray-50 h-screen overflow-hidden flex items-center justify-center selection:bg-red-500 selection:text-white relative">
+    class="font-sans antialiased text-gray-900 bg-slate-50 dark:bg-gray-950 h-screen overflow-hidden flex items-center justify-center selection:bg-red-500 selection:text-white relative">
 
     <!-- Animated Background -->
     <div class="absolute inset-0 z-0 overflow-hidden">

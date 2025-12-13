@@ -46,7 +46,9 @@ Route::prefix('seller')->group(function () {
     });
 
     // Seller Dashboard Routes (Protected)
-    Route::middleware(['auth', 'role:seller'])->name('seller.')->prefix('seller')->group(function () {
+    Route::middleware(['auth', 'role:seller'])->name('seller.')->group(function () {
         Route::get('/dashboard', [App\Http\Controllers\Seller\DashboardController::class, 'index'])->name('dashboard');
+        Route::resource('products', App\Http\Controllers\Seller\ProductController::class);
+        Route::resource('orders', App\Http\Controllers\Seller\OrderController::class)->only(['index', 'show', 'update']);
     });
 });

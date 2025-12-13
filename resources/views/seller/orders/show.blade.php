@@ -72,9 +72,11 @@
                                                 </div>
                                                 <div>
                                                     <p class="font-bold text-gray-900 dark:text-white">
-                                                        {{ $item->product->name }}</p>
+                                                        {{ $item->product->name }}
+                                                    </p>
                                                     <p class="text-sm text-gray-500">${{ number_format($item->price, 2) }} x
-                                                        {{ $item->quantity }}</p>
+                                                        {{ $item->quantity }}
+                                                    </p>
                                                 </div>
                                             </div>
                                         </td>
@@ -120,12 +122,14 @@
                         <div>
                             <p class="text-xs font-bold uppercase text-gray-400 mb-1">Phone Number</p>
                             <p class="text-sm font-medium text-gray-700 dark:text-gray-300">
-                                {{ $order->buyer->phone_number ?? 'N/A' }}</p>
+                                {{ $order->buyer->phone_number ?? 'N/A' }}
+                            </p>
                         </div>
                         <div>
                             <p class="text-xs font-bold uppercase text-gray-400 mb-1">Delivery Address</p>
                             <p class="text-sm font-medium text-gray-700 dark:text-gray-300 leading-relaxed">
-                                {{ $order->delivery_address ?? 'No address provided' }}</p>
+                                {{ $order->delivery_address ?? 'No address provided' }}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -140,10 +144,11 @@
                             <span
                                 class="font-medium text-gray-900 dark:text-white">{{ $order->created_at->format('M d, Y H:i') }}</span>
                         </div>
-                        <div class="flex justify-between text-sm">
-                            <span class="text-gray-500">Total Order Value</span>
+                        <div
+                            class="flex justify-between items-center pt-4 border-t border-gray-100 dark:border-gray-700">
+                            <span class="text-base font-bold text-gray-900 dark:text-white">Total Amount</span>
                             <span
-                                class="font-medium text-gray-900 dark:text-white">${{ number_format($order->total_amount, 2) }}</span>
+                                class="text-xl font-bold text-gray-900 dark:text-white">${{ number_format((float) $order->total_amount, 2) }}</span>
                         </div>
                         <div class="pt-3 border-t border-gray-100 dark:border-gray-800 mt-3">
                             <p class="text-xs text-gray-400 text-center">
