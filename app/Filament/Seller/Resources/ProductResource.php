@@ -20,7 +20,7 @@ class ProductResource extends Resource
     protected static ?string $model = Product::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-shopping-bag';
-    
+
     protected static ?int $navigationSort = 2;
 
     /**
@@ -43,18 +43,18 @@ class ProductResource extends Resource
                             ->required()
                             ->maxLength(255)
                             ->columnSpan(2),
-                        
+
                         Forms\Components\RichEditor::make('description')
                             ->required()
                             ->columnSpan(2),
-                        
+
                         Forms\Components\TextInput::make('price')
                             ->required()
                             ->numeric()
                             ->prefix('$')
                             ->minValue(0)
                             ->step(0.01),
-                        
+
                         Forms\Components\TextInput::make('discounted_price')
                             ->numeric()
                             ->prefix('$')
@@ -62,7 +62,7 @@ class ProductResource extends Resource
                             ->step(0.01)
                             ->lt('price')
                             ->helperText('Must be less than the regular price'),
-                        
+
                         Forms\Components\FileUpload::make('images')
                             ->label('Product Images')
                             ->image()
@@ -74,7 +74,7 @@ class ProductResource extends Resource
                             ->columnSpan(2),
                     ])
                     ->columns(2),
-                
+
                 Forms\Components\Section::make('Category')
                     ->schema([
                         Forms\Components\Select::make('category_id')
@@ -96,7 +96,7 @@ class ProductResource extends Resource
                             })
                             ->helperText('Only active categories are available'),
                     ]),
-                
+
                 Forms\Components\Section::make('Food Safety Information')
                     ->schema([
                         Forms\Components\DatePicker::make('expiration_date')
@@ -104,15 +104,16 @@ class ProductResource extends Resource
                             ->required()
                             ->minDate(now())
                             ->native(false),
-                        
+
                         Forms\Components\TextInput::make('storage_instructions')
                             ->label('Storage Instructions')
                             ->maxLength(255)
                             ->placeholder('e.g., Keep refrigerated, Store in a cool dry place')
                             ->helperText('How should this product be stored?'),
                     ])
-                    ->visible(fn (Get $get) => 
-                        $get('category_id') && 
+                    ->visible(
+                        fn(Get $get) =>
+                        $get('category_id') &&
                         Category::find($get('category_id'))?->type === 'food'
                     )
                     ->columns(2),
@@ -128,42 +129,42 @@ class ProductResource extends Resource
                     ->circular()
                     ->stacked()
                     ->limit(1)
-                    ->getStateUsing(fn ($record) => $record->images ? (is_array($record->images) ? $record->images[0] ?? null : $record->images) : null),
-                
+                    ->getStateUsing(fn($record) => $record->images ? (is_array($record->images) ? $record->images[0] ?? null : $record->images) : null),
+
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()
                     ->sortable()
                     ->weight('medium'),
-                
+
                 Tables\Columns\TextColumn::make('category.name')
                     ->sortable()
                     ->badge()
                     ->color('info'),
-                
+
                 Tables\Columns\TextColumn::make('price')
                     ->money('USD')
                     ->sortable(),
-                
+
                 Tables\Columns\TextColumn::make('discounted_price')
                     ->money('USD')
                     ->sortable()
                     ->toggleable(),
-                
+
                 Tables\Columns\TextColumn::make('status')
                     ->badge()
-                    ->color(fn (string $state): string => match ($state) {
+                    ->color(fn(string $state): string => match ($state) {
                         'pending' => 'warning',
                         'approved' => 'success',
                         'rejected' => 'danger',
                         default => 'gray',
                     })
-                    ->formatStateUsing(fn (string $state): string => ucfirst($state)),
-                
+                    ->formatStateUsing(fn(string $state): string => ucfirst($state)),
+
                 Tables\Columns\TextColumn::make('expiration_date')
                     ->date()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -176,7 +177,7 @@ class ProductResource extends Resource
                         'approved' => 'Approved',
                         'rejected' => 'Rejected',
                     ]),
-                
+
                 Tables\Filters\SelectFilter::make('category')
                     ->relationship('category', 'name'),
             ])
@@ -199,12 +200,17 @@ class ProductResource extends Resource
         ];
     }
 
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
+
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListProducts::route('/'),
-            'create' => Pages\CreateProduct::route('/create'),
-            'edit' => Pages\EditProduct::route('/{record}/edit'),
+            // 'index' => Pages\ListProducts::route('/'),
+            // 'create' => Pages\CreateProduct::route('/create'),
+            // 'edit' => Pages\EditProduct::route('/{record}/edit'),
         ];
     }
 }
