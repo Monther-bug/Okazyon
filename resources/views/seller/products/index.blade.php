@@ -5,21 +5,20 @@
             <div class="space-y-8 font-sans antialiased">
 
                 <!-- Header Section -->
-                <div class="relative overflow-hidden p-6 sm:p-8 animate-fade-in-up"
-                    style="background: linear-gradient(to right, #dc2626, #ef4444); box-shadow: 0 10px 30px -5px rgba(220, 38, 38, 0.3); border-radius: 24px;">
+                <div class="relative overflow-hidden animate-fade-in-up"
+                     style="background: linear-gradient(to right, #dc2626, #ef4444); box-shadow: 0 10px 30px -5px rgba(220, 38, 38, 0.3); border-radius: 24px; padding: 40px;">
 
-                    <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                        <div>
-                            <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-1">Inventory
-                            </h1>
-                            <p class="text-red-50 text-sm sm:text-base font-medium opacity-90">
-                                Manage your product catalog and stock.
-                            </p>
-                        </div>
+            <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                <div>
+                    <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-2">Inventory</h1>
+                    <p class="text-red-50 text-base sm:text-lg font-medium opacity-90 max-w-xl">
+                        Manage your product catalog and stock with ease.
+                    </p>
+                </div>
                         <div class="flex-shrink-0">
                             <a href="{{ route('seller.products.create') }}"
-                                class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-red-700 font-bold text-sm rounded-lg shadow-sm hover:bg-gray-50 hover:shadow-md transition-all duration-200">
-                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                class="inline-flex items-center gap-2 px-6 py-3 bg-white text-red-700 font-bold text-base rounded-xl shadow-lg hover:bg-gray-50 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200">
+                                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
                                         d="M12 4v16m8-8H4" />
                                 </svg>

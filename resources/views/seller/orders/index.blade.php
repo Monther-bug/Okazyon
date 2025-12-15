@@ -53,40 +53,32 @@
                             products yet. Check back later!</p>
                     </div>
                 @else
-                    <!-- Data Table -->
-                    <div
-                        class="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left border-collapse">
-                                <thead>
-                                    <tr
-                                        class="bg-gray-50/50 dark:bg-gray-800/50 text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400 font-bold border-b border-gray-100 dark:border-gray-800">
-                                        <th class="px-6 py-4">Order ID</th>
-                                        <th class="px-6 py-4">Customer</th>
-                                        <th class="px-6 py-4">Total Amount</th>
-                                        <th class="px-6 py-4">Status</th>
-                                        <th class="px-6 py-4">Date</th>
-                                        <th class="px-6 py-4 text-right">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
-                                    @foreach($orders as $order)
-                                        <tr class="group hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                        <!-- Data Table -->
+                        <div
+                            class="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left border-collapse">
+                                    <thead>
+                                        <tr
+                                            class="bg-gray-50/50 dark:bg-gray-800/50 text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400 font-bold border-b border-gray-100 dark:border-gray-800">
+                                            <th class="px-6 py-4">Order ID</th>
+                                            <th class="px-6 py-4">Customer</th>
+                                            <th class="px-6 py-4">Total Amount</th>
+                                            <th class="px-6 py-4">Status</th>
+                                            <th class="px-6 py-4">Date</th>
+                                            <th class="px-6 py-4 text-right">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
+                                        @foreach($orders as $order)
+                                        <tr class="group hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer" onclick="window.location='{{ route('seller.orders.show', $order) }}'">
                                             <td class="px-6 py-4">
                                                 <span class="font-bold text-gray-900 dark:text-white">#{{ $order->id }}</span>
                                             </td>
                                             <td class="px-6 py-4">
-                                                <div class="flex items-center gap-3">
-                                                    <div
-                                                        class="h-8 w-8 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center text-red-600 dark:text-red-400 font-bold text-xs ring-2 ring-white dark:ring-gray-900">
-                                                        {{ substr($order->buyer->name ?? 'U', 0, 1) }}
-                                                    </div>
-                                                    <div class="flex flex-col">
-                                                        <span
-                                                            class="font-medium text-gray-900 dark:text-white text-sm">{{ $order->buyer->name ?? 'Unknown User' }}</span>
-                                                        <span
-                                                            class="text-xs text-gray-500">{{ $order->buyer->email ?? '' }}</span>
-                                                    </div>
+                                                <div class="flex flex-col">
+                                                    <span class="font-medium text-gray-900 dark:text-white text-sm">{{ $order->buyer->name ?? 'Unknown User' }}</span>
+                                                    <span class="text-xs text-gray-500">{{ $order->buyer->email ?? '' }}</span>
                                                 </div>
                                             </td>
                                             <td class="px-6 py-4">
@@ -106,13 +98,10 @@
                                                 <span
                                                     class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold {{ $statusClass }}">
                                                     @if($order->status === 'pending')
-                                                        <span
-                                                            class="w-1.5 h-1.5 rounded-full bg-yellow-500 mr-1.5 animate-pulse"></span>
+                                                        <span class="w-1.5 h-1.5 rounded-full bg-yellow-500 mr-1.5 animate-pulse"></span>
                                                     @elseif($order->status === 'delivered')
-                                                        <svg class="w-3 h-3 mr-1" fill="none" viewBox="0 0 24 24"
-                                                            stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                                d="M5 13l4 4L19 7" />
+                                                        <svg class="w-3 h-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                                         </svg>
                                                     @endif
                                                     {{ $statusLabel }}
@@ -134,15 +123,15 @@
                                                     </svg>
                                                 </a>
                                             </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- Pagination -->
-                        <div class="px-6 py-4 border-t border-gray-100 dark:border-gray-800">
-                            {{ $orders->links() }}
-                        </div>
+                                            </tr>
+                                        @endforeach
+                        </tbody>
+                        </table>
+                    </div>
+                    <!-- Pagination -->
+                    <div class="px-6 py-4 border-t border-gray-100 dark:border-gray-800">
+                        {{ $orders->links() }}
+                    </div>
                     </div>
                 @endif
             </div>
