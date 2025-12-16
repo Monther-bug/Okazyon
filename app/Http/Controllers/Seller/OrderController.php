@@ -16,13 +16,13 @@ class OrderController extends Controller
     {
         $sellerId = Auth::id();
 
-        // DEBUG: Fetch ALL orders to verify UI
-        $orders = Order::with(['buyer'])->latest()->paginate(10);
+        // DEBUG: Fetch ALL orders to verify UI (Commented out)
+        // $orders = Order::with(['buyer'])->latest()->paginate(10);
 
-        // Original strict query (commented out):
-        // $orders = Order::whereHas('items.product', function ($query) use ($sellerId) {
-        //     $query->where('user_id', $sellerId);
-        // })->with(['buyer'])->latest()->paginate(10);
+        // Original strict query (Uncommented):
+        $orders = Order::whereHas('items.product', function ($query) use ($sellerId) {
+            $query->where('user_id', $sellerId);
+        })->with(['buyer'])->latest()->paginate(10);
 
         return view('seller.orders.index', compact('orders'));
     }

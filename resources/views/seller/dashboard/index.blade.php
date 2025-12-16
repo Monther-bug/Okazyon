@@ -49,15 +49,13 @@
                                         d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                             </div>
-                            <span class="rounded-lg px-2.5 py-1 text-xs font-bold"
-                                style="background: #dcfce7; color: #166534;">
-                                +12.5%
-                            </span>
+                            <!-- Trends can be calculated later -->
                         </div>
 
                         <div>
                             <p class="text-sm font-medium mb-1" style="color: #6b7280;">Total Revenue</p>
-                            <p class="text-3xl font-bold tracking-tight" style="color: #111827;">$24,500</p>
+                            <p class="text-3xl font-bold tracking-tight" style="color: #111827;">
+                                ${{ number_format($totalRevenue, 2) }}</p>
                         </div>
                     </div>
 
@@ -74,15 +72,11 @@
                                         d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                                 </svg>
                             </div>
-                            <span class="rounded-lg px-2.5 py-1 text-xs font-bold"
-                                style="background: #dcfce7; color: #166534;">
-                                +8.2%
-                            </span>
                         </div>
 
                         <div>
                             <p class="text-sm font-medium mb-1" style="color: #6b7280;">Total Orders</p>
-                            <p class="text-3xl font-bold tracking-tight" style="color: #111827;">582</p>
+                            <p class="text-3xl font-bold tracking-tight" style="color: #111827;">{{ $totalOrders }}</p>
                         </div>
                     </div>
 
@@ -99,19 +93,16 @@
                                         d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                                 </svg>
                             </div>
-                            <span class="rounded-lg px-2.5 py-1 text-xs font-bold"
-                                style="background: #f3f4f6; color: #6b7280;">
-                                Stable
-                            </span>
                         </div>
 
                         <div>
                             <p class="text-sm font-medium mb-1" style="color: #6b7280;">Active Products</p>
-                            <p class="text-3xl font-bold tracking-tight" style="color: #111827;">124</p>
+                            <p class="text-3xl font-bold tracking-tight" style="color: #111827;">{{ $totalProducts }}
+                            </p>
                         </div>
                     </div>
 
-                    <!-- Rating Card -->
+                    <!-- Pending Orders Card (Replaced Rating) -->
                     <div class="group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 animate-fade-in-up"
                         style="background: white; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); animation-delay: 0.4s; animation-fill-mode: backwards;">
 
@@ -119,21 +110,18 @@
                             <div class="rounded-xl p-3"
                                 style="background: linear-gradient(135deg, #fad0c4 0%, #ffd1ff 100%);">
                                 <svg class="h-6 w-6" style="color: #d946ef;" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                    <path fill-rule="evenodd"
+                                        d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 001-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z"
+                                        clip-rule="evenodd"></path>
                                 </svg>
                             </div>
-                            <span class="rounded-lg px-2.5 py-1 text-xs font-bold"
-                                style="background: #fef3c7; color: #92400e;">
-                                Excellent
-                            </span>
                         </div>
 
                         <div>
-                            <p class="text-sm font-medium mb-1" style="color: #6b7280;">Customer Rating</p>
+                            <p class="text-sm font-medium mb-1" style="color: #6b7280;">Pending Orders</p>
                             <div class="flex items-baseline gap-2">
-                                <p class="text-3xl font-bold tracking-tight" style="color: #111827;">4.8</p>
-                                <span class="text-sm font-medium" style="color: #9ca3af;">/ 5.0</span>
+                                <p class="text-3xl font-bold tracking-tight" style="color: #111827;">
+                                    {{ $pendingOrders }}</p>
                             </div>
                         </div>
                     </div>
@@ -149,36 +137,37 @@
                         <div class="flex items-center justify-between mb-6">
                             <div>
                                 <h3 class="text-lg font-bold mb-1" style="color: #111827;">Revenue Analytics</h3>
-                                <p class="text-sm" style="color: #6b7280;">Monthly performance overview</p>
+                                <p class="text-sm" style="color: #6b7280;">Monthly performance (Last 6 months)</p>
                             </div>
-                            <select
-                                class="rounded-lg px-3 py-2 text-sm font-medium border focus:outline-none focus:ring-2 transition-all"
-                                style="border-color: #e5e7eb; color: #374151; background: #f9fafb;">
-                                <option>Last 6 Months</option>
-                                <option>This Year</option>
-                            </select>
                         </div>
 
                         <!-- Bar Chart -->
                         <div class="flex h-64 items-end gap-2 sm:gap-4">
-                            @foreach([65, 45, 75, 55, 85, 95, 70, 80] as $index => $height)
+                            @php
+                                $maxEarning = max($monthlyEarnings) ?: 1;
+                            @endphp
+                            @foreach($monthlyEarnings as $index => $earning)
+                                @php
+                                    $heightPercentage = ($earning / $maxEarning) * 100;
+                                    // Ensure simple animation or at least proper height usage
+                                @endphp
                                 <div class="group relative flex-1 h-full flex flex-col justify-end gap-2">
                                     <!-- Tooltip -->
                                     <div
                                         class="absolute -top-10 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10">
                                         <div class="rounded-lg px-2.5 py-1.5 text-xs font-bold shadow-lg whitespace-nowrap"
                                             style="background: #111827; color: white;">
-                                            ${{ $height }}k
+                                            ${{ number_format($earning, 2) }}
                                         </div>
                                     </div>
                                     <!-- Bar -->
                                     <div class="relative h-full rounded-t-lg overflow-hidden" style="background: #f3f4f6;">
                                         <div class="absolute bottom-0 w-full rounded-t-lg transition-all duration-500 group-hover:opacity-80"
-                                            style="height: 0%; background: linear-gradient(to top, #ef4444, #f87171); animation: grow-bar 1s ease-out forwards; animation-delay: {{ 0.6 + ($index * 0.1) }}s;">
+                                            style="height: {{ $heightPercentage }}%; background: linear-gradient(to top, #ef4444, #f87171);">
                                         </div>
                                     </div>
                                     <span class="text-xs font-medium text-center" style="color: #9ca3af;">
-                                        {{ ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'][$index] }}
+                                        {{ $months[$index] ?? '' }}
                                     </span>
                                 </div>
                             @endforeach
@@ -198,7 +187,7 @@
                         </div>
 
                         <div class="space-y-3">
-                            @forelse($recent_orders ?? [] as $order)
+                            @forelse($recentOrders ?? [] as $order)
                                                     <div class="flex items-center gap-3 p-3.5 rounded-xl transition-all hover:scale-[1.02]"
                                                         style="background: #f9fafb; border: 1px solid transparent;"
                                                         onmouseover="this.style.borderColor='#e5e7eb'; this.style.background='white';"
@@ -206,12 +195,12 @@
 
                                                         <div class="flex h-11 w-11 items-center justify-center rounded-xl text-sm font-bold"
                                                             style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: white;">
-                                                            {{ substr($order->customer_name ?? 'C', 0, 1) }}
+                                                            {{ substr($order->buyer?->name ?? 'C', 0, 1) }}
                                                         </div>
 
                                                         <div class="flex-1 min-w-0">
                                                             <p class="text-sm font-semibold truncate mb-0.5" style="color: #111827;">
-                                                                {{ $order->customer_name ?? 'Customer' }}
+                                                                {{ $order->buyer?->name ?? 'Guest Customer' }}
                                                             </p>
                                                             <p class="text-xs" style="color: #6b7280;">
                                                                 {{ $order->created_at->diffForHumans() }}

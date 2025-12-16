@@ -11,7 +11,7 @@
             <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                 <div>
                     <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-2">Inventory</h1>
-                    <p class="text-red-50 text-base sm:text-lg font-medium opacity-90 max-w-xl">
+                    <p class="text-white text-base sm:text-lg font-medium opacity-90 max-w-xl">
                         Manage your product catalog and stock with ease.
                     </p>
                 </div>
@@ -60,27 +60,18 @@
 
                 <!-- Empty State -->
                 @if($products->isEmpty())
-                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-12 text-center animate-fade-in-up">
+                    <div class="bg-gray-50/50 rounded-3xl p-12 text-center animate-fade-in-up flex flex-col items-center justify-center min-h-[400px]">
                         <div
-                            class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-red-50 text-red-500 mb-6 relative">
-                            <div class="absolute inset-0 bg-red-100/50 rounded-full animate-pulse"></div>
-                            <svg class="w-10 h-10 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gray-100 text-gray-400 mb-6">
+                            <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                     d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                             </svg>
                         </div>
                         <h3 class="text-xl font-bold text-gray-900 mb-2">No products yet</h3>
-                        <p class="text-gray-500 mb-8 max-w-sm mx-auto">
-                            Your inventory looks a bit empty. Start building your catalog today.
+                        <p class="text-gray-500 max-w-sm mx-auto">
+                            Your inventory is empty. Use the "Add Product" button above to get started.
                         </p>
-                        <a href="{{ route('seller.products.create') }}"
-                            class="inline-flex items-center gap-2 text-red-600 font-semibold hover:text-red-700 transition-colors">
-                            Add your first product
-                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                            </svg>
-                        </a>
                     </div>
                 @else
 
