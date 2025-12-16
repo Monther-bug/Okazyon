@@ -4,8 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Utility\Enums\UserStatusEnum;
-use Filament\Models\Contracts\FilamentUser;
-use Filament\Panel;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -15,7 +14,7 @@ use Spatie\Permission\Traits\HasRoles;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class User extends Authenticatable implements HasMedia, FilamentUser
+class User extends Authenticatable implements HasMedia
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasApiTokens, HasRoles, InteractsWithMedia;
@@ -175,19 +174,5 @@ class User extends Authenticatable implements HasMedia, FilamentUser
         return $this->belongsToMany(Notification::class, 'user_notification_reads')->withTimestamps();
     }
 
-    /**
-     * Determine if the user can access the given Filament panel.
-     */
-    public function canAccessPanel(Panel $panel): bool
-    {
-        if ($panel->getId() === 'admin') {
-            return $this->type === 'admin';
-        }
 
-        if ($panel->getId() === 'seller') {
-            return $this->type === 'seller';
-        }
-
-        return false;
-    }
 }

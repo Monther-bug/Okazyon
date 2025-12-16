@@ -42,7 +42,7 @@ class CategoryController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'image' => 'nullable|image|max:2048', // 2MB max
-            'type' => 'required|string|in:men,women,kids,accessories', // Example types
+            'type' => 'required|string|in:food,clothes',
             'is_active' => 'boolean',
         ]);
 
@@ -76,7 +76,7 @@ class CategoryController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'image' => 'nullable|image|max:2048',
-            'type' => 'required|string|in:men,women,kids,accessories',
+            'type' => 'required|string|in:food,clothes',
             'is_active' => 'boolean',
         ]);
 

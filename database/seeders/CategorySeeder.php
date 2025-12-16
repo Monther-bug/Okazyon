@@ -25,18 +25,23 @@ class CategorySeeder extends Seeder
                 'is_active' => true,
             ],
             [
-                'name' => 'Electronics',
-                'type' => 'goods',
+                'name' => 'Fast Food',
+                'type' => 'food',
                 'is_active' => true,
             ],
             [
-                'name' => 'Clothing & Fashion',
-                'type' => 'goods',
+                'name' => 'Men\'s Fashion',
+                'type' => 'clothes',
                 'is_active' => true,
             ],
             [
-                'name' => 'Home & Garden',
-                'type' => 'goods',
+                'name' => 'Women\'s Fashion',
+                'type' => 'clothes',
+                'is_active' => true,
+            ],
+            [
+                'name' => 'Kids\' Wear',
+                'type' => 'clothes',
                 'is_active' => true,
             ],
         ];
