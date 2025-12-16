@@ -45,13 +45,7 @@ class RegisterController extends Controller
         // Store phone number for verification page
         session(['otp_phone_number' => $request->phone_number]);
 
-        Notification::make()
-            ->title('OTP Sent')
-            ->body('Please check your phone for the verification code.')
-            ->success()
-            ->send();
-
         // Redirect to OTP verification page
-        return redirect()->route('filament.seller.auth.verify-otp');
+        return redirect()->route('seller.auth.verify-otp')->with('success', 'OTP sent successfully. Please check your phone.');
     }
 }

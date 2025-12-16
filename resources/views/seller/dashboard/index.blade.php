@@ -121,7 +121,8 @@
                             <p class="text-sm font-medium mb-1" style="color: #6b7280;">Pending Orders</p>
                             <div class="flex items-baseline gap-2">
                                 <p class="text-3xl font-bold tracking-tight" style="color: #111827;">
-                                    {{ $pendingOrders }}</p>
+                                    {{ $pendingOrders }}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -193,17 +194,16 @@
                                                         onmouseover="this.style.borderColor='#e5e7eb'; this.style.background='white';"
                                                         onmouseout="this.style.borderColor='transparent'; this.style.background='#f9fafb';">
 
-                                                        <div class="flex h-11 w-11 items-center justify-center rounded-xl text-sm font-bold"
-                                                            style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: white;">
-                                                            {{ substr($order->buyer?->name ?? 'C', 0, 1) }}
+                                                        <div
+                                                            class="h-10 w-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-500 dark:text-slate-300 font-bold text-xs">
+                                                            {{ substr($order->buyer?->name ?? 'G', 0, 1) }}
                                                         </div>
-
                                                         <div class="flex-1 min-w-0">
-                                                            <p class="text-sm font-semibold truncate mb-0.5" style="color: #111827;">
-                                                                {{ $order->buyer?->name ?? 'Guest Customer' }}
+                                                            <p class="text-sm font-medium text-slate-900 dark:text-white truncate">
+                                                                {{ $order->buyer?->name ?? 'Guest User' }}
                                                             </p>
-                                                            <p class="text-xs" style="color: #6b7280;">
-                                                                {{ $order->created_at->diffForHumans() }}
+                                                            <p class="text-xs text-slate-500 dark:text-slate-400 truncate">
+                                                                Order #{{ $order->id }} &bull; {{ $order->created_at->diffForHumans() }}
                                                             </p>
                                                         </div>
 

@@ -10,6 +10,8 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 
+    --color-red-600: #E53935;
+
     --animate-fade-in-left: fade-in-left 1s ease-out;
     --animate-fade-in-right: fade-in-right 1s ease-out;
     --animate-fade-in-up: fade-in-up 0.8s ease-out;

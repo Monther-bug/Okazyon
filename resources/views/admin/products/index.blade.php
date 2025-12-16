@@ -118,13 +118,17 @@
                                 @endif
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <div class="flex justify-end gap-3">
+                                <div class="flex items-center justify-end gap-3">
                                     <a href="{{ route('admin.products.edit', $product) }}" class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">Review</a>
-                                    <form action="{{ route('admin.products.destroy', $product) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this product?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">Delete</button>
-                                    </form>
+                                    <button type="button" 
+                                        @click="$dispatch('open-delete-modal', { 
+                                            action: '{{ route('admin.products.destroy', $product) }}', 
+                                            title: 'Delete Product', 
+                                            message: 'Are you sure you want to delete the product &quot;{{ $product->name }}&quot;? This action cannot be undone.' 
+                                        })"
+                                        class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">
+                                        Delete
+                                    </button>
                                 </div>
                             </td>
                         </tr>

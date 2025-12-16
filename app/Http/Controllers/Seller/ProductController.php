@@ -37,6 +37,7 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
             'discounted_price' => 'nullable|numeric|min:0|lt:price',
             'category_id' => 'required|exists:categories,id',
+            'images' => 'nullable|array|max:5',
             'images.*' => 'nullable|image|max:2048',
             'status' => 'nullable|string|in:approved,pending',
         ]);
@@ -56,7 +57,7 @@ class ProductController extends Controller
             'price' => $validated['price'],
             'discounted_price' => $validated['discounted_price'],
             'category_id' => $validated['category_id'],
-            'status' => $request->has('status') ? 'approved' : 'pending',
+            'status' => 'pending',
             'images' => $imagePaths, // Assuming 'images' is cast to array in model
         ]);
 
@@ -101,7 +102,10 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
             'discounted_price' => 'nullable|numeric|min:0|lt:price',
             'category_id' => 'required|exists:categories,id',
+            'images' => 'nullable|array|max:5',
             'images.*' => 'nullable|image|max:2048',
+            'existing_images' => 'nullable|array',
+            'existing_images.*' => 'string',
             'status' => 'nullable|string|in:approved,pending,active',
         ]);
 
@@ -114,27 +118,21 @@ class ProductController extends Controller
             'status' => $request->status ? 'approved' : 'pending',
         ];
 
+        // Handle Images Update
+        // 1. Get images kept by user (from hidden inputs)
+        $keptImages = $request->input('existing_images', []);
+
+        // 2. Upload new images
+        $newImages = [];
         if ($request->hasFile('images')) {
-            // $imagePaths = $product->images; // Start with existing images if they are stored as array
-            // If strictly replacing or appending depends on logic. Here I'll append.
-            // Actually, for simplicity let's handle new uploads.
-            // If the model creates ProductImage relations, this is different.
-            // But Product model has 'images' attribute in fillable AND a hasMany 'images' relationship.
-            // Let's check the Product model again to be sure about 'images' column usage.
-            // Re-checking model: CAST 'images' => 'array'. So it uses a JSON column.
-
-            $currentImages = $product->images ?? [];
-            // Ensure $currentImages is an array
-            if (is_string($currentImages)) {
-                $currentImages = json_decode($currentImages, true) ?? [];
-            }
-
             foreach ($request->file('images') as $image) {
-                $path = $image->store('products', 'public');
-                $currentImages[] = $path;
+                $newImages[] = $image->store('products', 'public');
             }
-            $productData['images'] = $currentImages;
         }
+
+        // 3. Merge and save
+        // Note: You might want to implement file deletion for images NOT in $keptImages here
+        $productData['images'] = array_merge($keptImages, $newImages);
 
         $product->update($productData);
 

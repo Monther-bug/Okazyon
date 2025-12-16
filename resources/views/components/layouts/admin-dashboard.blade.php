@@ -283,6 +283,7 @@
             </div>
         </main>
     </div>
+    <x-delete-confirm-modal />
 </body>
 
 </html>

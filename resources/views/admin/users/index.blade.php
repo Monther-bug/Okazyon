@@ -99,10 +99,19 @@
                                             {{ $user->created_at->format('M d, Y') }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <div class="flex justify-end gap-3">
+                                            <div class="flex items-center justify-end gap-3">
                                                 @unless($user->type === 'admin')
                                                     <a href="{{ route('admin.users.edit', $user) }}"
-                                                        class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">Edit</a>
+                                                        class="text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300 font-medium">Edit</a>
+
+                                                    <button type="button" @click="$dispatch('open-delete-modal', { 
+                                                                            action: '{{ route('admin.users.destroy', $user) }}', 
+                                                                            title: 'Delete User', 
+                                                                            message: 'Are you sure you want to delete the user &quot;{{ $user->name }}&quot;? This action cannot be undone.' 
+                                                                        })"
+                                                        class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300 font-medium bg-transparent border-none p-0 cursor-pointer">
+                                                        Delete
+                                                    </button>
                                                 @endunless
                                             </div>
                                         </td>

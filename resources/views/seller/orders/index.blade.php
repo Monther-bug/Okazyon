@@ -7,14 +7,14 @@
                 <!-- Header & Search -->
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
                     <div class="relative max-w-md w-full">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                             <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
                         </div>
                         <input type="text" x-model="search" placeholder="Search orders..."
-                            class="block w-full pl-10 pr-3 py-2.5 border border-gray-200 dark:border-gray-800 rounded-xl bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 transition-all shadow-sm">
+                            class="block w-full pl-12 pr-4 py-3 border border-gray-200 dark:border-gray-800 rounded-xl bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 transition-all shadow-sm">
                     </div>
 
                     <div class="flex gap-2">
@@ -40,9 +40,9 @@
                 @if($orders->isEmpty())
                     <!-- Empty State -->
                     <div
-                        class="flex flex-col items-center justify-center min-h-[400px] text-center p-8 bg-white dark:bg-gray-900 rounded-3xl border border-dashed border-gray-200 dark:border-gray-800">
+                        class="flex flex-col items-center justify-center min-h-[400px] text-center p-12 bg-gray-50/50 dark:bg-gray-800/50 rounded-3xl animate-fade-in-up">
                         <div
-                            class="w-20 h-20 bg-gray-50 dark:bg-gray-800 rounded-full flex items-center justify-center mb-4">
+                            class="w-20 h-20 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mb-6">
                             <svg class="w-10 h-10 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
@@ -53,31 +53,33 @@
                             products yet. Check back later!</p>
                     </div>
                 @else
-                        <!-- Data Table -->
-                        <div
-                            class="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
-                            <div class="overflow-x-auto">
-                                <table class="w-full text-left border-collapse">
-                                    <thead>
-                                        <tr
-                                            class="bg-gray-50/50 dark:bg-gray-800/50 text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400 font-bold border-b border-gray-100 dark:border-gray-800">
-                                            <th class="px-6 py-4">Order ID</th>
-                                            <th class="px-6 py-4">Customer</th>
-                                            <th class="px-6 py-4">Total Amount</th>
-                                            <th class="px-6 py-4">Status</th>
-                                            <th class="px-6 py-4">Date</th>
-                                            <th class="px-6 py-4 text-right">Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
-                                        @foreach($orders as $order)
-                                        <tr class="group hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer" onclick="window.location='{{ route('seller.orders.show', $order) }}'">
+                    <!-- Data Table -->
+                    <div
+                        class="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr
+                                        class="bg-gray-50/50 dark:bg-gray-800/50 text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400 font-bold border-b border-gray-100 dark:border-gray-800">
+                                        <th class="px-6 py-4">Order ID</th>
+                                        <th class="px-6 py-4">Customer</th>
+                                        <th class="px-6 py-4">Total Amount</th>
+                                        <th class="px-6 py-4">Status</th>
+                                        <th class="px-6 py-4">Date</th>
+                                        <th class="px-6 py-4 text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
+                                    @foreach($orders as $order)
+                                        <tr class="group hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer"
+                                            onclick="window.location='{{ route('seller.orders.show', $order) }}'">
                                             <td class="px-6 py-4">
                                                 <span class="font-bold text-gray-900 dark:text-white">#{{ $order->id }}</span>
                                             </td>
                                             <td class="px-6 py-4">
                                                 <div class="flex flex-col">
-                                                    <span class="font-medium text-gray-900 dark:text-white text-sm">{{ $order->buyer->name ?? 'Unknown User' }}</span>
+                                                    <span
+                                                        class="font-medium text-gray-900 dark:text-white text-sm">{{ $order->buyer->name ?? 'Unknown User' }}</span>
                                                     <span class="text-xs text-gray-500">{{ $order->buyer->email ?? '' }}</span>
                                                 </div>
                                             </td>
@@ -98,10 +100,13 @@
                                                 <span
                                                     class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold {{ $statusClass }}">
                                                     @if($order->status === 'pending')
-                                                        <span class="w-1.5 h-1.5 rounded-full bg-yellow-500 mr-1.5 animate-pulse"></span>
+                                                        <span
+                                                            class="w-1.5 h-1.5 rounded-full bg-yellow-500 mr-1.5 animate-pulse"></span>
                                                     @elseif($order->status === 'delivered')
-                                                        <svg class="w-3 h-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                                        <svg class="w-3 h-3 mr-1" fill="none" viewBox="0 0 24 24"
+                                                            stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                d="M5 13l4 4L19 7" />
                                                         </svg>
                                                     @endif
                                                     {{ $statusLabel }}
@@ -123,15 +128,15 @@
                                                     </svg>
                                                 </a>
                                             </td>
-                                            </tr>
-                                        @endforeach
-                        </tbody>
-                        </table>
-                    </div>
-                    <!-- Pagination -->
-                    <div class="px-6 py-4 border-t border-gray-100 dark:border-gray-800">
-                        {{ $orders->links() }}
-                    </div>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Pagination -->
+                        <div class="px-6 py-4 border-t border-gray-100 dark:border-gray-800">
+                            {{ $orders->links() }}
+                        </div>
                     </div>
                 @endif
             </div>
