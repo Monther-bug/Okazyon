@@ -11,5 +11,6 @@ return [
     'password_changed_successfully' => 'Password changed successfully.',
     'unauthorized' => 'Unauthorized',
     'unauthenticated' => 'You must be authenticated to access this resource.',
-    'unauthorized_admin' => 'You must be an admin to access this resource.'
+    'unauthorized_admin' => 'You must be an admin to access this resource.',
+    'user_registered_successfully_otp_sent' => 'User registered successfully. OTP sent.'
 ];

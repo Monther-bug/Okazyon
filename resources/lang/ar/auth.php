@@ -11,5 +11,6 @@ return [
     'password_changed_successfully' => 'تم تغيير كلمة المرور بنجاح.',
     'unauthorized' => 'غير مصرح',
     'unauthenticated' => 'يجب أن تكون مصادق عليه للوصول إلى هذا المصدر.',
-    'unauthorized_admin' => 'يجب أن تكون مدير للوصول إلى هذا المصدر.'
+    'unauthorized_admin' => 'يجب أن تكون مدير للوصول إلى هذا المصدر.',
+    'user_registered_successfully_otp_sent' => 'تم تسجيل المستخدم بنجاح. تم إرسال رمز التحقق.'
 ];
