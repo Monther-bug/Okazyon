@@ -48,7 +48,7 @@ class FavoriteController extends Controller
     }
 
     /**
-     * Add a product to the user's favorites.
+     * Toggle a product in the user's favorites (add if not present, remove if present).
      */
     public function store(Product $product): JsonResponse
     {
@@ -62,18 +62,23 @@ class FavoriteController extends Controller
         }
 
         // Check if already favorited
-        if ($user->favorites()->where('product_id', $product->id)->exists()) {
+        $isFavorited = $user->favorites()->where('products.id', $product->id)->exists();
+
+        if ($isFavorited) {
+            // Remove from favorites
+            $user->favorites()->detach($product->id);
             return response()->json([
-                'message' => 'Product already in favorites.',
-            ], 409);
+                'message' => 'Product removed from favorites.',
+                'is_favorited' => false,
+            ]);
+        } else {
+            // Add to favorites
+            $user->favorites()->attach($product->id);
+            return response()->json([
+                'message' => 'Product added to favorites.',
+                'is_favorited' => true,
+            ]);
         }
-
-        $user->favorites()->attach($product->id);
-
-        return response()->json([
-            'message' => 'Product added to favorites.',
-            'is_favorited' => true,
-        ]);
     }
 
     /**
@@ -84,7 +89,7 @@ class FavoriteController extends Controller
         $user = Auth::user();
 
         // Check if product is in favorites
-        if (!$user->favorites()->where('product_id', $product->id)->exists()) {
+        if (!$user->favorites()->where('products.id', $product->id)->exists()) {
             return response()->json([
                 'message' => 'Product not in favorites.',
             ], 404);

@@ -18,7 +18,7 @@ class HomeController extends Controller
         // Get user's favorites if authenticated
         $userFavorites = [];
         if (Auth::check()) {
-            $userFavorites = Auth::user()->favorites()->pluck('product_id')->toArray();
+            $userFavorites = Auth::user()->favorites()->pluck('products.id')->toArray();
         }
 
         // Helper function to transform products consistently
@@ -117,7 +117,7 @@ class HomeController extends Controller
         // Get user's favorites if authenticated
         $userFavorites = [];
         if (Auth::check()) {
-            $userFavorites = Auth::user()->favorites()->pluck('product_id')->toArray();
+            $userFavorites = Auth::user()->favorites()->pluck('products.id')->toArray();
         }
 
         // Helper function to transform products consistently
@@ -173,7 +173,7 @@ class HomeController extends Controller
         // Get user's favorites if authenticated
         $userFavorites = [];
         if (Auth::check()) {
-            $userFavorites = Auth::user()->favorites()->pluck('product_id')->toArray();
+            $userFavorites = Auth::user()->favorites()->pluck('products.id')->toArray();
         }
 
         // Helper function to transform products consistently
