@@ -10,7 +10,15 @@ use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\API\ReviewController;
 use App\Http\Controllers\API\FavoriteController;
+use App\Http\Controllers\API\BannerController;
+use App\Http\Controllers\API\HomeController;
 use Illuminate\Support\Facades\Route;
+
+// Public home routes (no authentication required)
+Route::get('/home/banner', [BannerController::class, 'index']);
+Route::get('/home/products', [HomeController::class, 'index']);
+Route::get('/home/featured-deals', [HomeController::class, 'featuredDeals']);
+Route::get('/home/new-deals', [HomeController::class, 'newDeals']);
 
 Route::middleware('throttle:otp')->group(function () {
     Route::post('/sendotp', [OTPController::class, 'generateOTP']);

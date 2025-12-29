@@ -15,8 +15,8 @@ class BannerController extends Controller
     public function index(): JsonResponse
     {
         $banner = Banner::where('is_active', true)
-                       ->orderBy('created_at', 'desc')
-                       ->first();
+            ->orderBy('created_at', 'desc')
+            ->first();
 
         if (!$banner) {
             return response()->json([
@@ -30,7 +30,7 @@ class BannerController extends Controller
                 'id' => $banner->id,
                 'title' => $banner->title,
                 'subtitle' => $banner->subtitle,
-                'image_url' => $banner->image_url,
+                'image_url' => $banner->image,
                 'link' => $banner->link,
                 'is_active' => $banner->is_active,
                 'created_at' => $banner->created_at,

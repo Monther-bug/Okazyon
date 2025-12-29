@@ -32,7 +32,9 @@ class HomeController extends Controller
                 'discount_percentage' => $product->discount_percentage,
                 'status' => $product->status,
                 'is_featured' => $product->is_featured,
-                'images' => $product->images->pluck('image_url'),
+                'images' => $product->getMedia('images')->count() > 0
+                    ? $product->getMedia('images')->map(fn($media) => $media->getUrl())->toArray()
+                    : ($product->images?->pluck('image_url')->toArray() ?? []),
                 'category' => $product->category,
                 'seller' => [
                     'name' => trim($product->user->first_name . ' ' . $product->user->last_name),
@@ -129,7 +131,9 @@ class HomeController extends Controller
                 'discount_percentage' => $product->discount_percentage,
                 'status' => $product->status,
                 'is_featured' => $product->is_featured,
-                'images' => $product->images->pluck('image_url'),
+                'images' => $product->getMedia('images')->count() > 0
+                    ? $product->getMedia('images')->map(fn($media) => $media->getUrl())->toArray()
+                    : ($product->images?->pluck('image_url')->toArray() ?? []),
                 'category' => $product->category,
                 'seller' => [
                     'name' => trim($product->user->first_name . ' ' . $product->user->last_name),
@@ -183,7 +187,9 @@ class HomeController extends Controller
                 'discount_percentage' => $product->discount_percentage,
                 'status' => $product->status,
                 'is_featured' => $product->is_featured,
-                'images' => $product->images->pluck('image_url'),
+                'images' => $product->getMedia('images')->count() > 0
+                    ? $product->getMedia('images')->map(fn($media) => $media->getUrl())->toArray()
+                    : ($product->images?->pluck('image_url')->toArray() ?? []),
                 'category' => $product->category,
                 'seller' => [
                     'name' => trim($product->user->first_name . ' ' . $product->user->last_name),

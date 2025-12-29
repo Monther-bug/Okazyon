@@ -13,10 +13,6 @@ Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{product}', [ProductController::class, 'show']);
 Route::get('/search', [SearchController::class, 'search']);
-Route::get('/home/banner', [BannerController::class, 'index']);
-Route::get('/home/products', [HomeController::class, 'index']);
-Route::get('/home/featured-deals', [HomeController::class, 'featuredDeals']);
-Route::get('/home/new-deals', [HomeController::class, 'newDeals']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/upload-image', [TempUploadController::class, 'uploadImage']);
