@@ -16,7 +16,7 @@ class FavoriteController extends Controller
     public function index(): JsonResponse
     {
         $user = Auth::user();
-        
+
         $favorites = $user->favorites()
             ->with(['category', 'images', 'user:id,first_name,last_name'])
             ->where('status', 'approved')
@@ -29,7 +29,9 @@ class FavoriteController extends Controller
                     'price' => $product->price,
                     'discounted_price' => $product->discounted_price,
                     'discount_percentage' => $product->discount_percentage,
-                    'images' => $product->images->pluck('image_url'),
+                    'images' => $product->getMedia('images')->count() > 0
+                        ? $product->getMedia('images')->map(fn($media) => $media->getUrl())->toArray()
+                        : ($product->images?->pluck('image_url')->toArray() ?? []),
                     'category' => $product->category,
                     'seller' => [
                         'name' => trim($product->user->first_name . ' ' . $product->user->last_name),
@@ -51,7 +53,7 @@ class FavoriteController extends Controller
     public function store(Product $product): JsonResponse
     {
         $user = Auth::user();
-        
+
         // Check if product is approved
         if ($product->status !== 'approved') {
             return response()->json([
@@ -80,7 +82,7 @@ class FavoriteController extends Controller
     public function destroy(Product $product): JsonResponse
     {
         $user = Auth::user();
-        
+
         // Check if product is in favorites
         if (!$user->favorites()->where('product_id', $product->id)->exists()) {
             return response()->json([

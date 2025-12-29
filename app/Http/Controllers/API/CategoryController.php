@@ -15,16 +15,18 @@ class CategoryController extends Controller
     public function index(): JsonResponse
     {
         // Get all categories with their approved products count
-        $categories = Category::select('id', 'name', 'image_url', 'type')
-            ->with(['products' => function ($query) {
-                $query->where('status', 'approved');
-            }])
+        $categories = Category::select('id', 'name', 'image', 'type')
+            ->with([
+                'products' => function ($query) {
+                    $query->where('status', 'approved');
+                }
+            ])
             ->get()
             ->map(function ($category) {
                 return [
                     'id' => $category->id,
                     'name' => $category->name,
-                    'image_url' => $category->image_url,
+                    'image_url' => $category->image,
                     'type' => $category->type,
                     'deals_available_count' => $category->products->count()
                 ];
@@ -44,6 +46,14 @@ class CategoryController extends Controller
                 ];
             })->values()->toArray(),
             'food' => $groupedCategories->get('food', collect())->map(function ($category) {
+                return [
+                    'id' => $category['id'],
+                    'name' => $category['name'],
+                    'image_url' => $category['image_url'],
+                    'deals_available_count' => $category['deals_available_count']
+                ];
+            })->values()->toArray(),
+            'clothes' => $groupedCategories->get('clothes', collect())->map(function ($category) {
                 return [
                     'id' => $category['id'],
                     'name' => $category['name'],

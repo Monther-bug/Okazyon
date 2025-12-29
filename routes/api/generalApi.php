@@ -1,18 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\CategoryController;
-use App\Http\Controllers\API\ProductController;
-use App\Http\Controllers\API\SearchController;
-use App\Http\Controllers\API\BannerController;
-use App\Http\Controllers\API\HomeController;
 use App\Http\Controllers\General\TempUploadController;
 use App\Http\Controllers\General\LocalizationController;
 
-Route::get('/categories', [CategoryController::class, 'index']);
-Route::get('/products', [ProductController::class, 'index']);
-Route::get('/products/{product}', [ProductController::class, 'show']);
-Route::get('/search', [SearchController::class, 'search']);
+// All public product/category/home routes have been moved to userApi.php
+// This file now only contains truly general routes (locale, uploads)
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/upload-image', [TempUploadController::class, 'uploadImage']);
