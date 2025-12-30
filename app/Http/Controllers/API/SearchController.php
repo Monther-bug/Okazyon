@@ -81,7 +81,7 @@ class SearchController extends Controller
         // Get user's favorites if authenticated
         $userFavorites = [];
         if (Auth::check()) {
-            $userFavorites = Auth::user()->favorites()->pluck('product_id')->toArray();
+            $userFavorites = Auth::user()->favorites()->allRelatedIds()->toArray();
         }
 
         // Transform products with is_favorited attribute (same format as ProductController)

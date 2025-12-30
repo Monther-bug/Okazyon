@@ -5,7 +5,9 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class HomeController extends Controller
 {
@@ -13,13 +15,15 @@ class HomeController extends Controller
      * Get curated product lists for the home page.
      * Public endpoint - returns featured deals, new deals, and other curated content.
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        // Get user's favorites if authenticated
+        // Get user's favorites if authenticated (handling optional auth manually)
         $userFavorites = [];
-        if (Auth::check()) {
-            $userFavorites = Auth::user()->favorites()->pluck('products.id')->toArray();
+        if ($user = $this->getAuthenticatedUser($request)) {
+            $userFavorites = $user->favorites()->allRelatedIds()->toArray();
         }
+
+
 
         // Helper function to transform products consistently
         $transformProduct = function ($product) use ($userFavorites) {
@@ -112,12 +116,12 @@ class HomeController extends Controller
      * Get all featured deals for "View All" page.
      * Public endpoint with pagination.
      */
-    public function featuredDeals(): JsonResponse
+    public function featuredDeals(Request $request): JsonResponse
     {
         // Get user's favorites if authenticated
         $userFavorites = [];
-        if (Auth::check()) {
-            $userFavorites = Auth::user()->favorites()->pluck('products.id')->toArray();
+        if ($user = $this->getAuthenticatedUser($request)) {
+            $userFavorites = $user->favorites()->allRelatedIds()->toArray();
         }
 
         // Helper function to transform products consistently
@@ -168,12 +172,12 @@ class HomeController extends Controller
      * Get all new deals for "View All" page.
      * Public endpoint with pagination.
      */
-    public function newDeals(): JsonResponse
+    public function newDeals(Request $request): JsonResponse
     {
         // Get user's favorites if authenticated
         $userFavorites = [];
-        if (Auth::check()) {
-            $userFavorites = Auth::user()->favorites()->pluck('products.id')->toArray();
+        if ($user = $this->getAuthenticatedUser($request)) {
+            $userFavorites = $user->favorites()->allRelatedIds()->toArray();
         }
 
         // Helper function to transform products consistently
@@ -217,5 +221,25 @@ class HomeController extends Controller
             'last_page' => $newProducts->lastPage(),
             'message' => 'New deals retrieved successfully.',
         ]);
+    }
+    /**
+     * Helper to manually authenticate user from request token.
+     */
+    private function getAuthenticatedUser(Request $request)
+    {
+        if ($token = $request->bearerToken()) {
+            $accessToken = PersonalAccessToken::findToken($token);
+
+            \Illuminate\Support\Facades\Log::info('Home Auth Debug', [
+                'token' => $token,
+                'accessToken_found' => (bool) $accessToken,
+                'user' => $accessToken?->tokenable?->id
+            ]);
+
+            if ($accessToken && $accessToken->tokenable) {
+                return $accessToken->tokenable;
+            }
+        }
+        return null;
     }
 }
