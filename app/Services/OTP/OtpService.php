@@ -42,7 +42,16 @@ class OtpService
             }
 
             if (config('isend.api_token')) {
-                $isend = ISend::to($phoneNumber)
+                // Format phone number for Libya (remove leading 0, prepend 218)
+                $formattedPhone = $phoneNumber;
+                if (str_starts_with($formattedPhone, '0')) {
+                    $formattedPhone = substr($formattedPhone, 1);
+                }
+                if (!str_starts_with($formattedPhone, '218')) {
+                    $formattedPhone = '218' . $formattedPhone;
+                }
+
+                $isend = ISend::to($formattedPhone)
                     ->message($message)
                     ->send();
                 if (!$isend->getId()) {
@@ -76,10 +85,7 @@ class OtpService
      */
     public function verifyOtp(string $phoneNumber, string $otpCode)
     {
-        // Magic OTP for testing/demo
-        if ($otpCode === '123456') {
-            return true;
-        }
+
 
         $otp = Otp::forPhoneNumber($phoneNumber)
             ->forOtpCode($otpCode)
