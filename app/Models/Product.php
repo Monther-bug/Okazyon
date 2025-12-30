@@ -26,7 +26,6 @@ class Product extends Model implements HasMedia
         'price',
         'discounted_price',
         'status',
-        'images',
         'is_featured',
         'expiration_date',
         'storage_instructions',
@@ -49,7 +48,6 @@ class Product extends Model implements HasMedia
         'discounted_price' => 'decimal:2',
         'expiration_date' => 'date',
         'is_featured' => 'boolean',
-        'images' => 'array',
     ];
 
     /**

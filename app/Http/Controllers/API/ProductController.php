@@ -43,7 +43,7 @@ class ProductController extends Controller
                 'discounted_price' => $product->discounted_price,
                 'discount_percentage' => $product->discount_percentage,
                 'status' => $product->status,
-                'images' => $product->images->pluck('image_url'),
+                'images' => $product->images ? $product->images->pluck('image_url') : [],
                 'category' => $product->category,
                 'seller' => [
                     'name' => trim($product->user->first_name . ' ' . $product->user->last_name),
@@ -136,9 +136,11 @@ class ProductController extends Controller
 
         // Only include reviews for non-food products
         if ($product->category && $product->category->type !== 'food') {
-            $product->load(['reviews' => function ($query) {
-                $query->with('user:id,first_name,last_name')->orderBy('created_at', 'desc');
-            }]);
+            $product->load([
+                'reviews' => function ($query) {
+                    $query->with('user:id,first_name,last_name')->orderBy('created_at', 'desc');
+                }
+            ]);
 
             if ($product->reviews->count() > 0) {
                 $reviewData = [
@@ -178,7 +180,7 @@ class ProductController extends Controller
             'storage_instructions' => $product->storage_instructions,
             'created_at' => $product->created_at,
             'updated_at' => $product->updated_at,
-            'images' => $product->images->pluck('image_url'),
+            'images' => $product->images ? $product->images->pluck('image_url') : [],
             'category' => $product->category,
             'seller' => $seller,
             'is_favorited' => $isFavorited,
