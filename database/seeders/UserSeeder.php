@@ -39,9 +39,13 @@ class UserSeeder extends Seeder
             'status' => UserStatusEnum::ACTIVE,
         ]);
 
+        // Create 20 Random Customers
+        User::factory()->count(20)->create();
+
         $this->command->info('Created users:');
         $this->command->info('- Admin: 0916880943 / password: password');
         $this->command->info('- Seller: 0913519105 / password: password');
+        $this->command->info('- Plus 20 random customers');
         $this->command->info('Total: ' . User::count() . ' users');
     }
 }
