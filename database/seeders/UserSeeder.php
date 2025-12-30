@@ -26,6 +26,7 @@ class UserSeeder extends Seeder
             'type' => 'admin',
             'status' => UserStatusEnum::ACTIVE,
         ]);
+        $admin->assignRole('admin');
 
         // Create Seller User
         $seller = User::create([
@@ -38,6 +39,7 @@ class UserSeeder extends Seeder
             'type' => 'seller',
             'status' => UserStatusEnum::ACTIVE,
         ]);
+        $seller->assignRole('seller');
 
         // Create 20 Random Customers
         User::factory()->count(20)->create();
