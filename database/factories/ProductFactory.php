@@ -82,7 +82,7 @@ class ProductFactory extends Factory
             'name' => $this->faker->randomElement($productNames),
             'description' => $this->faker->randomElement($descriptions),
             'price' => $price,
-            'discounted_price' => $hasDiscount ? $this->faker->randomFloat(2, $price * 0.5, $price * 0.9) : null,
+            'discounted_price' => $this->faker->randomFloat(2, $price * 0.5, $price * 0.9), // Always have a discount between 50-90% of price
             'status' => 'approved',
             'is_featured' => $this->faker->boolean(30), // 30% chance of being featured
             'expiration_date' => $this->faker->dateTimeBetween('+1 week', '+6 months'),
