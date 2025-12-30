@@ -168,6 +168,11 @@ class User extends Authenticatable implements HasMedia
         return $this->belongsToMany(Product::class, 'favorites')->withTimestamps();
     }
 
+    public function cart()
+    {
+        return $this->hasOne(Cart::class);
+    }
+
     /**
      * Get notifications that this user has read
      */

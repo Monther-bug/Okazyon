@@ -70,6 +70,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/products/{product}/favorite', [FavoriteController::class, 'store']);
     Route::delete('/products/{product}/favorite', [FavoriteController::class, 'destroy']);
 
+    // Cart routes
+    Route::get('/cart', [App\Http\Controllers\API\CartController::class, 'index']);
+    Route::post('/cart', [App\Http\Controllers\API\CartController::class, 'store']);
+    Route::put('/cart/items/{cartItem}', [App\Http\Controllers\API\CartController::class, 'update']);
+    Route::delete('/cart/items/{cartItem}', [App\Http\Controllers\API\CartController::class, 'destroy']);
+    Route::delete('/cart', [App\Http\Controllers\API\CartController::class, 'clear']);
+
     // Order management routes (buyer)
     Route::post('/orders', [OrderController::class, 'store']);
     Route::get('/orders', [OrderController::class, 'index']);
