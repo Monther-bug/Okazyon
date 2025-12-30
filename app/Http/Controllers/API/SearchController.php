@@ -17,7 +17,7 @@ class SearchController extends Controller
     public function search(Request $request): JsonResponse
     {
         $query = $request->get('q', '');
-        
+
         // Return empty results if no query provided
         if (empty(trim($query))) {
             return response()->json([
@@ -33,14 +33,14 @@ class SearchController extends Controller
             ->where('status', 'approved') // Only approved products
             ->where(function ($q) use ($query) {
                 $searchTerm = '%' . $query . '%';
-                
+
                 // Search in product name and description
                 $q->where('name', 'LIKE', $searchTerm)
-                  ->orWhere('description', 'LIKE', $searchTerm)
-                  // Search in category name
-                  ->orWhereHas('category', function ($categoryQuery) use ($searchTerm) {
-                      $categoryQuery->where('name', 'LIKE', $searchTerm);
-                  });
+                    ->orWhere('description', 'LIKE', $searchTerm)
+                    // Search in category name
+                    ->orWhereHas('category', function ($categoryQuery) use ($searchTerm) {
+                    $categoryQuery->where('name', 'LIKE', $searchTerm);
+                });
             });
 
         // Add category filter if provided
@@ -70,7 +70,7 @@ class SearchController extends Controller
                         ELSE 3
                     END
                 ", ['%' . $query . '%', '%' . $query . '%'])
-                ->orderBy('created_at', 'desc');
+                    ->orderBy('created_at', 'desc');
                 break;
         }
 
@@ -94,7 +94,7 @@ class SearchController extends Controller
                 'discounted_price' => $product->discounted_price,
                 'discount_percentage' => $product->discount_percentage,
                 'status' => $product->status,
-                'images' => $product->images->pluck('image_url'),
+                'images' => $product->images ? $product->images->pluck('image_url') : [],
                 'category' => $product->category,
                 'seller' => [
                     'name' => trim($product->user->first_name . ' ' . $product->user->last_name),
@@ -113,7 +113,7 @@ class SearchController extends Controller
             'last_page' => $products->lastPage(),
             'query' => $query,
             'sort_by' => $sortBy,
-            'message' => $products->total() > 0 
+            'message' => $products->total() > 0
                 ? "Found {$products->total()} results for '{$query}'"
                 : "No results found for '{$query}'",
         ]);
