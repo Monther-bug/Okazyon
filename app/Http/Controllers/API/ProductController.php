@@ -105,6 +105,114 @@ class ProductController extends Controller
     }
 
     /**
+     * Get fresh deals (food/grocery items).
+     * Public endpoint with pagination.
+     */
+    public function freshDeals(Request $request): JsonResponse
+    {
+        // Get user's favorites if authenticated
+        $userFavorites = [];
+        if (Auth::check()) {
+            $userFavorites = Auth::user()->favorites()->allRelatedIds()->toArray();
+        }
+
+        $products = Product::with(['user', 'category', 'images'])
+            ->approved()
+            ->whereHas('category', function ($query) {
+                // Assuming 'food' is the type for fresh/grocery
+                // Verify with migration: 2025_09_28_171901_add_image_url_and_type_to_categories_table.php (default 'food')
+                // Types might be 'food', 'standard', etc.
+                // Requirement: "Fresh" or "Groceries" categories.
+                $query->where('type', 'food');
+            })
+            ->latest()
+            ->paginate(20);
+
+        // Transform products
+        $transformedProducts = $products->getCollection()->map(function ($product) use ($userFavorites) {
+            return [
+                'id' => $product->id,
+                'name' => $product->name,
+                'description' => $product->description,
+                'price' => $product->price,
+                'discounted_price' => $product->discounted_price,
+                'discount_percentage' => $product->discount_percentage,
+                'status' => $product->status,
+                'images' => $product->images ? $product->images->pluck('image_url') : [],
+                'category' => $product->category,
+                'seller' => [
+                    'name' => trim($product->user->first_name . ' ' . $product->user->last_name),
+                ],
+                'is_favorited' => in_array($product->id, $userFavorites),
+                'created_at' => $product->created_at,
+                'updated_at' => $product->updated_at,
+            ];
+        });
+
+        return response()->json([
+            'data' => $transformedProducts,
+            'total' => $products->total(),
+            'per_page' => $products->perPage(),
+            'current_page' => $products->currentPage(),
+            'last_page' => $products->lastPage(),
+            'message' => 'Fresh deals retrieved successfully.',
+        ]);
+    }
+
+    /**
+     * Get store finds (apparel, goods, non-food).
+     * Public endpoint with pagination.
+     */
+    public function storeFinds(Request $request): JsonResponse
+    {
+        // Get user's favorites if authenticated
+        $userFavorites = [];
+        if (Auth::check()) {
+            $userFavorites = Auth::user()->favorites()->allRelatedIds()->toArray();
+        }
+
+        $products = Product::with(['user', 'category', 'images'])
+            ->approved()
+            ->whereHas('category', function ($query) {
+                // Requirement: "Apparel", "Clothing", etc.
+                // Basically anything NOT 'food'.
+                $query->where('type', '!=', 'food');
+            })
+            ->latest()
+            ->paginate(20);
+
+        // Transform products
+        $transformedProducts = $products->getCollection()->map(function ($product) use ($userFavorites) {
+            return [
+                'id' => $product->id,
+                'name' => $product->name,
+                'description' => $product->description,
+                'price' => $product->price,
+                'discounted_price' => $product->discounted_price,
+                'discount_percentage' => $product->discount_percentage,
+                'status' => $product->status,
+                'images' => $product->images ? $product->images->pluck('image_url') : [],
+                'category' => $product->category,
+                'seller' => [
+                    'name' => trim($product->user->first_name . ' ' . $product->user->last_name),
+                ],
+                'is_favorited' => in_array($product->id, $userFavorites),
+                'created_at' => $product->created_at,
+                'updated_at' => $product->updated_at,
+            ];
+        });
+
+        return response()->json([
+            'data' => $transformedProducts,
+            'total' => $products->total(),
+            'per_page' => $products->perPage(),
+            'current_page' => $products->currentPage(),
+            'last_page' => $products->lastPage(),
+            'message' => 'Store finds retrieved successfully.',
+        ]);
+    }
+
+    /**
      * Display the specified resource.
      * Public endpoint - only shows approved products.
      */

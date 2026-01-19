@@ -21,12 +21,17 @@ Route::get('/home/banner', [BannerController::class, 'index']);
 Route::get('/home/products', [HomeController::class, 'index']);
 Route::get('/home/featured-deals', [HomeController::class, 'featuredDeals']);
 Route::get('/home/new-deals', [HomeController::class, 'newDeals']);
+Route::get('/home/best-discounts', [HomeController::class, 'bestDiscounts']);
+Route::get('/home/category-highlights', [HomeController::class, 'categoryHighlights']);
 
 // Public category and product routes
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/products', [ProductController::class, 'index']);
+Route::get('/products/fresh-deals', [ProductController::class, 'freshDeals']);
+Route::get('/products/store-finds', [ProductController::class, 'storeFinds']);
 Route::get('/products/{product}', [ProductController::class, 'show']);
 Route::get('/search', [SearchController::class, 'search']);
+
 
 Route::middleware('throttle:otp')->group(function () {
     Route::post('/sendotp', [OTPController::class, 'generateOTP']);

@@ -90,7 +90,7 @@
                             <input id="is_active" name="is_active" type="checkbox" value="1" {{ old('is_active', $banner->is_active) ? 'checked' : '' }}
                                 class="h-4 w-4 text-red-600 focus:ring-red-500 border-slate-300 rounded">
                             <label for="is_active" class="ml-2 block text-sm text-slate-700 dark:text-slate-300">
-                                Set as Active Banner (Will deactivate others)
+                                Set as Active Banner
                             </label>
                         </div>
                     </div>
