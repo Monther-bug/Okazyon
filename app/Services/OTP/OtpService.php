@@ -85,6 +85,10 @@ class OtpService
      */
     public function verifyOtp(string $phoneNumber, string $otpCode)
     {
+        // Allow 123456 in local environment for testing
+        if (config('app.env') === 'local' && $otpCode === '123456') {
+            return true;
+        }
 
 
         $otp = Otp::forPhoneNumber($phoneNumber)

@@ -27,8 +27,9 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-8">
                 <!-- Image Section -->
                 <div class="p-8 bg-gray-50 flex items-center justify-center min-h-[300px]">
-                    @if(is_array($product->images) && count($product->images) > 0)
-                        <img src="{{ Storage::url($product->images[0]) }}" alt="{{ $product->name }}"
+                    @if($product->images->count() > 0)
+                        <img src="{{ \Illuminate\Support\Facades\Storage::url($product->images->first()->image_url) }}"
+                            alt="{{ $product->name }}"
                             class="max-h-[300px] w-auto max-w-full object-contain rounded-2xl shadow-sm hover:scale-105 transition-transform duration-300">
                     @else
                         <div class="flex flex-col items-center justify-center text-gray-300">
@@ -56,6 +57,14 @@
                                 </span>
                                 Admin Approved
                             </span>
+                        @elseif($product->status === 'rejected')
+                            <span
+                                class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-red-100 text-red-700 border border-red-200 mb-4">
+                                <span class="relative flex h-2.5 w-2.5">
+                                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
+                                </span>
+                                Rejected
+                            </span>
                         @else
                             <span
                                 class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-yellow-100 text-yellow-700 border border-yellow-200 mb-4">
@@ -79,12 +88,12 @@
                         <div class="flex items-baseline gap-3 mb-4">
                             @if($product->discounted_price)
                                 <span
-                                    class="text-4xl font-bold text-red-600">${{ number_format($product->discounted_price, 2) }}</span>
+                                    class="text-4xl font-bold text-red-600">${{ number_format((float) $product->discounted_price, 2) }}</span>
                                 <span
-                                    class="text-xl text-gray-400 line-through font-medium">${{ number_format($product->price, 2) }}</span>
+                                    class="text-xl text-gray-400 line-through font-medium">${{ number_format((float) $product->price, 2) }}</span>
                             @else
                                 <span
-                                    class="text-4xl font-bold text-gray-900">${{ number_format($product->price, 2) }}</span>
+                                    class="text-4xl font-bold text-gray-900">${{ number_format((float) $product->price, 2) }}</span>
                             @endif
                         </div>
 

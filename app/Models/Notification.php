@@ -30,6 +30,22 @@ class Notification extends Model
     ];
 
     /**
+     * Get title based on locale (defaults to English).
+     */
+    public function getTitleAttribute()
+    {
+        return $this->en_title ?: $this->ar_title;
+    }
+
+    /**
+     * Get body based on locale (defaults to English).
+     */
+    public function getBodyAttribute()
+    {
+        return $this->en_body ?: $this->ar_body;
+    }
+
+    /**
      * Get the user that owns the notification.
      */
     public function user()

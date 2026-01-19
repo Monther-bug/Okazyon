@@ -9,16 +9,12 @@
                     class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-sm overflow-hidden">
                     <div class="p-6">
                         <div class="flex flex-col md:flex-row gap-8">
-                            <!-- Images Gallery -->
+                                <!-- Images Gallery -->
                             <div class="w-full md:w-1/3 space-y-4">
                                 <div
                                     class="aspect-square w-full rounded-xl bg-slate-100 dark:bg-slate-700 overflow-hidden">
-                                    @php
-                                        $images = is_array($product->images) ? $product->images : [];
-                                        $mainImage = $images[0] ?? null;
-                                    @endphp
-                                    @if($mainImage)
-                                        <img src="{{ asset('storage/' . $mainImage) }}" alt="{{ $product->name }}"
+                                    @if($product->images->count() > 0)
+                                        <img src="{{ \Illuminate\Support\Facades\Storage::url($product->images->first()->image_url) }}" alt="{{ $product->name }}"
                                             class="w-full h-full object-cover">
                                     @else
                                         <div class="flex items-center justify-center h-full text-slate-400">
@@ -27,10 +23,10 @@
                                     @endif
                                 </div>
                                 <div class="grid grid-cols-4 gap-2">
-                                    @foreach(array_slice($images, 1) as $img)
+                                    @foreach($product->images->skip(1) as $imgModel)
                                         <div
                                             class="aspect-square rounded-lg bg-slate-100 dark:bg-slate-700 overflow-hidden">
-                                            <img src="{{ asset('storage/' . $img) }}" alt=""
+                                            <img src="{{ \Illuminate\Support\Facades\Storage::url($imgModel->image_url) }}" alt=""
                                                 class="w-full h-full object-cover">
                                         </div>
                                     @endforeach

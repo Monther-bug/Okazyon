@@ -73,6 +73,9 @@ class OrderController extends Controller
 
         $order->update(['status' => $validated['status']]);
 
+        // Notify Buyer
+        app(\App\Services\Firebase\NotificationService::class)->notifyOrderStatusUpdate($order);
+
         return redirect()->back()->with('success', 'Order status updated successfully.');
     }
 }

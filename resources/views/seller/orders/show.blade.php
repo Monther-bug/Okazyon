@@ -54,8 +54,8 @@
                                             <div class="flex items-center gap-4">
                                                 <div
                                                     class="h-16 w-16 rounded-xl bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 overflow-hidden shrink-0">
-                                                    @if($item->product->images && count($item->product->images) > 0)
-                                                        <img src="{{ Storage::url($item->product->images[0]) }}"
+                                                    @if($item->product->images->count() > 0)
+                                                        <img src="{{ \Illuminate\Support\Facades\Storage::url($item->product->images->first()->image_url) }}"
                                                             class="h-full w-full object-cover">
                                                     @else
                                                         <div

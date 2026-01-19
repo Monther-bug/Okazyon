@@ -96,8 +96,8 @@
                                             <td class="px-6 py-4 pl-8 rounded-l-2xl border-t border-b border-l border-transparent mb-2 bg-white group-hover:border-red-100 group-hover:bg-red-50/40 cursor-pointer" onclick="window.location='{{ route('seller.products.show', $product) }}'">
                                                 <div class="flex items-center gap-6"> <!-- Increased gap -->
                                                     <div class="w-16 h-16 rounded-2xl bg-gray-100 border border-gray-200 overflow-hidden flex-shrink-0 shadow-sm relative group-hover:shadow transition-all">
-                                                        @if(is_array($product->images) && count($product->images) > 0)
-                                                            <img src="{{ Storage::url($product->images[0]) }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
+                                                        @if($product->images->count() > 0)
+                                                            <img src="{{ \Illuminate\Support\Facades\Storage::url($product->images->first()->image_url) }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
                                                         @else
                                                             <div class="w-full h-full flex items-center justify-center text-gray-300">
                                                                 <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -141,6 +141,11 @@
                                                             <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
                                                         </span>
                                                         <span class="text-xs font-bold text-green-700 bg-green-100 px-2 py-0.5 rounded-full border border-green-200">Approved</span>
+                                                    @elseif($product->status === 'rejected')
+                                                        <span class="relative flex h-2.5 w-2.5">
+                                                            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
+                                                        </span>
+                                                        <span class="text-xs font-bold text-red-700 bg-red-100 px-2 py-0.5 rounded-full border border-red-200">Rejected</span>
                                                     @else
                                                         <span class="relative flex h-2.5 w-2.5">
                                                             <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-yellow-400"></span>

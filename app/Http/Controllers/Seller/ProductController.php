@@ -58,8 +58,28 @@ class ProductController extends Controller
             'discounted_price' => $validated['discounted_price'],
             'category_id' => $validated['category_id'],
             'status' => 'pending',
-            'images' => $imagePaths, // Assuming 'images' is cast to array in model
+            // 'images' is not a column in products table, handled below
         ]);
+
+        if (!empty($imagePaths)) {
+            foreach ($imagePaths as $path) {
+                // Determine full URL or relative path. 
+                // ProductImage model has 'image_url'. API uses full URL often, but local storage returns relative path.
+                // View uses Storage::url($img).
+                // Let's store the relative path or full URL. The API controller passed full URL.
+                // But here we are uploading locally.
+                // Let's store the path returned by store(), which is relative to disk root.
+                // Wait, if API expects URL, we might need to convert it?
+                // Actually, API Controller `store` took `images.*` as string/url.
+                // View `create.blade.php` uses `Storage::url($img)`.
+                // So if we store "products/filename.jpg", Storage::url() will work.
+
+                \App\Models\ProductImage::create([
+                    'product_id' => $product->id,
+                    'image_url' => $path,
+                ]);
+            }
+        }
 
         return redirect()->route('seller.products.index')->with('success', 'Product created successfully!');
     }
@@ -119,20 +139,34 @@ class ProductController extends Controller
         ];
 
         // Handle Images Update
-        // 1. Get images kept by user (from hidden inputs)
+
+        // 1. Get images kept by user (from hidden inputs - these are paths)
         $keptImages = $request->input('existing_images', []);
 
-        // 2. Upload new images
-        $newImages = [];
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
-                $newImages[] = $image->store('products', 'public');
+        // 2. Delete images that are NOT in keptImages
+        // Get current images from DB
+        $currentImages = $product->images; // Collection of ProductImage models
+        foreach ($currentImages as $imgModel) {
+            if (!in_array($imgModel->image_url, $keptImages)) {
+                // Delete file from storage
+                if (\Illuminate\Support\Facades\Storage::disk('public')->exists($imgModel->image_url)) {
+                    \Illuminate\Support\Facades\Storage::disk('public')->delete($imgModel->image_url);
+                }
+                // Delete record
+                $imgModel->delete();
             }
         }
 
-        // 3. Merge and save
-        // Note: You might want to implement file deletion for images NOT in $keptImages here
-        $productData['images'] = array_merge($keptImages, $newImages);
+        // 3. Upload new images and create records
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('products', 'public');
+                \App\Models\ProductImage::create([
+                    'product_id' => $product->id,
+                    'image_url' => $path,
+                ]);
+            }
+        }
 
         $product->update($productData);
 

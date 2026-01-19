@@ -6,7 +6,7 @@
     </x-slot:subheading>
 
     <div x-data="{
-        otp: '123456'.split(''),
+        otp: ''.split(''),
         init() {
             this.$nextTick(() => {
                 this.updateOtp();
@@ -56,16 +56,10 @@
                     <label class="block text-sm font-medium text-gray-700 sr-only">OTP Code</label>
                     <div class="flex justify-center gap-2">
                         @for ($i = 0; $i < 6; $i++)
-                            <input type="text" 
-                                x-ref="input_{{ $i }}"
-                                x-model="otp[{{ $i }}]"
-                                @input="focusNext({{ $i }}); updateOtp()"
-                                @keydown.backspace="focusPrev({{ $i }})"
-                                @paste="handlePaste"
-                                maxlength="1"
-                                inputmode="numeric"
-                                class="w-10 h-12 sm:w-14 sm:h-16 text-center text-xl sm:text-2xl font-bold text-gray-900 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:bg-white transition-all duration-200 ease-in-out caret-red-500 shadow-sm"
-                            >
+                            <input type="text" x-ref="input_{{ $i }}" x-model="otp[{{ $i }}]"
+                                @input="focusNext({{ $i }}); updateOtp()" @keydown.backspace="focusPrev({{ $i }})"
+                                @paste="handlePaste" maxlength="1" inputmode="numeric"
+                                class="w-10 h-12 sm:w-14 sm:h-16 text-center text-xl sm:text-2xl font-bold text-gray-900 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:bg-white transition-all duration-200 ease-in-out caret-red-500 shadow-sm">
                         @endfor
                     </div>
                     @error('otp_code') <p class="mt-2 text-center text-sm text-red-600">{{ $message }}</p> @enderror

@@ -81,12 +81,13 @@
                                     <div class="mb-6">
                                         <p class="text-sm font-bold text-gray-700 mb-3">Current Images</p>
                                         <div class="flex flex-wrap gap-4">
-                                            @foreach(is_array($product->images) ? $product->images : json_decode($product->images) as $img)
+                                            @foreach($product->images as $imgModel)
                                                 <div
                                                     class="relative group w-32 h-32 rounded-xl overflow-hidden border border-gray-200 shadow-sm bg-gray-50">
-                                                    <input type="hidden" name="existing_images[]" value="{{ $img }}">
-                                                    <img src="{{ Storage::url($img) }}" alt="Product Image"
-                                                        class="w-full h-full object-cover">
+                                                    <input type="hidden" name="existing_images[]"
+                                                        value="{{ $imgModel->image_url }}">
+                                                    <img src="{{ \Illuminate\Support\Facades\Storage::url($imgModel->image_url) }}"
+                                                        alt="Product Image" class="w-full h-full object-cover">
 
                                                     <button type="button" onclick="this.closest('.relative').remove()"
                                                         class="absolute top-1 right-1 p-1.5 bg-red-500 rounded-full text-white shadow-sm hover:bg-red-600 transition-colors z-10"
