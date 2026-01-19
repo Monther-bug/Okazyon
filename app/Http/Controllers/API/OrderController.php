@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Address;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,9 +20,9 @@ class OrderController extends Controller
     public function index(): JsonResponse
     {
         $orders = Order::with(['products', 'buyer'])
-                      ->where('buyer_id', Auth::id())
-                      ->latest()
-                      ->get();
+            ->where('buyer_id', Auth::id())
+            ->latest()
+            ->get();
 
         return response()->json([
             'data' => $orders,
@@ -36,7 +37,13 @@ class OrderController extends Controller
     public function store(Request $request): JsonResponse
     {
         $validated = $request->validate([
-            'delivery_address' => 'required|string',
+            'address_id' => 'nullable|exists:addresses,id',
+            'delivery_address' => 'required_without:address_id|string|max:500',
+            'latitude' => 'required_without:address_id|numeric|between:-90,90',
+            'longitude' => 'required_without:address_id|numeric|between:-180,180',
+            'delivery_phone' => 'nullable|string|max:20',
+            'delivery_notes' => 'nullable|string|max:1000',
+            'payment_method' => 'required|string|in:cash_on_delivery,credit_card,paypal',
             'items' => 'required|array|min:1',
             'items.*.product_id' => 'required|exists:products,id',
             'items.*.quantity' => 'required|integer|min:1',
@@ -45,13 +52,44 @@ class OrderController extends Controller
         try {
             DB::beginTransaction();
 
+            // Prepare address data
+            $addressData = [
+                'delivery_address' => $validated['delivery_address'] ?? null,
+                'latitude' => $validated['latitude'] ?? null,
+                'longitude' => $validated['longitude'] ?? null,
+                'delivery_phone' => $validated['delivery_phone'] ?? null,
+                'delivery_notes' => $validated['delivery_notes'] ?? null,
+                'address_id' => $validated['address_id'] ?? null,
+            ];
+
+            if (!empty($validated['address_id'])) {
+                $address = Address::where('id', $validated['address_id'])
+                    ->where('user_id', Auth::id())
+                    ->first();
+
+                if (!$address) {
+                    return response()->json([
+                        'message' => 'Invalid address selected.',
+                    ], 422);
+                }
+
+                // Copy address data for snapshot
+                $addressData['delivery_address'] = $address->full_address; // Changed from delivery_address to full_address based on Address model
+                $addressData['latitude'] = $address->latitude;
+                $addressData['longitude'] = $address->longitude;
+                // If phone is not provided in request, use address phone
+                if (empty($addressData['delivery_phone'])) {
+                    $addressData['delivery_phone'] = $address->phone;
+                }
+            }
+
             $totalAmount = 0;
             $orderItems = [];
 
             // Validate products and calculate total
             foreach ($validated['items'] as $item) {
                 $product = Product::findOrFail($item['product_id']);
-                
+
                 // Check if product is approved
                 if ($product->status !== 'approved') {
                     return response()->json([
@@ -72,12 +110,13 @@ class OrderController extends Controller
             }
 
             // Create the order
-            $order = Order::create([
+            $order = Order::create(array_merge([
                 'buyer_id' => Auth::id(),
                 'total_amount' => $totalAmount,
-                'delivery_address' => $validated['delivery_address'],
                 'status' => 'pending',
-            ]);
+                'payment_method' => $validated['payment_method'],
+                'payment_status' => 'pending',
+            ], $addressData));
 
             // Attach products to order with pivot data
             foreach ($orderItems as $orderItem) {
@@ -99,7 +138,7 @@ class OrderController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
-            
+
             return response()->json([
                 'message' => 'Order placement failed. Please try again.',
                 'error' => $e->getMessage(),

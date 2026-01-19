@@ -39,15 +39,7 @@ class User extends Authenticatable implements HasMedia
         'is_verified',
     ];
 
-    /**
-     * Get the name of the unique identifier for the user.
-     *
-     * @return string
-     */
-    public function getAuthIdentifierName()
-    {
-        return 'phone_number';
-    }
+
 
     /**
      * Get the column name for the "email" equivalent (phone_number in our case)

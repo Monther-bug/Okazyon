@@ -16,8 +16,15 @@ class Order extends Model
      */
     protected $fillable = [
         'buyer_id',
+        'address_id',
         'total_amount',
         'delivery_address',
+        'latitude',
+        'longitude',
+        'payment_method',
+        'payment_status',
+        'delivery_phone',
+        'delivery_notes',
         'status',
     ];
 
@@ -28,6 +35,8 @@ class Order extends Model
      */
     protected $casts = [
         'total_amount' => 'decimal:2',
+        'latitude' => 'decimal:8',
+        'longitude' => 'decimal:8',
     ];
 
     /**
@@ -36,6 +45,14 @@ class Order extends Model
     public function buyer(): BelongsTo
     {
         return $this->belongsTo(User::class, 'buyer_id');
+    }
+
+    /**
+     * Get the address associated with the order.
+     */
+    public function address(): BelongsTo
+    {
+        return $this->belongsTo(Address::class);
     }
 
     /**
@@ -52,7 +69,7 @@ class Order extends Model
     public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class, 'order_items')
-                    ->withPivot(['quantity', 'price'])
-                    ->withTimestamps();
+            ->withPivot(['quantity', 'price'])
+            ->withTimestamps();
     }
 }
