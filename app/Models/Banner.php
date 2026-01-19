@@ -25,15 +25,7 @@ class Banner extends Model
         'is_active' => 'boolean',
     ];
 
-    protected static function booted()
-    {
-        static::saving(function ($banner) {
-            if ($banner->is_active) {
-                static::where('id', '!=', $banner->id)
-                    ->update(['is_active' => false]);
-            }
-        });
-    }
+
 
     public function scopeActive($query)
     {

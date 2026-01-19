@@ -14,19 +14,19 @@ class BannerController extends Controller
      */
     public function index(): JsonResponse
     {
-        $banner = Banner::where('is_active', true)
+        $banners = Banner::where('is_active', true)
             ->orderBy('created_at', 'desc')
-            ->first();
+            ->get();
 
-        if (!$banner) {
+        if ($banners->isEmpty()) {
             return response()->json([
-                'data' => null,
+                'data' => [],
                 'message' => 'No active banner found.',
             ]);
         }
 
-        return response()->json([
-            'data' => [
+        $data = $banners->map(function ($banner) {
+            return [
                 'id' => $banner->id,
                 'title' => $banner->title,
                 'subtitle' => $banner->subtitle,
@@ -34,8 +34,12 @@ class BannerController extends Controller
                 'link' => $banner->link,
                 'is_active' => $banner->is_active,
                 'created_at' => $banner->created_at,
-            ],
-            'message' => 'Active banner retrieved successfully.',
+            ];
+        });
+
+        return response()->json([
+            'data' => $data,
+            'message' => 'Active banners retrieved successfully.',
         ]);
     }
 }
