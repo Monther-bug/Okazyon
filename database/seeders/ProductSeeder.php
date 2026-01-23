@@ -29,10 +29,10 @@ class ProductSeeder extends Seeder
                 'description' => 'جاكيت جينز كلاسيكي عتيق بجودة عالية، مثالي لجميع المواسم. يتميز بتصميم مريح ومتين.',
                 'price' => 450.00,
                 'discounted_price' => 350.00,
-                'image_url' => 'https://images.unsplash.com/photo-1576905324223-5e7304ae0998?q=80&w=800',
+                'image_url' => 'https://images.unsplash.com/photo-1543087904-142c792e4752?q=80&w=800',
                 'images' => [
-                    'https://images.unsplash.com/photo-1544642899-f0d6e5f6ed6f?q=80&w=800',
-                    'https://images.unsplash.com/photo-1523205771623-e0faa4d2813d?q=80&w=800',
+                    'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?q=80&w=800',
+                    'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?q=80&w=800',
                 ],
             ],
             [
@@ -41,10 +41,10 @@ class ProductSeeder extends Seeder
                 'description' => 'طاولة قهوة مصنوعة يدويًا من خشب البلوط الطبيعي بتصميم عصري بسيط يناسب غرف المعيشة الحديثة.',
                 'price' => 1200.00,
                 'discounted_price' => 950.00,
-                'image_url' => 'https://images.unsplash.com/photo-1533090161767-e6ffed986c88?q=80&w=800',
+                'image_url' => 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=800',
                 'images' => [
-                    'https://images.unsplash.com/photo-1581428982868-e410dd047a90?q=80&w=800',
-                    'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800',
+                    'https://images.unsplash.com/photo-1540932239986-30128078f3c5?q=80&w=800',
+                    'https://images.unsplash.com/photo-1503602642458-232111445657?q=80&w=800',
                 ],
             ],
             [
@@ -53,10 +53,10 @@ class ProductSeeder extends Seeder
                 'description' => 'أحذية رياضية من ماركات عالمية فائضة عن الإنتاج، توفر راحة قصوى وأداءً متميزًا.',
                 'price' => 850.00,
                 'discounted_price' => 600.00,
-                'image_url' => 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=800',
+                'image_url' => 'https://images.unsplash.com/photo-1511556532299-8f662fc26c06?q=80&w=800',
                 'images' => [
-                    'https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?q=80&w=800',
-                    'https://images.unsplash.com/photo-1560769629-975ec94e6a86?q=80&w=800',
+                    'https://images.unsplash.com/photo-1515955656352-a1fa3ffcdda9?q=80&w=800',
+                    'https://images.unsplash.com/photo-1491553895911-0055eca6402d?q=80&w=800',
                 ],
             ],
             [
@@ -65,9 +65,9 @@ class ProductSeeder extends Seeder
                 'description' => 'فستان صيفي خفيف وأنيق بنقشة الزهور، مصنوع من ألياف طبيعية تسمح بمرور الهواء.',
                 'price' => 320.00,
                 'discounted_price' => 250.00,
-                'image_url' => 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?q=80&w=800',
+                'image_url' => 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?q=80&w=800',
                 'images' => [
-                    'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?q=80&w=800',
+                    'https://images.unsplash.com/photo-1590486829697-0335b9493f68?q=80&w=800',
                 ],
             ],
             [
@@ -76,9 +76,9 @@ class ProductSeeder extends Seeder
                 'description' => 'مصباح مكتبي يجمع بين المعدن والخشب بتصميم صناعي فريد، يضيف لمسة فنية لمساحة العمل الخاصة بك.',
                 'price' => 280.00,
                 'discounted_price' => 190.00,
-                'image_url' => 'https://images.unsplash.com/photo-1534073828943-f801091bb18c?q=80&w=800',
+                'image_url' => 'https://images.unsplash.com/photo-1507431553592-001505a3a3b0?q=80&w=800',
                 'images' => [
-                    'https://images.unsplash.com/photo-1507473885765-e6ed657f782c?q=80&w=800',
+                    'https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=800',
                 ],
             ],
         ];

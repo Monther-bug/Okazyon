@@ -75,7 +75,11 @@
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="flex items-center">
                                                 <div class="flex-shrink-0 h-10 w-10">
-                                                    @if($product->images->count() > 0)
+                                                    @if($product->image_url)
+                                                        <img class="h-10 w-10 rounded-lg object-cover border border-slate-200 dark:border-slate-600"
+                                                             src="{{ $product->image_url }}"
+                                                             alt="{{ $product->name }}">
+                                                    @elseif($product->images->count() > 0)
                                                         <img class="h-10 w-10 rounded-lg object-cover border border-slate-200 dark:border-slate-600"
                                                             src="{{ $product->images->first()->display_url }}"
                                                             alt="{{ $product->name }}">
