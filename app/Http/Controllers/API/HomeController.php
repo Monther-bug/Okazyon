@@ -88,22 +88,22 @@ class HomeController extends Controller
         return response()->json([
             'data' => [
                 'featured_deals' => [
-                    'title' => 'Featured Deals',
+                    'title' => 'منتجات مميزة',
                     'products' => $featuredDeals,
                     'total' => $featuredDeals->count(),
                 ],
                 'new_deals' => [
-                    'title' => 'New Arrivals',
+                    'title' => 'وصل حديثا',
                     'products' => $newDeals,
                     'total' => $newDeals->count(),
                 ],
                 'best_discounts' => [
-                    'title' => 'Best Discounts',
+                    'title' => 'أفضل الخصومات',
                     'products' => $bestDiscounts,
                     'total' => $bestDiscounts->count(),
                 ],
                 'category_highlights' => [
-                    'title' => 'Trending Now',
+                    'title' => 'الأكثر تداولا',
                     'products' => $categoryHighlights,
                     'total' => $categoryHighlights->count(),
                 ],

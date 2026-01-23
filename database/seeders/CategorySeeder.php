@@ -30,7 +30,25 @@ class CategorySeeder extends Seeder
                 'name' => 'أزياء',
                 'slug' => 'fashion',
                 'image' => 'https://images.unsplash.com/photo-1445205170230-053b830c6050?q=80&w=800',
-                'type' => 'goods',
+                'type' => 'clothes',
+            ],
+            [
+                'name' => 'ملابس',
+                'slug' => 'clothes',
+                'image' => 'https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?q=80&w=800',
+                'type' => 'clothes',
+            ],
+            [
+                'name' => 'أحذية',
+                'slug' => 'shoes',
+                'image' => 'https://images.unsplash.com/photo-1542291026-7eec264c27ab?q=80&w=800',
+                'type' => 'clothes',
+            ],
+            [
+                'name' => 'اكسسوارات',
+                'slug' => 'accessories',
+                'image' => 'https://images.unsplash.com/photo-1588444650733-d3423b37b72d?q=80&w=800',
+                'type' => 'clothes',
             ],
             [
                 'name' => 'أثاث',
