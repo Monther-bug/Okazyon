@@ -3,14 +3,11 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
-use Database\Seeders\Traits\HasSeedImages;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
 class CategorySeeder extends Seeder
 {
-    use HasSeedImages;
-
     /**
      * Run the database seeds.
      */
@@ -18,45 +15,57 @@ class CategorySeeder extends Seeder
     {
         $categories = [
             [
-                'name' => 'Fashion',
+                'name' => 'سلع',
+                'slug' => 'goods',
+                'image' => 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?q=80&w=800',
                 'type' => 'goods',
-                'image' => 'https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&q=80&w=800',
             ],
             [
-                'name' => 'Furniture',
-                'type' => 'goods',
-                'image' => 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=800',
-            ],
-            [
-                'name' => 'Food & Dining',
+                'name' => 'مأكولات',
+                'slug' => 'food',
+                'image' => 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=800',
                 'type' => 'food',
-                'image' => 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&q=80&w=800',
             ],
             [
-                'name' => 'Sports',
+                'name' => 'أزياء',
+                'slug' => 'fashion',
+                'image' => 'https://images.unsplash.com/photo-1445205170230-053b830c6050?q=80&w=800',
                 'type' => 'goods',
-                'image' => 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&q=80&w=800',
             ],
             [
-                'name' => 'Books',
+                'name' => 'أثاث',
+                'slug' => 'furniture',
+                'image' => 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=800',
                 'type' => 'goods',
-                'image' => 'https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&q=80&w=800',
+            ],
+            [
+                'name' => 'مأكولات ومطاعم',
+                'slug' => 'food-dining',
+                'image' => 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800',
+                'type' => 'food',
+            ],
+            [
+                'name' => 'رياضة',
+                'slug' => 'sports',
+                'image' => 'https://images.unsplash.com/photo-1461896704690-264ad730d4aa?q=80&w=800',
+                'type' => 'goods',
+            ],
+            [
+                'name' => 'كتب',
+                'slug' => 'books',
+                'image' => 'https://images.unsplash.com/photo-1495446815901-a7297e633e8d?q=80&w=800',
+                'type' => 'goods',
             ],
         ];
 
-        foreach ($categories as $cat) {
-            // Cache locally
-            $this->getLocalImage($cat['image']);
-
-            Category::updateOrCreate(
-                ['name' => $cat['name']],
-                [
-                    'slug' => Str::slug($cat['name']),
-                    'type' => $cat['type'],
-                    'image' => $cat['image'],
-                    'is_active' => true,
-                ]
-            );
+        foreach ($categories as $category) {
+            Category::create([
+                'name' => $category['name'],
+                'slug' => $category['slug'],
+                'image' => $category['image'],
+                'type' => $category['type'],
+                'is_active' => true,
+            ]);
         }
     }
 }

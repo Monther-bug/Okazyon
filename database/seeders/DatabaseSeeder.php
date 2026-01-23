@@ -11,6 +11,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Set locale to Arabic for faker if needed, 
+        // but we are using hardcoded Arabic strings for quality.
+
         $this->call([
             RoleSeeder::class,
             UserSeeder::class,

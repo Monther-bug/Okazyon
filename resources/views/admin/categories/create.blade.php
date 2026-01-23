@@ -32,7 +32,7 @@
                                     class="block w-full rounded-xl border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm">
                                     <option value="">Select a type</option>
                                     <option value="food">Food</option>
-                                    <option value="clothes">Clothes</option>
+                                    <option value="goods">Goods</option>
                                 </select>
                             </div>
                         </div>

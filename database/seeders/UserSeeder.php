@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Utility\Enums\UserStatusEnum;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
@@ -14,57 +14,60 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $password = Hash::make('password');
+        // 1. Specific Demo Accounts
 
-        // 1. Admin (Phone only)
-        $admin = User::firstOrCreate(
-            ['phone_number' => '0916880943'],
-            [
-                'first_name' => 'Monther',
-                'last_name' => 'ibrahim',
-                'password' => $password,
-                'email' => null,
-                'role' => 'admin', // Explicitly set role
-                'is_verified' => true,
-            ]
-        );
+        // Admin
+        $admin = User::create([
+            'first_name' => 'منذر',
+            'last_name' => 'على',
+            'email' => 'admin@okazyon.com',
+            'phone_number' => '0916880943',
+            'password' => Hash::make('password'),
+            'type' => 'admin',
+            'status' => UserStatusEnum::ACTIVE,
+            'is_verified' => true,
+        ]);
         $admin->assignRole('admin');
 
-        // 2. Demo Seller
-        $demoSeller = User::firstOrCreate(
-            ['phone_number' => '0910000000'],
-            [
-                'first_name' => 'Pro Style',
-                'last_name' => 'Boutique',
-                'password' => $password,
-                'email' => 'seller@okazyon.com',
-                'role' => 'seller', // Explicitly set role
-                'is_verified' => true,
-            ]
-        );
-        $demoSeller->assignRole('seller');
+        // Main Demo Seller
+        $seller = User::create([
+            'first_name' => 'برو ستايل',
+            'last_name' => 'بوتيك',
+            'email' => 'seller@okazyon.com',
+            'phone_number' => '+201000000002',
+            'password' => Hash::make('password'),
+            'type' => 'seller',
+            'status' => UserStatusEnum::ACTIVE,
+            'is_verified' => true,
+        ]);
+        $seller->assignRole('seller');
 
-        // 3. Demo Buyer
-        $buyer = User::firstOrCreate(
-            ['phone_number' => '0911111111'],
-            [
-                'first_name' => 'John',
-                'last_name' => 'Doe',
-                'password' => $password,
-                'email' => 'user@okazyon.com',
-                'role' => 'buyer', // Explicitly set role (enum is buyer)
-                'is_verified' => true,
-            ]
-        );
-        $buyer->assignRole('user'); // Spatie role is 'user'
+        // Main Demo Buyer
+        $buyer = User::create([
+            'first_name' => 'أحمد',
+            'last_name' => 'علي',
+            'email' => 'user@okazyon.com',
+            'phone_number' => '+201000000003',
+            'password' => Hash::make('password'),
+            'type' => 'user',
+            'status' => UserStatusEnum::ACTIVE,
+            'is_verified' => true,
+        ]);
+        $buyer->assignRole('user');
 
-        // 4. Random Sellers
-        User::factory(5)->create(['role' => 'seller'])->each(function ($user) {
+        // 2. Extra Random Accounts
+
+        // 5 Extra Sellers
+        User::factory(5)->active()->create([
+            'type' => 'seller',
+        ])->each(function ($user) {
             $user->assignRole('seller');
         });
 
-        // 5. Random Buyers
-        User::factory(10)->create(['role' => 'buyer'])->each(function ($user) {
+        // 10 Extra Buyers
+        User::factory(10)->active()->create([
+            'type' => 'user',
+        ])->each(function ($user) {
             $user->assignRole('user');
         });
     }

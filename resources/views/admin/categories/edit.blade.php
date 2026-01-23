@@ -36,8 +36,8 @@
                                     <option value="food" {{ old('type', $category->type) == 'food' ? 'selected' : '' }}>
                                         Food
                                     </option>
-                                    <option value="clothes" {{ old('type', $category->type) == 'clothes' ? 'selected' : '' }}>
-                                        Clothes</option>
+                                    <option value="goods" {{ old('type', $category->type) == 'goods' ? 'selected' : '' }}>
+                                        Goods</option>
                                 </select>
                             </div>
                         </div>

@@ -3,13 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\Banner;
-use Database\Seeders\Traits\HasSeedImages;
 use Illuminate\Database\Seeder;
 
 class BannerSeeder extends Seeder
 {
-    use HasSeedImages;
-
     /**
      * Run the database seeds.
      */
@@ -17,29 +14,26 @@ class BannerSeeder extends Seeder
     {
         $banners = [
             [
-                'title' => 'Big Summer Sale',
-                'subtitle' => 'Up into 50% Off Fashion Items',
-                'image' => 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=1200',
-                'link' => '/category/fashion',
+                'title' => 'عروض الأزياء الكبرى',
+                'subtitle' => 'خصم يصل إلى 50% على الملابس العصرية',
+                'image' => 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1200',
+                'link' => '/categories/fashion',
             ],
             [
-                'title' => 'Fresh Food Deals',
-                'subtitle' => 'Get the best organic surplus food',
-                'image' => 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=1200',
-                'link' => '/category/food',
+                'title' => 'تذوق أشهى المأكولات',
+                'subtitle' => 'عروض حصرية من أفضل المطاعم المحلية',
+                'image' => 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1200',
+                'link' => '/categories/food-dining',
             ],
             [
-                'title' => 'Modern Furniture',
-                'subtitle' => 'Upgrade your home for less',
-                'image' => 'https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&q=80&w=1200',
-                'link' => '/category/furniture',
+                'title' => 'أثاث منزلي عصري',
+                'subtitle' => 'جدد منزلك بأرقى التصاميم بأسعار مخفضة',
+                'image' => 'https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?q=80&w=1200',
+                'link' => '/categories/furniture',
             ],
         ];
 
         foreach ($banners as $banner) {
-            // Cache locally
-            $this->getLocalImage($banner['image']);
-
             Banner::create([
                 'title' => $banner['title'],
                 'subtitle' => $banner['subtitle'],
