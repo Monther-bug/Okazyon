@@ -77,7 +77,7 @@
                                                 <div class="flex-shrink-0 h-10 w-10">
                                                     @if($product->images->count() > 0)
                                                         <img class="h-10 w-10 rounded-lg object-cover border border-slate-200 dark:border-slate-600"
-                                                            src="{{ \Illuminate\Support\Facades\Storage::url($product->images->first()->image_url) }}"
+                                                            src="{{ $product->images->first()->display_url }}"
                                                             alt="{{ $product->name }}">
                                                     @else
                                                         <div
@@ -102,7 +102,8 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-slate-900 dark:text-white">
-                                                {{ $product->user->name ?? 'Unknown' }}</div>
+                                                {{ $product->user->name ?? 'Unknown' }}
+                                            </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <span
@@ -139,10 +140,11 @@
                                                 <a href="{{ route('admin.products.edit', $product) }}"
                                                     class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">Review</a>
                                                 <button type="button" @click="$dispatch('open-delete-modal', { 
-                                                action: '{{ route('admin.products.destroy', $product) }}', 
-                                                title: 'Delete Product', 
-                                                message: 'Are you sure you want to delete the product &quot;{{ $product->name }}&quot;? This action cannot be undone.' 
-                                            })" class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">
+                                                    action: '{{ route('admin.products.destroy', $product) }}', 
+                                                    title: 'Delete Product', 
+                                                    message: 'Are you sure you want to delete the product &quot;{{ $product->name }}&quot;? This action cannot be undone.' 
+                                                })"
+                                                    class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">
                                                     Delete
                                                 </button>
                                             </div>
