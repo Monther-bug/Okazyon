@@ -3,51 +3,50 @@
 namespace Database\Seeders;
 
 use App\Models\Banner;
+use Database\Seeders\Traits\HasSeedImages;
 use Illuminate\Database\Seeder;
 
 class BannerSeeder extends Seeder
 {
+    use HasSeedImages;
+
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        // Create 5 banners with images
-        Banner::factory()->active()->create([
-            'title' => 'Special Holiday Sale - Up to 70% Off!',
-            'subtitle' => 'Shop now and enjoy massive discounts on all categories',
-            'image' => 'https://picsum.photos/1200/400?random=1',
-            'link' => null,
-        ]);
+        $banners = [
+            [
+                'title' => 'Big Summer Sale',
+                'subtitle' => 'Up into 50% Off Fashion Items',
+                'image' => 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=1200',
+                'link' => '/category/fashion',
+            ],
+            [
+                'title' => 'Fresh Food Deals',
+                'subtitle' => 'Get the best organic surplus food',
+                'image' => 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=1200',
+                'link' => '/category/food',
+            ],
+            [
+                'title' => 'Modern Furniture',
+                'subtitle' => 'Upgrade your home for less',
+                'image' => 'https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&q=80&w=1200',
+                'link' => '/category/furniture',
+            ],
+        ];
 
-        Banner::factory()->create([
-            'title' => 'Summer Collection - New Arrivals',
-            'subtitle' => 'Discover the latest trends and styles',
-            'image' => 'https://picsum.photos/1200/400?random=2',
-            'link' => null,
-        ]);
+        foreach ($banners as $banner) {
+            // Cache locally
+            $this->getLocalImage($banner['image']);
 
-        Banner::factory()->create([
-            'title' => 'Flash Deal - Limited Time Only',
-            'subtitle' => 'Don\'t miss out on these incredible savings',
-            'image' => 'https://picsum.photos/1200/400?random=3',
-            'link' => null,
-        ]);
-
-        Banner::factory()->create([
-            'title' => 'Weekend Special Offers',
-            'subtitle' => 'Free shipping on orders over $50',
-            'image' => 'https://picsum.photos/1200/400?random=4',
-            'link' => null,
-        ]);
-
-        Banner::factory()->create([
-            'title' => 'Buy 2 Get 1 Free',
-            'subtitle' => 'Limited stock available - order today',
-            'image' => 'https://picsum.photos/1200/400?random=5',
-            'link' => null,
-        ]);
-
-        $this->command->info('✅ Created 5 banners (1 active) with images');
+            Banner::create([
+                'title' => $banner['title'],
+                'subtitle' => $banner['subtitle'],
+                'image' => $banner['image'],
+                'link' => $banner['link'],
+                'is_active' => true,
+            ]);
+        }
     }
 }
