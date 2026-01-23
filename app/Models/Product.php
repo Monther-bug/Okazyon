@@ -25,6 +25,7 @@ class Product extends Model implements HasMedia
         'description',
         'price',
         'discounted_price',
+        'image_url',
         'status',
         'is_featured',
         'expiration_date',
