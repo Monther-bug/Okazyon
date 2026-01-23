@@ -3,10 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Utility\Enums\UserStatusEnum;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
@@ -15,39 +14,57 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create Admin User
-        $admin = User::create([
-            'first_name' => 'Admin',
-            'last_name' => 'Monther',
-            'phone_number' => '0916880943',
-            'date_of_birth' => '1990-01-01',
-            'gender' => 'male',
-            'password' => Hash::make('password'),
-            'type' => 'admin',
-            'status' => UserStatusEnum::ACTIVE,
-        ]);
+        $password = Hash::make('password');
+
+        // 1. Admin (Phone only)
+        $admin = User::firstOrCreate(
+            ['phone_number' => '0916880943'],
+            [
+                'first_name' => 'Monther',
+                'last_name' => 'ibrahim',
+                'password' => $password,
+                'email' => null,
+                'is_verified' => true,
+            ]
+        );
         $admin->assignRole('admin');
 
-        // Create Seller User
-        $seller = User::create([
-            'first_name' => 'Monther',
-            'last_name' => 'User',
-            'phone_number' => '0913519105',
-            'date_of_birth' => '1992-05-15',
-            'gender' => 'male',
-            'password' => Hash::make('password'),
-            'type' => 'seller',
-            'status' => UserStatusEnum::ACTIVE,
-        ]);
-        $seller->assignRole('seller');
+        // 2. Demo Seller
+        $demoSeller = User::firstOrCreate(
+            ['phone_number' => '0910000000'],
+            [
+                'first_name' => 'Pro Style',
+                'last_name' => 'Boutique',
+                'password' => $password,
+                'email' => 'seller@okazyon.com',
+                'is_verified' => true,
+                // Ensure unique phone or leave null if allowed/handled logic
+                // 'phone_number' => '...', 
+            ]
+        );
+        $demoSeller->assignRole('seller');
 
-        // Create 20 Random Customers
-        User::factory()->count(20)->create();
+        // 3. Demo Buyer
+        $buyer = User::firstOrCreate(
+            ['phone_number' => '0911111111'],
+            [
+                'first_name' => 'John',
+                'last_name' => 'Doe',
+                'password' => $password,
+                'email' => 'user@okazyon.com',
+                'is_verified' => true,
+            ]
+        );
+        $buyer->assignRole('user');
 
-        $this->command->info('Created users:');
-        $this->command->info('- Admin: 0916880943 / password: password');
-        $this->command->info('- Seller: 0913519105 / password: password');
-        $this->command->info('- Plus 20 random customers');
-        $this->command->info('Total: ' . User::count() . ' users');
+        // 4. Random Sellers
+        User::factory(5)->create()->each(function ($user) {
+            $user->assignRole('seller');
+        });
+
+        // 5. Random Buyers
+        User::factory(10)->create()->each(function ($user) {
+            $user->assignRole('user');
+        });
     }
 }
