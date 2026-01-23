@@ -10,11 +10,87 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = \Illuminate\Support\Facades\Auth::user()->products()->latest()->paginate(10);
-        $categories = \App\Models\Category::all(); // Needed for the Add Product modal
+        $query = \Illuminate\Support\Facades\Auth::user()->products();
+
+        // Search by name or description
+        if ($request->filled('search')) {
+            $searchTerm = $request->search;
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('name', 'like', "%{$searchTerm}%")
+                    ->orWhere('description', 'like', "%{$searchTerm}%");
+            });
+        }
+
+        // Filter by category
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->category);
+        }
+
+        // Filter by status
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        $products = $query->latest()->paginate(10)->withQueryString();
+        $categories = \App\Models\Category::all();
+
         return view('seller.products.index', compact('products', 'categories'));
+    }
+
+    public function export(Request $request)
+    {
+        $query = \Illuminate\Support\Facades\Auth::user()->products();
+
+        // Apply same filters for export
+        if ($request->filled('search')) {
+            $searchTerm = $request->search;
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('name', 'like', "%{$searchTerm}%")
+                    ->orWhere('description', 'like', "%{$searchTerm}%");
+            });
+        }
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->category);
+        }
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        $products = $query->get();
+
+        $filename = "products_export_" . date('Y-m-d') . ".csv";
+        $headers = [
+            "Content-type" => "text/csv",
+            "Content-Disposition" => "attachment; filename=$filename",
+            "Pragma" => "no-cache",
+            "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+            "Expires" => "0"
+        ];
+
+        $columns = ['ID', 'Name', 'Category', 'Price', 'Discounted Price', 'Status', 'Created At'];
+
+        $callback = function () use ($products, $columns) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+
+            foreach ($products as $product) {
+                fputcsv($file, [
+                    $product->id,
+                    $product->name,
+                    $product->category->name ?? 'Uncategorized',
+                    $product->price,
+                    $product->discounted_price,
+                    $product->status,
+                    $product->created_at
+                ]);
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
     }
 
     /**
