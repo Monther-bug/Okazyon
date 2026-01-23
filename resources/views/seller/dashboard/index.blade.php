@@ -14,7 +14,7 @@
                     <div class="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                         <div class="max-w-2xl">
                             <h1 class="text-3xl md:text-4xl font-bold mb-2" style="color: white; line-height: 1.2;">
-                                Welcome back, {{ auth()->user()->name }}! 👋
+                                Welcome back, {{ auth()->user()->name }}!
                             </h1>
                             <p class="text-base opacity-90" style="color: rgba(255, 255, 255, 0.9);">
                                 Here's what's happening with your store in <span
@@ -37,90 +37,127 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
 
                     <!-- Revenue Card -->
-                    <div class="group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 animate-fade-in-up"
-                        style="background: white; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); animation-delay: 0.1s; animation-fill-mode: backwards;">
+                    <div class="group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 animate-fade-in-up bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800"
+                        style="box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); animation-delay: 0.1s; animation-fill-mode: backwards;">
 
                         <div class="flex items-start justify-between mb-5">
                             <div class="rounded-xl p-3"
                                 style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
-                                <svg class="h-6 w-6" style="color: white;" fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                <!-- Iconax: Money Receive -->
+                                <svg class="h-6 w-6" style="color: white;" viewBox="0 0 24 24" fill="none">
+                                    <path
+                                        d="M9.5 13.75C9.5 14.72 10.25 15.5 11.17 15.5H13.05C13.85 15.5 14.5 14.82 14.5 13.97C14.5 13.06 14.1 12.73 13.51 12.52L10.5 11.47C9.91 11.26 9.51001 10.94 9.51001 10.02C9.51001 9.17999 10.16 8.48999 10.96 8.48999H12.84C13.76 8.48999 14.51 9.26999 14.51 10.24"
+                                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path d="M12 7.5V16.5" stroke="currentColor" stroke-width="1.5"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2"
+                                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path d="M17 3V7H21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path d="M22 2L17 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
                                 </svg>
                             </div>
                             <!-- Trends can be calculated later -->
                         </div>
 
                         <div>
-                            <p class="text-sm font-medium mb-1" style="color: #6b7280;">Total Revenue</p>
-                            <p class="text-3xl font-bold tracking-tight" style="color: #111827;">
+                            <p class="text-sm font-medium mb-1 text-gray-500 dark:text-gray-400">Total Revenue</p>
+                            <p class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
                                 ${{ number_format($totalRevenue, 2) }}</p>
                         </div>
                     </div>
 
                     <!-- Orders Card -->
-                    <div class="group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 animate-fade-in-up"
-                        style="background: white; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); animation-delay: 0.2s; animation-fill-mode: backwards;">
+                    <div class="group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 animate-fade-in-up bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800"
+                        style="box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); animation-delay: 0.2s; animation-fill-mode: backwards;">
 
                         <div class="flex items-start justify-between mb-5">
                             <div class="rounded-xl p-3"
                                 style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
-                                <svg class="h-6 w-6" style="color: white;" fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                                <!-- Iconax: Shopping Bag -->
+                                <svg class="h-6 w-6" style="color: white;" viewBox="0 0 24 24" fill="none">
+                                    <path
+                                        d="M7.5 7.67001V6.70001C7.5 4.45001 9.31 2.24001 11.56 2.03001C14.24 1.77001 16.5 3.88001 16.5 6.51001V7.89001"
+                                        stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                    <path
+                                        d="M9.00001 22H15C19.02 22 19.74 20.39 19.95 18.43L20.7 12.43C20.97 9.99 20.27 8 16 8H8.00001C3.73001 8 3.03001 9.99 3.30001 12.43L4.05001 18.43C4.26001 20.39 4.98001 22 9.00001 22Z"
+                                        stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M15.4955 12H15.5045" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M8.49451 12H8.50349" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
                             </div>
                         </div>
 
                         <div>
-                            <p class="text-sm font-medium mb-1" style="color: #6b7280;">Total Orders</p>
-                            <p class="text-3xl font-bold tracking-tight" style="color: #111827;">{{ $totalOrders }}</p>
+                            <p class="text-sm font-medium mb-1 text-gray-500 dark:text-gray-400">Total Orders</p>
+                            <p class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                {{ $totalOrders }}
+                            </p>
                         </div>
                     </div>
 
                     <!-- Products Card -->
-                    <div class="group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 animate-fade-in-up"
-                        style="background: white; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); animation-delay: 0.3s; animation-fill-mode: backwards;">
+                    <div class="group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 animate-fade-in-up bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800"
+                        style="box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); animation-delay: 0.3s; animation-fill-mode: backwards;">
 
                         <div class="flex items-start justify-between mb-5">
                             <div class="rounded-xl p-3"
                                 style="background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);">
-                                <svg class="h-6 w-6" style="color: white;" fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                                <!-- Iconax: 3D Box -->
+                                <svg class="h-6 w-6" style="color: white;" viewBox="0 0 24 24" fill="none">
+                                    <path d="M3.16992 7.44L11.9999 12.55L20.7699 7.47" stroke="currentColor"
+                                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M12 21.61V12.54" stroke="currentColor" stroke-width="1.5"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                    <path
+                                        d="M9.92999 2.48L4.58999 5.44C3.37999 6.11 2.38999 7.79 2.38999 9.17V14.82C2.38999 16.2 3.37999 17.88 4.58999 18.55L9.92999 21.52C11.07 22.15 12.94 22.15 14.08 21.52L19.42 18.55C20.63 17.88 21.62 16.2 21.62 14.82V9.17C21.62 7.79 20.63 6.11 19.42 5.44L14.08 2.47C12.93 1.84 11.07 1.84 9.92999 2.48Z"
+                                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path d="M17 13.24V9.58L7.51001 4.09998" stroke="currentColor" stroke-width="1.5"
+                                        stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
                             </div>
                         </div>
 
                         <div>
-                            <p class="text-sm font-medium mb-1" style="color: #6b7280;">Active Products</p>
-                            <p class="text-3xl font-bold tracking-tight" style="color: #111827;">{{ $totalProducts }}
+                            <p class="text-sm font-medium mb-1 text-gray-500 dark:text-gray-400">Active Products</p>
+                            <p class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                {{ $totalProducts }}
                             </p>
                         </div>
                     </div>
 
                     <!-- Pending Orders Card (Replaced Rating) -->
-                    <div class="group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 animate-fade-in-up"
-                        style="background: white; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); animation-delay: 0.4s; animation-fill-mode: backwards;">
+                    <div class="group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 animate-fade-in-up bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800"
+                        style="box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); animation-delay: 0.4s; animation-fill-mode: backwards;">
 
                         <div class="flex items-start justify-between mb-5">
                             <div class="rounded-xl p-3"
                                 style="background: linear-gradient(135deg, #fad0c4 0%, #ffd1ff 100%);">
-                                <svg class="h-6 w-6" style="color: #d946ef;" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd"
-                                        d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 001-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z"
-                                        clip-rule="evenodd"></path>
+                                <!-- Iconax: Clock -->
+                                <svg class="h-6 w-6" style="color: #d946ef;" viewBox="0 0 24 24" fill="none">
+                                    <path
+                                        d="M22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2C17.52 2 22 6.48 22 12Z"
+                                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path d="M15.71 15.18L12.61 13.33C12.07 13.01 11.63 12.24 11.63 11.61V7.51001"
+                                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
                                 </svg>
                             </div>
                         </div>
 
                         <div>
-                            <p class="text-sm font-medium mb-1" style="color: #6b7280;">Pending Orders</p>
+                            <p class="text-sm font-medium mb-1 text-gray-500 dark:text-gray-400">Pending Orders</p>
                             <div class="flex items-baseline gap-2">
-                                <p class="text-3xl font-bold tracking-tight" style="color: #111827;">
+                                <p class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
                                     {{ $pendingOrders }}
                                 </p>
                             </div>
@@ -132,13 +169,14 @@
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
                     <!-- Revenue Chart -->
-                    <div class="lg:col-span-2 rounded-2xl p-6 animate-fade-in-up"
-                        style="background: white; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); animation-delay: 0.5s; animation-fill-mode: backwards;">
+                    <div class="lg:col-span-2 rounded-2xl p-6 animate-fade-in-up bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800"
+                        style="box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); animation-delay: 0.5s; animation-fill-mode: backwards;">
 
                         <div class="flex items-center justify-between mb-6">
                             <div>
-                                <h3 class="text-lg font-bold mb-1" style="color: #111827;">Revenue Analytics</h3>
-                                <p class="text-sm" style="color: #6b7280;">Monthly performance (Last 6 months)</p>
+                                <h3 class="text-lg font-bold mb-1 text-gray-900 dark:text-white">Revenue Analytics</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Monthly performance (Last 6 months)
+                                </p>
                             </div>
                         </div>
 
@@ -162,7 +200,7 @@
                                         </div>
                                     </div>
                                     <!-- Bar -->
-                                    <div class="relative h-full rounded-t-lg overflow-hidden" style="background: #f3f4f6;">
+                                    <div class="relative h-full rounded-t-lg overflow-hidden bg-gray-100 dark:bg-gray-800">
                                         <div class="absolute bottom-0 w-full rounded-t-lg transition-all duration-500 group-hover:opacity-80"
                                             style="height: {{ $heightPercentage }}%; background: linear-gradient(to top, #ef4444, #f87171);">
                                         </div>
@@ -176,39 +214,39 @@
                     </div>
 
                     <!-- Recent Orders -->
-                    <div class="rounded-2xl p-6 animate-fade-in-up"
-                        style="background: white; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); animation-delay: 0.6s; animation-fill-mode: backwards;">
+                    <div class="rounded-2xl p-6 animate-fade-in-up bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800"
+                        style="box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); animation-delay: 0.6s; animation-fill-mode: backwards;">
 
                         <div class="flex items-center justify-between mb-6">
-                            <h3 class="text-lg font-bold" style="color: #111827;">Recent Orders</h3>
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white">Recent Orders</h3>
                             <a href="{{ route('seller.orders.index') }}"
-                                class="text-sm font-semibold transition-colors hover:underline" style="color: #ef4444;">
+                                class="text-sm font-semibold transition-colors hover:underline text-red-600 dark:text-red-400">
                                 View All →
                             </a>
                         </div>
 
                         <div class="space-y-3">
                             @forelse($recentOrders ?? [] as $order)
-                                                    <div class="flex items-center gap-3 p-3.5 rounded-xl transition-all hover:scale-[1.02]"
-                                                        style="background: #f9fafb; border: 1px solid transparent;"
-                                                        onmouseover="this.style.borderColor='#e5e7eb'; this.style.background='white';"
-                                                        onmouseout="this.style.borderColor='transparent'; this.style.background='#f9fafb';">
+                                                    <div class="flex items-center gap-3 p-3.5 rounded-xl transition-all hover:scale-[1.02] bg-gray-50 dark:bg-gray-800/50 border border-transparent hover:border-gray-200 dark:hover:border-gray-700 hover:bg-white dark:hover:bg-gray-800"
+                                                        onclick="window.location='{{ route('seller.orders.show', $order) }}'"
+                                                        style="cursor: pointer;">
 
                                                         <div
                                                             class="h-10 w-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-500 dark:text-slate-300 font-bold text-xs">
-                                                            {{ substr($order->buyer?->name ?? 'G', 0, 1) }}
+                                                            {{ substr(($order->buyer->name ?? 'Guest'), 0, 1) }}
                                                         </div>
                                                         <div class="flex-1 min-w-0">
                                                             <p class="text-sm font-medium text-slate-900 dark:text-white truncate">
-                                                                {{ $order->buyer?->name ?? 'Guest User' }}
+                                                                {{ $order->buyer->name ?? 'Guest User' }}
                                                             </p>
                                                             <p class="text-xs text-slate-500 dark:text-slate-400 truncate">
-                                                                Order #{{ $order->id }} &bull; {{ $order->created_at->diffForHumans() }}
+                                                                Order #{{ $order->id ?? 'N/A' }} &bull;
+                                                                {{ $order->created_at?->diffForHumans() ?? 'Just now' }}
                                                             </p>
                                                         </div>
 
                                                         <div class="text-right">
-                                                            <p class="text-sm font-bold mb-1" style="color: #111827;">
+                                                            <p class="text-sm font-bold mb-1 text-gray-900 dark:text-white">
                                                                 ${{ number_format($order->total_amount, 2) }}
                                                             </p>
                                                             <span class="inline-block rounded-md px-2 py-0.5 text-[10px] font-bold uppercase"
@@ -221,15 +259,15 @@
                                                     </div>
                             @empty
                                 <div class="flex flex-col items-center justify-center py-12 text-center">
-                                    <div class="rounded-full p-4 mb-3" style="background: #f3f4f6;">
-                                        <svg class="h-6 w-6" style="color: #9ca3af;" fill="none" viewBox="0 0 24 24"
-                                            stroke="currentColor">
+                                    <div class="rounded-full p-4 mb-3 bg-gray-100 dark:bg-gray-800">
+                                        <svg class="h-6 w-6 text-gray-400 dark:text-gray-500" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                                         </svg>
                                     </div>
-                                    <p class="text-sm font-medium mb-1" style="color: #6b7280;">No orders yet</p>
-                                    <p class="text-xs" style="color: #9ca3af;">New orders will appear here</p>
+                                    <p class="text-sm font-medium mb-1 text-gray-500 dark:text-gray-400">No orders yet</p>
+                                    <p class="text-xs text-gray-400 dark:text-gray-500">New orders will appear here</p>
                                 </div>
                             @endforelse
                         </div>

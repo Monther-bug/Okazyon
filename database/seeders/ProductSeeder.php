@@ -34,14 +34,29 @@ class ProductSeeder extends Seeder
             return;
         }
 
+        // Diverse Image Pool for Random Products
+        $randomImages = [
+            'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=800', // Watch
+            'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=800', // Headphones
+            'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=800', // Sneakers
+            'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&q=80&w=800', // Chair
+            'https://images.unsplash.com/photo-1584030373081-f37b7bb4fa8e?auto=format&fit=crop&q=80&w=800', // Scarf
+            'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&q=80&w=800', // Plant
+            'https://images.unsplash.com/photo-1610427670783-da83c6b22ebc?auto=format&fit=crop&q=80&w=800', // Table
+            'https://images.unsplash.com/photo-1534073828943-f801091a7d58?auto=format&fit=crop&q=80&w=800', // Lamp
+            'https://images.unsplash.com/photo-1589256469067-ea99122bb568?auto=format&fit=crop&q=80&w=800', // Speaker
+            'https://images.unsplash.com/photo-1544923246-77307dd654cb?auto=format&fit=crop&q=80&w=800', // Coat
+        ];
+
         foreach ($otherSellers as $seller) {
-            // Create 20 random products for each seller (Increased from 15)
+            // Create 20 random products for each seller
             Product::factory(20)->create([
                 'user_id' => $seller->id,
                 'category_id' => $categories->random()->id,
                 'status' => 'approved',
-                'image_url' => 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=800',
-            ])->each(function ($product) {
+                // Pick a random image from the pool
+                'image_url' => fn() => $randomImages[array_rand($randomImages)],
+            ])->each(function ($product) use ($randomImages) {
                 // Attach to Spatie Media Library using local cache
                 try {
                     $localPath = $this->getLocalImage($product->image_url);
@@ -53,11 +68,32 @@ class ProductSeeder extends Seeder
                 } catch (\Exception $e) {
                 }
 
-                // Add 4 secondary images (Increased from 2)
-                ProductImage::factory(4)->create([
-                    'product_id' => $product->id,
-                    'image_url' => 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=800',
-                ]);
+                // Add 4 secondary images (Randomly picked)
+                $extraImages = [];
+                for ($i = 0; $i < 4; $i++) {
+                    $extraImages[] = $randomImages[array_rand($randomImages)];
+                }
+
+                foreach ($extraImages as $imgUrl) {
+                    ProductImage::factory()->create([
+                        'product_id' => $product->id,
+                        'image_url' => $imgUrl,
+                    ]);
+
+                    // Ideally we should also cache/attach these extra images to media library
+                    // but for brevity in random loop we skip full media attach for secondary 
+                    // unless strictly needed. If user wants "storage" check, we should probably do it.
+                    // Let's attach them too to be safe.
+                    try {
+                        $localPath = $this->getLocalImage($imgUrl);
+                        if ($localPath) {
+                            $product->addMedia($localPath)
+                                ->preservingOriginal()
+                                ->toMediaCollection('images');
+                        }
+                    } catch (\Exception $e) {
+                    }
+                }
             });
         }
     }

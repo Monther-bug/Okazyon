@@ -3,8 +3,7 @@
     <x-slot:heading>Sign in to your account</x-slot:heading>
     <x-slot:subheading>
         Or <a href="{{ route('seller.register') }}"
-            class="font-medium text-red-600 hover:text-red-500 hover:underline transition-colors duration-200">start
-            your 14-day free trial</a>
+            class="font-medium text-red-600 hover:text-red-500 hover:underline transition-colors duration-200">Register</a>
     </x-slot:subheading>
 
     <form class="mt-8 space-y-6" action="{{ route('seller.login') }}" method="POST">

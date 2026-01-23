@@ -173,9 +173,9 @@
                         </p>
                     </div>
 
-                    <form method="POST" action="{{ route('seller.logout') }}">
+                    <form method="POST" action="{{ route('seller.logout') }}" id="seller-logout-form">
                         @csrf
-                        <button type="submit"
+                        <button type="button" onclick="confirmSellerLogout()"
                             class="p-2 text-gray-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-colors"
                             title="Logout">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -184,6 +184,31 @@
                             </svg>
                         </button>
                     </form>
+
+                    <script>
+                        function confirmSellerLogout() {
+                            Swal.fire({
+                                title: 'Logging Out?',
+                                text: "Are you sure you want to end your session?",
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#EF4444',
+                                cancelButtonColor: '#F3F4F6',
+                                confirmButtonText: 'Yes, Logout',
+                                cancelButtonText: 'Cancel',
+                                customClass: {
+                                    popup: 'dark:bg-slate-800 dark:text-white rounded-2xl',
+                                    title: 'dark:text-white',
+                                    htmlContainer: 'dark:text-slate-300',
+                                    cancelButton: 'text-gray-700 font-bold'
+                                }
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    document.getElementById('seller-logout-form').submit();
+                                }
+                            })
+                        }
+                    </script>
                 </div>
             </div>
         </aside>

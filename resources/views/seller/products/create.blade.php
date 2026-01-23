@@ -6,15 +6,15 @@
                 <!-- Breadcrumb / Header -->
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 animate-fade-in-up">
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900">
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
                             {{ isset($product) ? 'Edit Product' : 'Create New Product' }}
                         </h2>
-                        <p class="text-gray-500 text-sm mt-1">
+                        <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">
                             {{ isset($product) ? 'Update product details and inventory.' : 'Fill in the details to add a new item to your catalog.' }}
                         </p>
                     </div>
                     <a href="{{ route('seller.products.index') }}"
-                        class="inline-flex items-center text-gray-500 hover:text-gray-900 font-medium transition-colors">
+                        class="inline-flex items-center text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-medium transition-colors">
                         <svg class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -38,28 +38,32 @@
                         <div class="lg:col-span-2 space-y-6">
 
                             <!-- Basic Details Card -->
-                            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8">
-                                <h3 class="text-lg font-bold text-gray-900 mb-6 border-b border-gray-100 pb-4">Basic
+                            <div
+                                class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 sm:p-8">
+                                <h3
+                                    class="text-lg font-bold text-gray-900 dark:text-white mb-6 border-b border-gray-100 dark:border-gray-800 pb-4">
+                                    Basic
                                     Information</h3>
 
                                 <div class="space-y-6">
                                     <div>
-                                        <label for="name" class="block text-sm font-bold text-gray-900 mb-2">Product
+                                        <label for="name"
+                                            class="block text-sm font-bold text-gray-900 dark:text-white mb-2">Product
                                             Name</label>
                                         <input type="text" name="name" id="name" required
                                             value="{{ old('name', $product->name ?? '') }}"
                                             placeholder="e.g. Signature Leather Jacket"
-                                            class="block w-full rounded-xl border-gray-200 bg-gray-50 text-gray-900 focus:border-red-500 focus:ring-red-500 focus:bg-white transition-all py-3 px-4">
+                                            class="block w-full rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:border-red-500 dark:focus:border-red-500 focus:ring-red-500 dark:focus:ring-red-500 focus:bg-white dark:focus:bg-gray-900 transition-all py-3 px-4 shadow-sm">
                                         @error('name') <p class="mt-1 text-sm text-red-600 font-medium">{{ $message }}
                                         </p> @enderror
                                     </div>
 
                                     <div>
                                         <label for="description"
-                                            class="block text-sm font-bold text-gray-900 mb-2">Description</label>
+                                            class="block text-sm font-bold text-gray-900 dark:text-white mb-2">Description</label>
                                         <textarea name="description" id="description" rows="6" required
                                             placeholder="Detailed description of your product..."
-                                            class="block w-full rounded-xl border-gray-200 bg-gray-50 text-gray-900 focus:border-red-500 focus:ring-red-500 focus:bg-white transition-all py-3 px-4">{{ old('description', $product->description ?? '') }}</textarea>
+                                            class="block w-full rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:border-red-500 dark:focus:border-red-500 focus:ring-red-500 dark:focus:ring-red-500 focus:bg-white dark:focus:bg-gray-900 transition-all py-3 px-4 shadow-sm">{{ old('description', $product->description ?? '') }}</textarea>
                                         @error('description') <p class="mt-1 text-sm text-red-600 font-medium">
                                             {{ $message }}
                                         </p> @enderror
@@ -68,11 +72,13 @@
                             </div>
 
                             <!-- Images Card -->
-                            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8">
-                                <div class="flex items-center justify-between mb-6 border-b border-gray-100 pb-4">
-                                    <h3 class="text-lg font-bold text-gray-900">Product Media</h3>
+                            <div
+                                class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 sm:p-8">
+                                <div
+                                    class="flex items-center justify-between mb-6 border-b border-gray-100 dark:border-gray-800 pb-4">
+                                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">Product Media</h3>
                                     <span
-                                        class="text-xs font-semibold px-2.5 py-1 bg-gray-100 text-gray-600 rounded-lg">Max
+                                        class="text-xs font-semibold px-2.5 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-lg">Max
                                         5 Images</span>
                                 </div>
 
@@ -86,8 +92,8 @@
                                                     class="relative group w-32 h-32 rounded-xl overflow-hidden border border-gray-200 shadow-sm bg-gray-50">
                                                     <input type="hidden" name="existing_images[]"
                                                         value="{{ $imgModel->image_url }}">
-                                                    <img src="{{ \Illuminate\Support\Facades\Storage::url($imgModel->image_url) }}"
-                                                        alt="Product Image" class="w-full h-full object-cover">
+                                                    <img src="{{ $imgModel->display_url }}" alt="Product Image"
+                                                        class="w-full h-full object-cover">
 
                                                     <button type="button" onclick="this.closest('.relative').remove()"
                                                         class="absolute top-1 right-1 p-1.5 bg-red-500 rounded-full text-white shadow-sm hover:bg-red-600 transition-colors z-10"
@@ -107,23 +113,26 @@
                                 <!-- Upload Area -->
                                 <div class="space-y-4">
                                     <label for="images" id="drop-zone"
-                                        class="relative flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-gray-300 rounded-2xl cursor-pointer bg-gray-50 hover:bg-red-50 hover:border-red-400 transition-all group overflow-hidden">
+                                        class="relative flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-2xl cursor-pointer bg-gray-50 dark:bg-gray-800/50 hover:bg-red-50 dark:hover:bg-red-900/20 hover:border-red-400 dark:hover:border-red-500 transition-all group overflow-hidden">
                                         <div
                                             class="flex flex-col items-center justify-center pt-5 pb-6 text-center px-4 relative z-10">
                                             <div
-                                                class="w-12 h-12 bg-white rounded-full shadow-sm flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                                <svg class="w-6 h-6 text-gray-400 group-hover:text-red-500 transition-colors"
+                                                class="w-12 h-12 bg-white dark:bg-gray-900 rounded-full shadow-sm flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                                <svg class="w-6 h-6 text-gray-400 dark:text-gray-500 group-hover:text-red-500 dark:group-hover:text-red-400 transition-colors"
                                                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         stroke-width="2"
                                                         d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                                 </svg>
                                             </div>
-                                            <p class="mb-2 text-sm text-gray-500 font-medium group-hover:text-gray-700">
-                                                <span class="font-bold text-red-600">Click to upload</span> or drag and
+                                            <p
+                                                class="mb-2 text-sm text-gray-500 dark:text-gray-400 font-medium group-hover:text-gray-700 dark:group-hover:text-gray-200">
+                                                <span class="font-bold text-red-600 dark:text-red-400">Click to
+                                                    upload</span> or drag and
                                                 drop
                                             </p>
-                                            <p class="text-xs text-gray-400">PNG, JPG, GIF up to 2MB</p>
+                                            <p class="text-xs text-gray-400 dark:text-gray-500">PNG, JPG, GIF up to 2MB
+                                            </p>
                                         </div>
                                         <input id="images" name="images[]" type="file" class="hidden" multiple
                                             accept="image/*" onchange="handleFileSelect(this)" />
@@ -266,16 +275,17 @@
                         <div class="space-y-6">
 
                             <!-- Organization Card -->
-                            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-                                <h3 class="text-base font-bold text-gray-900 mb-4">Organization</h3>
+                            <div
+                                class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
+                                <h3 class="text-base font-bold text-gray-900 dark:text-white mb-4">Organization</h3>
 
                                 <div class="space-y-4">
                                     <div>
                                         <label for="category_id"
-                                            class="block text-sm font-bold text-gray-700 mb-2">Category</label>
+                                            class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Category</label>
                                         <div class="relative">
                                             <select name="category_id" id="category_id" required
-                                                class="block w-full rounded-xl border-gray-200 bg-gray-50 text-gray-900 focus:border-red-500 focus:ring-red-500 focus:bg-white transition-all py-3 px-4 appearance-none">
+                                                class="block w-full rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:border-red-500 dark:focus:border-red-500 focus:ring-red-500 dark:focus:ring-red-500 focus:bg-white dark:focus:bg-gray-900 transition-all py-3 px-4 appearance-none shadow-sm">
                                                 <option value="">Select Category</option>
                                                 @foreach($categories as $category)
                                                     <option value="{{ $category->id }}" {{ (old('category_id') == $category->id || (isset($product) && $product->category_id == $category->id)) ? 'selected' : '' }}>
@@ -302,21 +312,23 @@
                             </div>
 
                             <!-- Pricing Card -->
-                            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-                                <h3 class="text-base font-bold text-gray-900 mb-4">Pricing</h3>
+                            <div
+                                class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
+                                <h3 class="text-base font-bold text-gray-900 dark:text-white mb-4">Pricing</h3>
 
                                 <div class="space-y-4">
                                     <div>
-                                        <label for="price" class="block text-sm font-bold text-gray-700 mb-2">Regular
+                                        <label for="price"
+                                            class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Regular
                                             Price</label>
                                         <div class="relative rounded-xl shadow-sm">
                                             <div
                                                 class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
-                                                <span class="text-gray-500 font-bold">$</span>
+                                                <span class="text-gray-500 dark:text-gray-400 font-bold">$</span>
                                             </div>
                                             <input type="number" step="0.01" name="price" id="price" required
                                                 value="{{ old('price', $product->price ?? '') }}" placeholder="0.00"
-                                                class="block w-full rounded-xl border-gray-200 bg-gray-50 pl-10 text-gray-900 focus:border-red-500 focus:ring-red-500 focus:bg-white transition-all py-3">
+                                                class="block w-full rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 pl-10 text-gray-900 dark:text-white focus:border-red-500 dark:focus:border-red-500 focus:ring-red-500 dark:focus:ring-red-500 focus:bg-white dark:focus:bg-gray-900 transition-all py-3 shadow-sm">
                                         </div>
                                         @error('price') <p class="mt-1 text-sm text-red-600 font-medium">{{ $message }}
                                         </p> @enderror
@@ -324,17 +336,18 @@
 
                                     <div>
                                         <label for="discounted_price"
-                                            class="block text-sm font-bold text-gray-700 mb-2">Discount Price</label>
+                                            class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Discount
+                                            Price</label>
                                         <div class="relative rounded-xl shadow-sm">
                                             <div
                                                 class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
-                                                <span class="text-gray-500 font-bold">$</span>
+                                                <span class="text-gray-500 dark:text-gray-400 font-bold">$</span>
                                             </div>
                                             <input type="number" step="0.01" name="discounted_price"
                                                 id="discounted_price"
                                                 value="{{ old('discounted_price', $product->discounted_price ?? '') }}"
                                                 placeholder="0.00"
-                                                class="block w-full rounded-xl border-gray-200 bg-gray-50 pl-10 text-gray-900 focus:border-red-500 focus:ring-red-500 focus:bg-white transition-all py-3">
+                                                class="block w-full rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 pl-10 text-gray-900 dark:text-white focus:border-red-500 dark:focus:border-red-500 focus:ring-red-500 dark:focus:ring-red-500 focus:bg-white dark:focus:bg-gray-900 transition-all py-3 shadow-sm">
                                         </div>
                                         @error('discounted_price') <p class="mt-1 text-sm text-red-600 font-medium">
                                             {{ $message }}
@@ -360,12 +373,12 @@
 
                 <!-- Danger Zone (Delete) - Only in Edit Mode -->
                 @if(isset($product))
-                    <div class="mt-10 border-t border-gray-200 pt-10">
+                    <div class="mt-10 border-t border-gray-200 dark:border-gray-800 pt-10">
                         <div
-                            class="bg-red-50 rounded-2xl border border-red-100 p-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+                            class="bg-red-50 dark:bg-red-900/10 rounded-2xl border border-red-100 dark:border-red-900/30 p-6 flex flex-col sm:flex-row items-center justify-between gap-6">
                             <div>
-                                <h3 class="text-lg font-bold text-red-800">Delete Product</h3>
-                                <p class="text-red-600 text-sm mt-1">Once you delete this product, there is no going back.
+                                <h3 class="text-lg font-bold text-red-800 dark:text-red-400">Delete Product</h3>
+                                <p class="text-red-600 dark:text-red-500/80 text-sm mt-1">Once you delete this product, there is no going back.
                                     Please be certain.</p>
                             </div>
                             <form action="{{ route('seller.products.destroy', $product) }}" method="POST"
@@ -373,7 +386,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit"
-                                    class="px-6 py-2.5 bg-white border border-red-200 text-red-600 font-bold rounded-xl hover:bg-red-600 hover:text-white hover:border-red-600 transition-all shadow-sm">
+                                    class="px-6 py-2.5 bg-white dark:bg-gray-900 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 font-bold rounded-xl hover:bg-red-600 dark:hover:bg-red-600 hover:text-white dark:hover:text-white hover:border-red-600 dark:hover:border-red-600 transition-all shadow-sm">
                                     Delete Product
                                 </button>
                             </form>

@@ -43,7 +43,7 @@
                     class="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-xl shadow-gray-100/50 dark:shadow-black/20 overflow-hidden">
                     <div class="px-8 py-6 border-b border-gray-100 dark:border-gray-800">
                         <h3 class="font-bold text-lg text-gray-900 dark:text-white">Order Items</h3>
-                        <p class="text-sm text-gray-500">Products in this order from your store.</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Products in this order from your store.</p>
                     </div>
                     <div class="overflow-x-auto">
                         <table class="w-full text-left">
@@ -114,7 +114,8 @@
                         <div>
                             <p class="font-bold text-gray-900 dark:text-white">{{ $order->buyer->name ?? 'Unknown' }}
                             </p>
-                            <p class="text-sm text-gray-500">{{ $order->buyer->email ?? 'No email' }}</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">{{ $order->buyer->email ?? 'No email' }}
+                            </p>
                         </div>
                     </div>
 
@@ -140,7 +141,7 @@
                     <h3 class="font-bold text-lg text-gray-900 dark:text-white mb-4">Order Summary</h3>
                     <div class="space-y-3">
                         <div class="flex justify-between text-sm">
-                            <span class="text-gray-500">Order Placed</span>
+                            <span class="text-gray-500 dark:text-gray-400">Order Placed</span>
                             <span
                                 class="font-medium text-gray-900 dark:text-white">{{ $order->created_at->format('M d, Y H:i') }}</span>
                         </div>

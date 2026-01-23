@@ -24,6 +24,7 @@ class UserSeeder extends Seeder
                 'last_name' => 'ibrahim',
                 'password' => $password,
                 'email' => null,
+                'role' => 'admin', // Explicitly set role
                 'is_verified' => true,
             ]
         );
@@ -37,9 +38,8 @@ class UserSeeder extends Seeder
                 'last_name' => 'Boutique',
                 'password' => $password,
                 'email' => 'seller@okazyon.com',
+                'role' => 'seller', // Explicitly set role
                 'is_verified' => true,
-                // Ensure unique phone or leave null if allowed/handled logic
-                // 'phone_number' => '...', 
             ]
         );
         $demoSeller->assignRole('seller');
@@ -52,18 +52,19 @@ class UserSeeder extends Seeder
                 'last_name' => 'Doe',
                 'password' => $password,
                 'email' => 'user@okazyon.com',
+                'role' => 'buyer', // Explicitly set role (enum is buyer)
                 'is_verified' => true,
             ]
         );
-        $buyer->assignRole('user');
+        $buyer->assignRole('user'); // Spatie role is 'user'
 
         // 4. Random Sellers
-        User::factory(5)->create()->each(function ($user) {
+        User::factory(5)->create(['role' => 'seller'])->each(function ($user) {
             $user->assignRole('seller');
         });
 
         // 5. Random Buyers
-        User::factory(10)->create()->each(function ($user) {
+        User::factory(10)->create(['role' => 'buyer'])->each(function ($user) {
             $user->assignRole('user');
         });
     }
