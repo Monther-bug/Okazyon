@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
         // Admin
         $admin = User::create([
             'first_name' => 'منذر',
-            'last_name' => 'على',
+            'last_name' => '',
             'email' => 'admin@okazyon.com',
             'phone_number' => '0916880943',
             'password' => Hash::make('password'),
@@ -31,10 +31,10 @@ class UserSeeder extends Seeder
 
         // Main Demo Seller
         $seller = User::create([
-            'first_name' => 'برو ستايل',
+            'first_name' => 'منذر',
             'last_name' => 'بوتيك',
             'email' => 'seller@okazyon.com',
-            'phone_number' => '+201000000002',
+            'phone_number' => '0913519105',
             'password' => Hash::make('password'),
             'type' => 'seller',
             'status' => UserStatusEnum::ACTIVE,

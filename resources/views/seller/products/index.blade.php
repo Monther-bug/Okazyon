@@ -47,13 +47,31 @@
                             </svg>
                         </div>
                         <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">No products yet</h3>
-                        <p class="text-gray-500 dark:text-gray-400 max-w-sm mx-auto">
-                            Your inventory is empty. Use the "Add Product" button above to get started.
+                        <p class="text-gray-500 dark:text-gray-400 max-w-sm mx-auto mb-6">
+                            Your inventory is empty. Use the "Add Product" button to get started.
                         </p>
+                        <a href="{{ route('seller.products.create') }}"
+                           class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl transition-all shadow-sm hover:shadow-md flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                            </svg>
+                            Add Product
+                        </a>
                     </div>
                 @else
 
-                    <!-- Search, Filter & Export Bar -->
+                    <!-- Header with Add Product Button -->
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Your Products</h2>
+                        <a href="{{ route('seller.products.create') }}"
+                           class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl transition-all shadow-sm hover:shadow-md flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                            </svg>
+                            Add Product
+                        </a>
+                    </div>
+
                     <!-- Search, Filter & Export Bar -->
                     <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 mb-8 animate-fade-in-up">
                         <form method="GET" action="{{ route('seller.products.index') }}" class="flex flex-col sm:flex-row items-center gap-4">
