@@ -3,60 +3,60 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use Database\Seeders\Traits\HasSeedImages;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class CategorySeeder extends Seeder
 {
+    use HasSeedImages;
+
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
         $categories = [
-            // Food categories
             [
-                'name' => 'Fresh Produce',
+                'name' => 'Fashion',
+                'type' => 'goods',
+                'image' => 'https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&q=80&w=800',
+            ],
+            [
+                'name' => 'Furniture',
+                'type' => 'goods',
+                'image' => 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=800',
+            ],
+            [
+                'name' => 'Food & Dining',
                 'type' => 'food',
-                'image' => 'https://picsum.photos/400/400?random=101',
-                'is_active' => true,
+                'image' => 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&q=80&w=800',
             ],
             [
-                'name' => 'Dairy Products',
-                'type' => 'food',
-                'image' => 'https://picsum.photos/400/400?random=102',
-                'is_active' => true,
+                'name' => 'Sports',
+                'type' => 'goods',
+                'image' => 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&q=80&w=800',
             ],
             [
-                'name' => 'Fast Food',
-                'type' => 'food',
-                'image' => 'https://picsum.photos/400/400?random=103',
-                'is_active' => true,
-            ],
-            // Clothing categories
-            [
-                'name' => 'Men\'s Fashion',
-                'type' => 'clothes',
-                'image' => 'https://picsum.photos/400/400?random=104',
-                'is_active' => true,
-            ],
-            [
-                'name' => 'Women\'s Fashion',
-                'type' => 'clothes',
-                'image' => 'https://picsum.photos/400/400?random=105',
-                'is_active' => true,
-            ],
-            [
-                'name' => 'Kids\' Wear',
-                'type' => 'clothes',
-                'image' => 'https://picsum.photos/400/400?random=106',
-                'is_active' => true,
+                'name' => 'Books',
+                'type' => 'goods',
+                'image' => 'https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&q=80&w=800',
             ],
         ];
 
-        foreach ($categories as $category) {
-            Category::create($category);
-        }
+        foreach ($categories as $cat) {
+            // Cache locally
+            $this->getLocalImage($cat['image']);
 
-        $this->command->info('✅ Created ' . count($categories) . ' categories with images');
+            Category::updateOrCreate(
+                ['name' => $cat['name']],
+                [
+                    'slug' => Str::slug($cat['name']),
+                    'type' => $cat['type'],
+                    'image' => $cat['image'],
+                    'is_active' => true,
+                ]
+            );
+        }
     }
 }
