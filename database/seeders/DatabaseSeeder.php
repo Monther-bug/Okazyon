@@ -15,13 +15,8 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             CategorySeeder::class,
-            BannerSeeder::class,
             ProductSeeder::class,
-            NotificationSeeder::class,
-            FcmTokenSeeder::class,
+            BannerSeeder::class,
         ]);
-
-        $this->command->info('🎉 Database seeding completed successfully!');
-
     }
 }
