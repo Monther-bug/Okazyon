@@ -128,9 +128,17 @@
                         </div>
                         <div>
                             <p class="text-xs font-bold uppercase text-gray-400 mb-1">Delivery Address</p>
-                            <p class="text-sm font-medium text-gray-700 dark:text-gray-300 leading-relaxed">
-                                {{ $order->delivery_address ?? 'No address provided' }}
-                            </p>
+                            @if($order->delivery_address)
+                                <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($order->delivery_address) }}"
+                                    target="_blank"
+                                    class="text-sm font-medium text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 leading-relaxed underline">
+                                    {{ $order->delivery_address }}
+                                </a>
+                            @else
+                                <p class="text-sm font-medium text-gray-700 dark:text-gray-300 leading-relaxed">
+                                    No address provided
+                                </p>
+                            @endif
                         </div>
                     </div>
                 </div>

@@ -130,7 +130,11 @@
                         <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Delivery Address</h3>
                         <div class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
                             @if($order->delivery_address)
-                                {{ $order->delivery_address }}
+                                <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($order->delivery_address) }}"
+                                    target="_blank"
+                                    class="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 underline">
+                                    {{ $order->delivery_address }}
+                                </a>
                             @else
                                 <span class="italic text-slate-400">No delivery address provided.</span>
                             @endif
