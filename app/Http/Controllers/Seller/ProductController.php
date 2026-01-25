@@ -118,6 +118,13 @@ class ProductController extends Controller
             'status' => 'nullable|string|in:approved,pending',
         ]);
 
+        \Illuminate\Support\Facades\Log::info('Product Store Request Data:', $request->except('images'));
+        if ($request->hasFile('images')) {
+            \Illuminate\Support\Facades\Log::info('Product Store Images Found:', ['count' => count($request->file('images'))]);
+        } else {
+            \Illuminate\Support\Facades\Log::info('Product Store NO Images Found');
+        }
+
         $imagePaths = [];
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {

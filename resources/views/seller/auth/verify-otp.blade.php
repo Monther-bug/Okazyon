@@ -1,8 +1,8 @@
 <x-layouts.seller-auth>
-    <x-slot:title>Verify OTP</x-slot:title>
-    <x-slot:heading>Verify Your Phone</x-slot:heading>
+    <x-slot:title>{{ __('seller_auth.verify_title') }}</x-slot:title>
+    <x-slot:heading>{{ __('seller_auth.verify_heading') }}</x-slot:heading>
     <x-slot:subheading>
-        We sent a 6-digit code to <span class="font-bold text-gray-900">{{ $phone_number }}</span>
+        {!! __('seller_auth.verify_desc', ['phone' => $phone_number]) !!}
     </x-slot:subheading>
 
     <div x-data="{
@@ -53,8 +53,9 @@
 
             <div class="space-y-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 sr-only">OTP Code</label>
-                    <div class="flex justify-center gap-2">
+                    <label
+                        class="block text-sm font-medium text-gray-700 sr-only">{{ __('seller_auth.otp_label') }}</label>
+                    <div class="flex justify-center gap-2" dir="ltr">
                         @for ($i = 0; $i < 6; $i++)
                             <input type="text" x-ref="input_{{ $i }}" x-model="otp[{{ $i }}]"
                                 @input="focusNext({{ $i }}); updateOtp()" @keydown.backspace="focusPrev({{ $i }})"
@@ -69,7 +70,7 @@
             <div class="mt-8">
                 <button type="submit"
                     class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-bold rounded-xl text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all duration-200 transform hover:scale-[1.02] shadow-lg">
-                    Verify Account
+                    {{ __('seller_auth.verify_account') }}
                 </button>
             </div>
         </form>
@@ -98,16 +99,16 @@
         <form action="{{ route('seller.verify-otp.resend') }}" method="POST" @submit="startTimer">
             @csrf
             <p class="text-sm text-gray-600">
-                Didn't receive the code?
+                {{ __('seller_auth.resend_question') }}
                 <template x-if="!showTimer">
                     <button type="submit"
                         class="font-medium text-red-600 hover:text-red-500 hover:underline transition-colors duration-200">
-                        Resend
+                        {{ __('seller_auth.resend_code') }}
                     </button>
                 </template>
                 <template x-if="showTimer">
                     <span class="font-medium text-gray-400 cursor-not-allowed">
-                        Resend in <span x-text="timeLeft"></span>s
+                        {{ __('seller_auth.resend_in') }} <span x-text="timeLeft"></span>s
                     </span>
                 </template>
             </p>

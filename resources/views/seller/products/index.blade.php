@@ -1,6 +1,6 @@
 <x-layouts.seller-dashboard>
-    <x-slot:title>Products</x-slot>
-        <x-slot:header>{{ __('Product Management') }}</x-slot>
+    <x-slot:title>{{ __('products.title') }}</x-slot>
+        <x-slot:header>{{ __('products.management') }}</x-slot>
 
             <div class="space-y-8 font-sans antialiased">
 
@@ -46,29 +46,29 @@
                                     d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">No products yet</h3>
-                        <p class="text-gray-500 dark:text-gray-400 max-w-sm mx-auto mb-6">
-                            Your inventory is empty. Use the "Add Product" button to get started.
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{{ __('products.no_products_found') }}</h3>
+                        <p class="text-gray-500 dark:text-gray-400 max-w-sm mx-auto mb-6 text-center">
+                            {{ __('products.empty_inventory') }}
                         </p>
                         <a href="{{ route('seller.products.create') }}"
                            class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl transition-all shadow-sm hover:shadow-md flex items-center gap-2">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                             </svg>
-                            Add Product
+                            {{ __('products.add_new') }}
                         </a>
                     </div>
                 @else
 
                     <!-- Header with Add Product Button -->
                     <div class="flex justify-between items-center mb-6">
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Your Products</h2>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">{{ __('products.your_products') }}</h2>
                         <a href="{{ route('seller.products.create') }}"
                            class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl transition-all shadow-sm hover:shadow-md flex items-center gap-2">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                             </svg>
-                            Add Product
+                            {{ __('products.add_new') }}
                         </a>
                     </div>
 
@@ -84,7 +84,7 @@
                                         </svg>
                                     </div>
                                     <input type="text" name="search" value="{{ request('search') }}" 
-                                        placeholder="Search by name or description..." 
+                                        placeholder="{{ __('products.search_placeholder') }}" 
                                         class="block w-full pl-11 pr-4 py-3 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-red-500/20 focus:border-red-500 transition-all shadow-sm">
                                 </div>
                             </div>
@@ -96,7 +96,7 @@
                                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
                                     </svg>
-                                    Search
+                                    {{ __('products.search') }}
                                 </button>
                                 
                                 <a href="{{ route('seller.products.export') }}" 
@@ -105,7 +105,7 @@
                                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                     </svg>
-                                    Export
+                                    {{ __('products.export') }}
                                 </a>
 
                                 @if(request('search'))
@@ -128,11 +128,11 @@
                             <table class="w-full text-left border-collapse">
                                 <thead>
                                     <tr class="bg-gray-50/50 dark:bg-gray-800/50 text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400 font-bold border-b border-gray-100 dark:border-gray-800">
-                                        <th class="px-6 py-4">Product</th>
-                                        <th class="px-6 py-4">Category</th>
-                                        <th class="px-6 py-4">Price</th>
-                                        <th class="px-6 py-4">Status</th>
-                                        <th class="px-6 py-4 text-right">Actions</th>
+                                        <th class="px-6 py-4">{{ __('products.product') }}</th>
+                                        <th class="px-6 py-4">{{ __('products.category') }}</th>
+                                        <th class="px-6 py-4">{{ __('products.price') }}</th>
+                                        <th class="px-6 py-4">{{ __('products.status') }}</th>
+                                        <th class="px-6 py-4 text-right">{{ __('products.actions') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
@@ -229,15 +229,15 @@
                                     const form = this.closest('form');
 
                                     Swal.fire({
-                                        title: '<span class="text-xl font-bold text-gray-900">Delete Product?</span>',
-                                        html: '<p class="text-gray-500 text-sm mt-2">This action cannot be undone. The product will be permanently removed.</p>',
+                                        title: '<span class="text-xl font-bold text-gray-900">{{ __('products.delete_confirm_title') }}</span>',
+                                        html: '<p class="text-gray-500 text-sm mt-2">{{ __('products.delete_confirm_message') }}</p>',
                                         icon: 'warning',
                                         iconColor: '#fee2e2',
                                         showCancelButton: true,
                                         confirmButtonColor: '#EF4444',
                                         cancelButtonColor: '#F3F4F6',
-                                        confirmButtonText: 'Yes, delete it',
-                                        cancelButtonText: 'Cancel',
+                                        confirmButtonText: '{{ __('products.delete') }}',
+                                        cancelButtonText: '{{ __('Cancel') }}',
                                         reverseButtons: true,
                                         focusCancel: true,
                                         buttonsStyling: false,

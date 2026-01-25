@@ -1,6 +1,6 @@
 <x-layouts.seller-dashboard>
-    <x-slot:title>Orders</x-slot>
-        <x-slot:header>Order Management</x-slot>
+    <x-slot:title>{{ __('orders.title') }}</x-slot>
+        <x-slot:header>{{ __('orders.title') }}</x-slot>
 
             <div class="min-h-[500px]">
 
@@ -20,7 +20,7 @@
                                     </svg>
                                 </div>
                                 <input type="text" name="search" value="{{ request('search') }}"
-                                    placeholder="Search by ID or customer name..."
+                                    placeholder="{{ __('orders.search_placeholder') }}"
                                     class="block w-full pl-11 pr-4 py-3 border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-red-500/20 focus:border-red-500 transition-all shadow-sm">
                             </div>
                         </div>
@@ -33,7 +33,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
                                 </svg>
-                                Search
+                                {{ __('products.search') }}
                             </button>
 
                             <a href="{{ route('seller.orders.export') }}"
@@ -43,7 +43,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                 </svg>
-                                Export
+                                {{ __('products.export') }}
                             </a>
 
                             @if(request('search'))
@@ -71,9 +71,9 @@
                                     d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">No orders yet</h3>
-                        <p class="text-gray-500 dark:text-gray-400 max-w-sm">You haven't received any orders for your
-                            products yet. Check back later!</p>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{{ __('orders.no_orders') }}</h3>
+                        <p class="text-gray-500 dark:text-gray-400 max-w-sm mx-auto text-center">
+                            {{ __('dashboard.waiting_for_orders') }}</p>
                     </div>
                 @else
                     <!-- Data Table -->
@@ -84,12 +84,12 @@
                                 <thead>
                                     <tr
                                         class="bg-gray-50/50 dark:bg-gray-800/50 text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400 font-bold border-b border-gray-100 dark:border-gray-800">
-                                        <th class="px-6 py-4">Order ID</th>
-                                        <th class="px-6 py-4">Customer</th>
-                                        <th class="px-6 py-4">Total Amount</th>
-                                        <th class="px-6 py-4">Status</th>
-                                        <th class="px-6 py-4">Date</th>
-                                        <th class="px-6 py-4 text-right">Actions</th>
+                                        <th class="px-6 py-4">{{ __('orders.id') }}</th>
+                                        <th class="px-6 py-4">{{ __('orders.customer') }}</th>
+                                        <th class="px-6 py-4">{{ __('orders.total') }}</th>
+                                        <th class="px-6 py-4">{{ __('orders.status') }}</th>
+                                        <th class="px-6 py-4">{{ __('orders.date') }}</th>
+                                        <th class="px-6 py-4 text-right">{{ __('orders.actions') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
@@ -102,7 +102,7 @@
                                             <td class="px-6 py-4">
                                                 <div class="flex flex-col">
                                                     <span
-                                                        class="font-medium text-gray-900 dark:text-white text-sm">{{ $order->buyer->name ?? 'Unknown User' }}</span>
+                                                        class="font-medium text-gray-900 dark:text-white text-sm">{{ $order->buyer->name ?? __('orders.unknown_user') }}</span>
                                                     <span class="text-xs text-gray-500">{{ $order->buyer->email ?? '' }}</span>
                                                 </div>
                                             </td>
@@ -118,7 +118,7 @@
                                                         'processing' => 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400',
                                                         default => 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400', // Pending
                                                     };
-                                                    $statusLabel = ucfirst($order->status);
+                                                    $statusLabel = __('orders.status_' . $order->status);
                                                 @endphp
                                                 <span
                                                     class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold {{ $statusClass }}">

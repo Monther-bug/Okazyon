@@ -1,6 +1,6 @@
 <x-layouts.seller-dashboard>
-    <x-slot:heading>Order #{{ $order->id }}</x-slot:heading>
-    <x-slot:subheading>Manage order status and view details.</x-slot:subheading>
+    <x-slot:heading>{{ __('orders.title') }} #{{ $order->id }}</x-slot:heading>
+    <x-slot:subheading>{{ __('orders.manage_status') }}</x-slot:subheading>
 
     <div class="space-y-8">
 
@@ -11,7 +11,7 @@
                 <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                 </svg>
-                Back to Orders
+                {{ __('orders.back_to_orders') }}
             </a>
 
             <form action="{{ route('seller.orders.update', $order) }}" method="POST" class="flex items-center gap-3">
@@ -20,11 +20,15 @@
                 <div class="relative">
                     <select name="status" onchange="this.form.submit()"
                         class="appearance-none pl-4 pr-10 py-2.5 rounded-xl border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm font-bold shadow-sm focus:border-red-500 focus:ring-red-500">
-                        <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>Pending</option>
-                        <option value="processing" {{ $order->status == 'processing' ? 'selected' : '' }}>Processing
+                        <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>
+                            {{ __('orders.status_pending') }}</option>
+                        <option value="processing" {{ $order->status == 'processing' ? 'selected' : '' }}>
+                            {{ __('orders.status_processing') }}
                         </option>
-                        <option value="delivered" {{ $order->status == 'delivered' ? 'selected' : '' }}>Delivered</option>
-                        <option value="cancelled" {{ $order->status == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+                        <option value="delivered" {{ $order->status == 'delivered' ? 'selected' : '' }}>
+                            {{ __('orders.status_delivered') }}</option>
+                        <option value="cancelled" {{ $order->status == 'cancelled' ? 'selected' : '' }}>
+                            {{ __('orders.status_cancelled') }}</option>
                     </select>
                     <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-gray-500">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -42,8 +46,8 @@
                 <div
                     class="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-xl shadow-gray-100/50 dark:shadow-black/20 overflow-hidden">
                     <div class="px-8 py-6 border-b border-gray-100 dark:border-gray-800">
-                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">Order Items</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">Products in this order from your store.</p>
+                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">{{ __('orders.order_items') }}</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">{{ __('orders.products_in_order') }}</p>
                     </div>
                     <div class="overflow-x-auto">
                         <table class="w-full text-left">
@@ -88,8 +92,8 @@
                             </tbody>
                             <tfoot class="bg-gray-50 dark:bg-gray-900/50">
                                 <tr>
-                                    <td class="px-8 py-4 font-bold text-gray-700 dark:text-gray-300 text-right">Your
-                                        Subtotal</td>
+                                    <td class="px-8 py-4 font-bold text-gray-700 dark:text-gray-300 text-right">
+                                        {{ __('orders.subtotal') }}</td>
                                     <td class="px-8 py-4 font-bold text-xl text-red-600 dark:text-red-400 text-right">
                                         ${{ number_format($sellerItems->sum(fn($i) => $i->price * $i->quantity), 2) }}
                                     </td>
@@ -105,7 +109,8 @@
                 <!-- Customer Info -->
                 <div
                     class="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-xl shadow-gray-100/50 dark:shadow-black/20 p-6">
-                    <h3 class="font-bold text-lg text-gray-900 dark:text-white mb-4">Customer Details</h3>
+                    <h3 class="font-bold text-lg text-gray-900 dark:text-white mb-4">{{ __('orders.customer_details') }}
+                    </h3>
                     <div class="flex items-center gap-4 mb-6">
                         <div
                             class="h-12 w-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 font-bold text-lg">
@@ -121,13 +126,15 @@
 
                     <div class="space-y-4 pt-4 border-t border-gray-100 dark:border-gray-800">
                         <div>
-                            <p class="text-xs font-bold uppercase text-gray-400 mb-1">Phone Number</p>
+                            <p class="text-xs font-bold uppercase text-gray-400 mb-1">{{ __('orders.phone_number') }}
+                            </p>
                             <p class="text-sm font-medium text-gray-700 dark:text-gray-300">
                                 {{ $order->buyer->phone_number ?? 'N/A' }}
                             </p>
                         </div>
                         <div>
-                            <p class="text-xs font-bold uppercase text-gray-400 mb-1">Delivery Address</p>
+                            <p class="text-xs font-bold uppercase text-gray-400 mb-1">
+                                {{ __('orders.delivery_address') }}</p>
                             @if($order->delivery_address)
                                 <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($order->delivery_address) }}"
                                     target="_blank"
@@ -146,22 +153,24 @@
                 <!-- Order Summary -->
                 <div
                     class="bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-xl shadow-gray-100/50 dark:shadow-black/20 p-6">
-                    <h3 class="font-bold text-lg text-gray-900 dark:text-white mb-4">Order Summary</h3>
+                    <h3 class="font-bold text-lg text-gray-900 dark:text-white mb-4">{{ __('orders.order_summary') }}
+                    </h3>
                     <div class="space-y-3">
                         <div class="flex justify-between text-sm">
-                            <span class="text-gray-500 dark:text-gray-400">Order Placed</span>
+                            <span class="text-gray-500 dark:text-gray-400">{{ __('orders.order_placed') }}</span>
                             <span
                                 class="font-medium text-gray-900 dark:text-white">{{ $order->created_at->format('M d, Y H:i') }}</span>
                         </div>
                         <div
                             class="flex justify-between items-center pt-4 border-t border-gray-100 dark:border-gray-700">
-                            <span class="text-base font-bold text-gray-900 dark:text-white">Total Amount</span>
+                            <span
+                                class="text-base font-bold text-gray-900 dark:text-white">{{ __('orders.total_amount') }}</span>
                             <span
                                 class="text-xl font-bold text-gray-900 dark:text-white">${{ number_format((float) $order->total_amount, 2) }}</span>
                         </div>
                         <div class="pt-3 border-t border-gray-100 dark:border-gray-800 mt-3">
                             <p class="text-xs text-gray-400 text-center">
-                                This total represents the entire order value, including items from other sellers.
+                                {{ __('orders.total_note') }}
                             </p>
                         </div>
                     </div>

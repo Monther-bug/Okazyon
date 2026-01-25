@@ -7,10 +7,10 @@
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 animate-fade-in-up">
                     <div>
                         <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
-                            {{ isset($product) ? 'Edit Product' : 'Create New Product' }}
+                            {{ isset($product) ? __('products_form.edit_title') : __('products_form.create_title') }}
                         </h2>
                         <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">
-                            {{ isset($product) ? 'Update product details and inventory.' : 'Fill in the details to add a new item to your catalog.' }}
+                            {{ isset($product) ? __('products_form.edit_desc') : __('products_form.create_desc') }}
                         </p>
                     </div>
                     <a href="{{ route('seller.products.index') }}"
@@ -19,7 +19,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                         </svg>
-                        Back to Inventory
+                        {{ __('orders.back') }}
                     </a>
                 </div>
 
@@ -42,17 +42,16 @@
                                 class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 sm:p-8">
                                 <h3
                                     class="text-lg font-bold text-gray-900 dark:text-white mb-6 border-b border-gray-100 dark:border-gray-800 pb-4">
-                                    Basic
-                                    Information</h3>
+                                    {{ __('products_form.basic_info') }}
+                                </h3>
 
                                 <div class="space-y-6">
                                     <div>
                                         <label for="name"
-                                            class="block text-sm font-bold text-gray-900 dark:text-white mb-2">Product
-                                            Name</label>
+                                            class="block text-sm font-bold text-gray-900 dark:text-white mb-2">{{ __('products_form.product_name') }}</label>
                                         <input type="text" name="name" id="name" required
                                             value="{{ old('name', $product->name ?? '') }}"
-                                            placeholder="e.g. Signature Leather Jacket"
+                                            placeholder="{{ __('products_form.placeholder_name') }}"
                                             class="block w-full rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:border-red-500 dark:focus:border-red-500 focus:ring-red-500 dark:focus:ring-red-500 focus:bg-white dark:focus:bg-gray-900 transition-all py-3 px-4 shadow-sm">
                                         @error('name') <p class="mt-1 text-sm text-red-600 font-medium">{{ $message }}
                                         </p> @enderror
@@ -60,9 +59,9 @@
 
                                     <div>
                                         <label for="description"
-                                            class="block text-sm font-bold text-gray-900 dark:text-white mb-2">Description</label>
+                                            class="block text-sm font-bold text-gray-900 dark:text-white mb-2">{{ __('products_form.product_description') }}</label>
                                         <textarea name="description" id="description" rows="6" required
-                                            placeholder="Detailed description of your product..."
+                                            placeholder="{{ __('products_form.placeholder_desc') }}"
                                             class="block w-full rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:border-red-500 dark:focus:border-red-500 focus:ring-red-500 dark:focus:ring-red-500 focus:bg-white dark:focus:bg-gray-900 transition-all py-3 px-4 shadow-sm">{{ old('description', $product->description ?? '') }}</textarea>
                                         @error('description') <p class="mt-1 text-sm text-red-600 font-medium">
                                             {{ $message }}
@@ -76,7 +75,9 @@
                                 class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 sm:p-8">
                                 <div
                                     class="flex items-center justify-between mb-6 border-b border-gray-100 dark:border-gray-800 pb-4">
-                                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">Product Media</h3>
+                                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">
+                                        {{ __('products_form.images') }}
+                                    </h3>
                                     <span
                                         class="text-xs font-semibold px-2.5 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-lg">Max
                                         5 Images</span>
@@ -127,9 +128,8 @@
                                             </div>
                                             <p
                                                 class="mb-2 text-sm text-gray-500 dark:text-gray-400 font-medium group-hover:text-gray-700 dark:group-hover:text-gray-200">
-                                                <span class="font-bold text-red-600 dark:text-red-400">Click to
-                                                    upload</span> or drag and
-                                                drop
+                                                <span
+                                                    class="font-bold text-red-600 dark:text-red-400">{{ __('products_form.upload_images') }}</span>
                                             </p>
                                             <p class="text-xs text-gray-400 dark:text-gray-500">PNG, JPG, GIF up to 2MB
                                             </p>
@@ -277,16 +277,18 @@
                             <!-- Organization Card -->
                             <div
                                 class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
-                                <h3 class="text-base font-bold text-gray-900 dark:text-white mb-4">Organization</h3>
+                                <h3 class="text-base font-bold text-gray-900 dark:text-white mb-4">
+                                    {{ __('products_form.organization') }}
+                                </h3>
 
                                 <div class="space-y-4">
                                     <div>
                                         <label for="category_id"
-                                            class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Category</label>
+                                            class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">{{ __('products_form.category') }}</label>
                                         <div class="relative">
                                             <select name="category_id" id="category_id" required
                                                 class="block w-full rounded-xl border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:border-red-500 dark:focus:border-red-500 focus:ring-red-500 dark:focus:ring-red-500 focus:bg-white dark:focus:bg-gray-900 transition-all py-3 px-4 appearance-none shadow-sm">
-                                                <option value="">Select Category</option>
+                                                <option value="">{{ __('products_form.select_category') }}</option>
                                                 @foreach($categories as $category)
                                                     <option value="{{ $category->id }}" {{ (old('category_id') == $category->id || (isset($product) && $product->category_id == $category->id)) ? 'selected' : '' }}>
                                                         {{ $category->name }}
@@ -314,13 +316,14 @@
                             <!-- Pricing Card -->
                             <div
                                 class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
-                                <h3 class="text-base font-bold text-gray-900 dark:text-white mb-4">Pricing</h3>
+                                <h3 class="text-base font-bold text-gray-900 dark:text-white mb-4">
+                                    {{ __('products_form.pricing') }}
+                                </h3>
 
                                 <div class="space-y-4">
                                     <div>
                                         <label for="price"
-                                            class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Regular
-                                            Price</label>
+                                            class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">{{ __('products_form.price') }}</label>
                                         <div class="relative rounded-xl shadow-sm">
                                             <div
                                                 class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
@@ -336,8 +339,7 @@
 
                                     <div>
                                         <label for="discounted_price"
-                                            class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Discount
-                                            Price</label>
+                                            class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">{{ __('products_form.discounted_price') }}</label>
                                         <div class="relative rounded-xl shadow-sm">
                                             <div
                                                 class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
@@ -364,7 +366,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M5 13l4 4L19 7" />
                                     </svg>
-                                    {{ isset($product) ? 'Update Product' : 'Create Product' }}
+                                    {{ isset($product) ? __('products_form.update_product') : __('products_form.save_product') }}
                                 </button>
                             </div>
                         </div>
@@ -377,17 +379,18 @@
                         <div
                             class="bg-red-50 dark:bg-red-900/10 rounded-2xl border border-red-100 dark:border-red-900/30 p-6 flex flex-col sm:flex-row items-center justify-between gap-6">
                             <div>
-                                <h3 class="text-lg font-bold text-red-800 dark:text-red-400">Delete Product</h3>
-                                <p class="text-red-600 dark:text-red-500/80 text-sm mt-1">Once you delete this product, there is no going back.
-                                    Please be certain.</p>
+                                <h3 class="text-lg font-bold text-red-800 dark:text-red-400">
+                                    {{ __('products_form.delete_zone_title') }}</h3>
+                                <p class="text-red-600 dark:text-red-500/80 text-sm mt-1">
+                                    {{ __('products_form.delete_zone_desc') }}</p>
                             </div>
                             <form action="{{ route('seller.products.destroy', $product) }}" method="POST"
-                                onsubmit="return confirm('Are you absolutely sure? This action cannot be undone.');">
+                                onsubmit="return confirm('{{ __('products_form.delete_confirmation') }}');">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit"
                                     class="px-6 py-2.5 bg-white dark:bg-gray-900 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 font-bold rounded-xl hover:bg-red-600 dark:hover:bg-red-600 hover:text-white dark:hover:text-white hover:border-red-600 dark:hover:border-red-600 transition-all shadow-sm">
-                                    Delete Product
+                                    {{ __('products_form.delete_button') }}
                                 </button>
                             </form>
                         </div>

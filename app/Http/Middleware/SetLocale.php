@@ -16,25 +16,28 @@ class SetLocale
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Check for Accept-Language header first
-        $locale = $request->header('Accept-Language');
+        // 1. Check session first (set by switcher)
+        if (session()->has('locale')) {
+            $locale = session('locale');
+        }
+        // 2. Check header or others
+        else {
+            $locale = $request->header('Accept-Language');
 
-        // Check for locale in request parameters
-        if (!$locale && $request->has('locale')) {
-            $locale = $request->get('locale');
+            // Fallbacks
+            if (!$locale && $request->has('locale')) {
+                $locale = $request->get('locale');
+            }
+            if (!$locale && $request->query('locale')) {
+                $locale = $request->query('locale');
+            }
+            if (!$locale) {
+                // Default based on browser/config or just en
+                $locale = config('app.locale', 'en');
+            }
         }
 
-        // Check for locale in query parameters
-        if (!$locale && $request->query('locale')) {
-            $locale = $request->query('locale');
-        }
-
-        // Set default to English if no locale is provided
-        if (!$locale) {
-            $locale = 'en';
-        }
-
-        // Validate locale (only allow 'en' and 'ar')
+        // Validate
         if (!in_array($locale, ['en', 'ar'])) {
             $locale = 'en';
         }

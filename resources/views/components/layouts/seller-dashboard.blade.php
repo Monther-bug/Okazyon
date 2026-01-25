@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" x-data="{ 
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}"
+    x-data="{ 
           darkMode: localStorage.getItem('theme') === 'dark',
           toggleTheme() {
               this.darkMode = !this.darkMode;
@@ -23,7 +24,20 @@
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=outfit:400,500,600,700|inter:400,500,600,700" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=poppins:400,500,600,700|tajawal:400,500,700" rel="stylesheet" />
+
+    <style>
+        :root {
+            --font-arabic: 'Tajawal', sans-serif;
+            --font-english: 'Poppins', sans-serif;
+        }
+
+        body {
+            font-family:
+                {{ app()->getLocale() === 'ar' ? 'var(--font-arabic)' : 'var(--font-english)' }}
+            ;
+        }
+    </style>
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -92,8 +106,8 @@
     <div class="flex h-screen overflow-hidden">
 
         <!-- Sidebar -->
-        <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
-            class="fixed inset-y-0 left-0 z-50 w-72 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-auto lg:flex lg:flex-col shadow-2xl lg:shadow-none">
+        <aside :class="sidebarOpen ? 'translate-x-0' : (isRtl ? 'translate-x-full' : '-translate-x-full')"
+            class="fixed inset-y-0 z-50 w-72 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-auto lg:flex lg:flex-col shadow-2xl lg:shadow-none {{ app()->getLocale() === 'ar' ? 'right-0 border-l border-r-0' : 'left-0 border-r' }}">
 
             <!-- Logo Area -->
             <div class="h-20 flex items-center px-8 border-b border-gray-100 dark:border-gray-800">
@@ -106,9 +120,12 @@
                         </svg>
                     </div>
                     <div>
-                        <h1 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">Okazyon</h1>
-                        <p class="text-[10px] uppercase font-bold tracking-widest text-red-600 dark:text-red-400">Seller
-                            Panel</p>
+                        <h1 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                            {{ config('app.name') }}
+                        </h1>
+                        <p class="text-[10px] uppercase font-bold tracking-widest text-red-600 dark:text-red-400">
+                            {{ __('navigation.seller_panel') }}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -117,7 +134,9 @@
             <nav class="flex-1 overflow-y-auto py-6 px-4 space-y-1">
 
                 <div class="px-4 mb-2">
-                    <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Overview</p>
+                    <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                        {{ __('navigation.overview') }}
+                    </p>
                 </div>
 
                 <a href="{{ route('seller.dashboard') }}"
@@ -127,11 +146,13 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                     </svg>
-                    Dashboard
+                    {{ __('navigation.dashboard') }}
                 </a>
 
                 <div class="px-4 mt-8 mb-2">
-                    <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Management</p>
+                    <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                        {{ __('navigation.management') }}
+                    </p>
                 </div>
 
                 <a href="{{ route('seller.products.index') }}"
@@ -141,7 +162,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                     </svg>
-                    Products
+                    {{ __('navigation.products') }}
                 </a>
 
                 <a href="{{ route('seller.orders.index') }}"
@@ -151,7 +172,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                     </svg>
-                    Orders
+                    {{ __('navigation.orders') }}
                 </a>
 
             </nav>
@@ -188,19 +209,20 @@
                     <script>
                         function confirmSellerLogout() {
                             Swal.fire({
-                                title: 'Logging Out?',
-                                text: "Are you sure you want to end your session?",
+                                title: '{{ __('dashboard.logout_title') }}',
+                                text: "{{ __('dashboard.logout_message') }}",
                                 icon: 'warning',
                                 showCancelButton: true,
                                 confirmButtonColor: '#EF4444',
                                 cancelButtonColor: '#F3F4F6',
-                                confirmButtonText: 'Yes, Logout',
-                                cancelButtonText: 'Cancel',
+                                confirmButtonText: '{{ __('dashboard.yes_logout') }}',
+                                cancelButtonText: '{{ __('dashboard.cancel') }}',
+                                reverseButtons: true,
                                 customClass: {
                                     popup: 'dark:bg-slate-800 dark:text-white rounded-2xl',
                                     title: 'dark:text-white',
                                     htmlContainer: 'dark:text-slate-300',
-                                    cancelButton: 'text-gray-700 font-bold'
+                                    cancelButton: 'text-gray-700 font-bold bg-gray-100 hover:bg-gray-200'
                                 }
                             }).then((result) => {
                                 if (result.isConfirmed) {
@@ -241,6 +263,16 @@
                 </div>
 
                 <div class="flex items-center gap-4">
+                    <!-- Language Switcher -->
+                    <!-- Language Switcher -->
+                    <a href="{{ route('lang.switch', app()->getLocale() === 'ar' ? 'en' : 'ar') }}"
+                        class="flex items-center gap-2 px-3 py-2 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 hover:border-red-100 dark:hover:border-red-900/30 hover:bg-red-50 dark:hover:bg-red-900/10 transition-all group shadow-sm">
+                        <span
+                            class="text-xs font-bold text-gray-700 dark:text-gray-300 group-hover:text-red-600 dark:group-hover:text-red-400">
+                            {{ app()->getLocale() === 'ar' ? 'English' : 'العربية' }}
+                        </span>
+                    </a>
+
                     <!-- Dark Mode Toggle -->
                     <button @click="toggleTheme()"
                         class="p-2.5 rounded-xl text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500/20">
@@ -256,15 +288,7 @@
                     </button>
 
                     <!-- Notifications -->
-                    <button
-                        class="relative p-2.5 rounded-xl text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500/20">
-                        <span
-                            class="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-gray-900"></span>
-                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                        </svg>
-                    </button>
+
                 </div>
             </header>
 

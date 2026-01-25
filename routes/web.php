@@ -21,6 +21,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('lang/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'ar'])) {
+        session(['locale' => $locale]);
+    }
+    return redirect()->back();
+})->name('lang.switch');
+
 Route::middleware('web')->group(function () {
     Route::get('/seller/verify-otp', [VerifyOtpController::class, 'show'])
         ->name('seller.auth.verify-otp');

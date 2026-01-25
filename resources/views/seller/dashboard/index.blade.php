@@ -1,6 +1,6 @@
 <x-layouts.seller-dashboard>
-    <x-slot:title>Overview</x-slot>
-        <x-slot:header>{{ __('Dashboard') }}</x-slot>
+    <x-slot:title>{{ __('navigation.overview') }}</x-slot>
+        <x-slot:header>{{ __('dashboard.dashboard') }}</x-slot>
 
             <div class="space-y-6 font-sans antialiased">
 
@@ -14,10 +14,10 @@
                     <div class="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                         <div class="max-w-2xl">
                             <h1 class="text-3xl md:text-4xl font-bold mb-2" style="color: white; line-height: 1.2;">
-                                Welcome back, {{ auth()->user()->name }}!
+                                {{ __('dashboard.welcome_back', ['name' => auth()->user()->name]) }}
                             </h1>
                             <p class="text-base opacity-90" style="color: rgba(255, 255, 255, 0.9);">
-                                Here's what's happening with your store in <span
+                                {{ __('dashboard.check_performance') }} <span
                                     class="font-semibold">{{ date('F Y') }}</span>
                             </p>
                         </div>
@@ -27,8 +27,7 @@
                                 <div class="absolute inset-0 rounded-full animate-ping"
                                     style="background: #10b981; opacity: 0.75;"></div>
                             </div>
-                            <span class="text-sm font-semibold whitespace-nowrap" style="color: white;">All Systems
-                                Operational</span>
+                            <span class="text-sm font-semibold whitespace-nowrap" style="color: white;">{{ __('dashboard.all_systems_operational') }}</span>
                         </div>
                     </div>
                 </div>
@@ -64,7 +63,8 @@
                         </div>
 
                         <div>
-                            <p class="text-sm font-medium mb-1 text-gray-500 dark:text-gray-400">Total Revenue</p>
+                            <p class="text-sm font-medium mb-1 text-gray-500 dark:text-gray-400">
+                                {{ __('dashboard.total_revenue') }}</p>
                             <p class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
                                 ${{ number_format($totalRevenue, 2) }}</p>
                         </div>
@@ -96,7 +96,8 @@
                         </div>
 
                         <div>
-                            <p class="text-sm font-medium mb-1 text-gray-500 dark:text-gray-400">Total Orders</p>
+                            <p class="text-sm font-medium mb-1 text-gray-500 dark:text-gray-400">
+                                {{ __('dashboard.total_orders') }}</p>
                             <p class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
                                 {{ $totalOrders }}
                             </p>
@@ -127,7 +128,8 @@
                         </div>
 
                         <div>
-                            <p class="text-sm font-medium mb-1 text-gray-500 dark:text-gray-400">Active Products</p>
+                            <p class="text-sm font-medium mb-1 text-gray-500 dark:text-gray-400">
+                                {{ __('dashboard.active_products') }}</p>
                             <p class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
                                 {{ $totalProducts }}
                             </p>
@@ -155,7 +157,8 @@
                         </div>
 
                         <div>
-                            <p class="text-sm font-medium mb-1 text-gray-500 dark:text-gray-400">Pending Orders</p>
+                            <p class="text-sm font-medium mb-1 text-gray-500 dark:text-gray-400">
+                                {{ __('dashboard.pending_orders') }}</p>
                             <div class="flex items-baseline gap-2">
                                 <p class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
                                     {{ $pendingOrders }}
@@ -174,8 +177,10 @@
 
                         <div class="flex items-center justify-between mb-6">
                             <div>
-                                <h3 class="text-lg font-bold mb-1 text-gray-900 dark:text-white">Revenue Analytics</h3>
-                                <p class="text-sm text-gray-500 dark:text-gray-400">Monthly performance (Last 6 months)
+                                <h3 class="text-lg font-bold mb-1 text-gray-900 dark:text-white">
+                                    {{ __('dashboard.revenue_analytics') }}</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">
+                                    {{ __('dashboard.monthly_performance') }}
                                 </p>
                             </div>
                         </div>
@@ -218,10 +223,11 @@
                         style="box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); animation-delay: 0.6s; animation-fill-mode: backwards;">
 
                         <div class="flex items-center justify-between mb-6">
-                            <h3 class="text-lg font-bold text-gray-900 dark:text-white">Recent Orders</h3>
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white">
+                                {{ __('dashboard.recent_orders') }}</h3>
                             <a href="{{ route('seller.orders.index') }}"
                                 class="text-sm font-semibold transition-colors hover:underline text-red-600 dark:text-red-400">
-                                View All →
+                                {{ __('dashboard.view_all') }} →
                             </a>
                         </div>
 
@@ -233,15 +239,15 @@
 
                                                         <div
                                                             class="h-10 w-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-500 dark:text-slate-300 font-bold text-xs">
-                                                            {{ substr(($order->buyer->name ?? 'Guest'), 0, 1) }}
+                                                            {{ substr(($order->buyer->name ?? __('orders.unknown_user')), 0, 1) }}
                                                         </div>
                                                         <div class="flex-1 min-w-0">
                                                             <p class="text-sm font-medium text-slate-900 dark:text-white truncate">
-                                                                {{ $order->buyer->name ?? 'Guest User' }}
+                                                                {{ $order->buyer->name ?? __('orders.unknown_user') }}
                                                             </p>
                                                             <p class="text-xs text-slate-500 dark:text-slate-400 truncate">
-                                                                Order #{{ $order->id ?? 'N/A' }} &bull;
-                                                                {{ $order->created_at?->diffForHumans() ?? 'Just now' }}
+                                                                {{ __('orders.order_number') }}{{ $order->id ?? 'N/A' }} &bull;
+                                                                {{ $order->created_at?->diffForHumans() ?? __('orders.just_now') }}
                                                             </p>
                                                         </div>
 
@@ -266,8 +272,10 @@
                                                 d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                                         </svg>
                                     </div>
-                                    <p class="text-sm font-medium mb-1 text-gray-500 dark:text-gray-400">No orders yet</p>
-                                    <p class="text-xs text-gray-400 dark:text-gray-500">New orders will appear here</p>
+                                    <p class="text-sm font-medium mb-1 text-gray-500 dark:text-gray-400">
+                                        {{ __('dashboard.no_orders_yet') }}</p>
+                                    <p class="text-xs text-gray-400 dark:text-gray-500">
+                                        {{ __('dashboard.waiting_for_orders') }}</p>
                                 </div>
                             @endforelse
                         </div>

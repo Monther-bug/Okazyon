@@ -5,20 +5,16 @@
             <a href="{{ route('seller.products.index') }}"
                 class="inline-flex items-center gap-2 text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 transition-colors font-semibold">
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-                Back to Products
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" </svg>
+                        {{ __('orders.back_to_products') }}
             </a>
 
             <div class="flex items-center gap-3">
                 <a href="{{ route('seller.products.edit', $product) }}"
                     class="inline-flex items-center gap-2 px-5 py-2.5 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 font-bold text-sm rounded-xl shadow-sm hover:bg-red-100 dark:hover:bg-red-900/30 hover:shadow transition-all duration-200 border border-red-100 dark:border-red-900/30">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                    </svg>
-                    Edit Product
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" </svg>
+                            {{ __('products_form.edit_title') }}
                 </a>
             </div>
         </div>
@@ -34,10 +30,9 @@
                     @else
                         <div class="flex flex-col items-center justify-center text-gray-300 dark:text-gray-600">
                             <svg class="w-24 h-24 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                            </svg>
-                            <span class="text-gray-400 dark:text-gray-500 font-medium text-lg">No image available</span>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" </svg>
+                                    <span
+                                        class="text-gray-400 dark:text-gray-500 font-medium text-lg">{{ __('dashboard.no_image') }}</span>
                         </div>
                     @endif
                 </div>
@@ -55,7 +50,7 @@
                                         class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                                     <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
                                 </span>
-                                Admin Approved
+                                {{ __('dashboard.admin_approved') }}
                             </span>
                         @elseif($product->status === 'rejected')
                             <span
@@ -63,7 +58,7 @@
                                 <span class="relative flex h-2.5 w-2.5">
                                     <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
                                 </span>
-                                Rejected
+                                {{ __('dashboard.rejected') }}
                             </span>
                         @else
                             <span
@@ -71,16 +66,16 @@
                                 <span class="relative flex h-2.5 w-2.5">
                                     <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-yellow-400"></span>
                                 </span>
-                                Pending Admin Approval
+                                {{ __('dashboard.pending_admin_approval') }}
                             </span>
                         @endif
 
                         <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white mb-2">{{ $product->name }}</h1>
                         <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 font-medium">
                             <span
-                                class="bg-gray-100 dark:bg-gray-800 px-3 py-1 rounded-lg border border-gray-200 dark:border-gray-700">{{ $product->category->name ?? 'Uncategorized' }}</span>
+                                class="bg-gray-100 dark:bg-gray-800 px-3 py-1 rounded-lg border border-gray-200 dark:border-gray-700">{{ $product->category->name ?? __('products_form.uncategorized') }}</span>
                             <span>•</span>
-                            <span>Added {{ $product->created_at->format('M d, Y') }}</span>
+                            <span>{{ __('dashboard.added') }} {{ $product->created_at->format('M d, Y') }}</span>
                         </div>
                     </div>
 
@@ -99,7 +94,8 @@
 
                         <div class="prose prose-red dark:prose-invert text-gray-600 dark:text-gray-300 max-w-none">
                             <h3 class="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wide mb-2">
-                                Description</h3>
+                                {{ __('products_form.product_description') }}
+                            </h3>
                             <p class="leading-relaxed">{{ $product->description }}</p>
                         </div>
                     </div>
