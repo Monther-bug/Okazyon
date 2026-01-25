@@ -290,7 +290,7 @@
 
                 <div class="flex items-center gap-4">
                     <!-- Language Switcher -->
-                    @if(config('app.locale') == 'ar')
+                    @if(app()->getLocale() == 'ar')
                         <a href="{{ url('lang/en') }}"
                             class="p-2.5 rounded-xl text-slate-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors focus:outline-none font-bold text-sm">
                             English
