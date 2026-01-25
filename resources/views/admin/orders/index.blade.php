@@ -1,6 +1,6 @@
 <x-layouts.admin-dashboard>
-    <x-slot:title>Orders Management</x-slot>
-        <x-slot:header>Orders</x-slot>
+    <x-slot:title>{{ __('orders.management') }}</x-slot>
+        <x-slot:header>{{ __('orders.title') }}</x-slot>
 
             <div class="space-y-6">
 
@@ -11,7 +11,7 @@
                     <form method="GET" class="flex-1 flex flex-col sm:flex-row gap-4">
                         <!-- Search -->
                         <div class="relative flex-1 max-w-lg">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <div class="absolute inset-y-0 start-0 pl-3 rtl:pr-3 flex items-center pointer-events-none">
                                 <svg class="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24"
                                     stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -19,23 +19,28 @@
                                 </svg>
                             </div>
                             <input type="text" name="search" value="{{ request('search') }}"
-                                class="block w-full pl-10 pr-3 py-2 border border-slate-300 dark:border-slate-600 rounded-xl leading-5 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-1 focus:ring-red-500 focus:border-red-500 sm:text-sm transition duration-150 ease-in-out"
-                                placeholder="Search by Order ID or Customer Name...">
+                                class="block w-full pl-10 rtl:pr-10 rtl:pl-3 pr-3 py-2 border border-slate-300 dark:border-slate-600 rounded-xl leading-5 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-1 focus:ring-red-500 focus:border-red-500 sm:text-sm transition duration-150 ease-in-out"
+                                placeholder="{{ __('orders.search_placeholder') }}">
                         </div>
 
                         <!-- Status Filter -->
                         <select name="status" onchange="this.form.submit()"
                             class="block w-40 pl-3 pr-10 py-2 text-base border-slate-300 dark:border-slate-600 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-xl bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white">
-                            <option value="">All Status</option>
-                            <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending
+                            <option value="">{{ __('orders.all_status') }}</option>
+                            <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>
+                                {{ __('orders.status_pending') }}
                             </option>
                             <option value="processing" {{ request('status') == 'processing' ? 'selected' : '' }}>
-                                Processing</option>
-                            <option value="shipped" {{ request('status') == 'shipped' ? 'selected' : '' }}>Shipped
+                                {{ __('orders.status_processing') }}
                             </option>
-                            <option value="delivered" {{ request('status') == 'delivered' ? 'selected' : '' }}>Delivered
+                            <option value="shipped" {{ request('status') == 'shipped' ? 'selected' : '' }}>
+                                {{ __('orders.status_shipped') }}
                             </option>
-                            <option value="cancelled" {{ request('status') == 'cancelled' ? 'selected' : '' }}>Cancelled
+                            <option value="delivered" {{ request('status') == 'delivered' ? 'selected' : '' }}>
+                                {{ __('orders.status_delivered') }}
+                            </option>
+                            <option value="cancelled" {{ request('status') == 'cancelled' ? 'selected' : '' }}>
+                                {{ __('orders.status_cancelled') }}
                             </option>
                         </select>
                     </form>
@@ -49,27 +54,27 @@
                             <thead class="bg-slate-50 dark:bg-slate-700/50">
                                 <tr>
                                     <th scope="col"
-                                        class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                        Order ID
+                                        class="px-6 py-3 text-start text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                        {{ __('orders.id') }}
                                     </th>
                                     <th scope="col"
-                                        class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                        Customer
+                                        class="px-6 py-3 text-start text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                        {{ __('orders.customer') }}
                                     </th>
                                     <th scope="col"
-                                        class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                        Date
+                                        class="px-6 py-3 text-start text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                        {{ __('orders.date') }}
                                     </th>
                                     <th scope="col"
-                                        class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                        Total
+                                        class="px-6 py-3 text-start text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                        {{ __('orders.total') }}
                                     </th>
                                     <th scope="col"
-                                        class="px-6 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                                        Status
+                                        class="px-6 py-3 text-start text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                        {{ __('orders.status') }}
                                     </th>
                                     <th scope="col" class="relative px-6 py-3">
-                                        <span class="sr-only">Actions</span>
+                                        <span class="sr-only">{{ __('orders.actions') }}</span>
                                     </th>
                                 </tr>
                             </thead>
@@ -86,9 +91,9 @@
                                                     class="flex-shrink-0 h-8 w-8 rounded-full bg-red-100 dark:bg-red-500/20 flex items-center justify-center text-red-700 dark:text-red-300 font-bold text-xs">
                                                     {{ substr($order->buyer?->name ?? 'G', 0, 1) }}
                                                 </div>
-                                                <div class="ml-3">
+                                                <div class="ml-3 rtl:mr-3 rtl:ml-0">
                                                     <div class="text-sm font-medium text-slate-900 dark:text-white">
-                                                        {{ $order->buyer?->name ?? 'Guest User' }}
+                                                        {{ $order->buyer?->name ?? __('orders.guest_user') }}
                                                     </div>
                                                 </div>
                                             </div>
@@ -113,13 +118,12 @@
                                             @endphp
                                             <span
                                                 class="px-2.5 py-0.5 inline-flex text-xs leading-5 font-medium rounded-full border {{ $currentClass }} capitalize">
-                                                {{ $order->status }}
+                                                {{ __('orders.status_' . $order->status) }}
                                             </span>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                             <a href="{{ route('admin.orders.show', $order) }}"
-                                                class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">View
-                                                Details</a>
+                                                class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">{{ __('orders.view_details') }}</a>
                                         </td>
                                     </tr>
                                 @empty
@@ -131,8 +135,8 @@
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                         d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                                                 </svg>
-                                                <p class="text-base font-medium">No orders found</p>
-                                                <p class="text-sm mt-1">Try adjusting your filters.</p>
+                                                <p class="text-base font-medium">{{ __('orders.no_orders') }}</p>
+                                                <p class="text-sm mt-1">{{ __('products.adjust_filters') }}</p>
                                             </div>
                                         </td>
                                     </tr>

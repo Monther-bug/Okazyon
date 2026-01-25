@@ -1,6 +1,6 @@
 <x-layouts.admin-dashboard>
-    <x-slot:title>Banners Management</x-slot>
-        <x-slot:header>Banners</x-slot>
+    <x-slot:title>{{ __('banners.management') }}</x-slot>
+        <x-slot:header>{{ __('banners.title') }}</x-slot>
 
             <div class="space-y-6">
 
@@ -8,17 +8,19 @@
                 <div
                     class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm">
                     <div class="flex-1">
-                        <h3 class="text-base font-medium text-slate-900 dark:text-white">Promotional Banners</h3>
-                        <p class="text-sm text-slate-500 dark:text-slate-400">Manage homepage banners and sliders.</p>
+                        <h3 class="text-base font-medium text-slate-900 dark:text-white">
+                            {{ __('banners.promotional_banners') }}</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('banners.manage_text') }}</p>
                     </div>
                     <div class="flex items-center gap-3">
                         <a href="{{ route('admin.banners.create') }}"
                             class="inline-flex items-center px-4 py-2 border border-transparent rounded-xl shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors">
-                            <svg class="-ml-1 mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg class="-ml-1 rtl:ml-2 mr-2 rtl:mr-0 h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M12 4v16m8-8H4" />
                             </svg>
-                            New Banner
+                            {{ __('banners.new_banner') }}
                         </a>
                     </div>
                 </div>
@@ -34,11 +36,11 @@
                                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
 
                                 @if($banner->is_active)
-                                    <div class="absolute top-3 right-3">
+                                    <div class="absolute top-3 right-3 rtl:right-auto rtl:left-3">
                                         <span
                                             class="inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-500/90 dark:text-white rounded-full shadow-sm backdrop-blur-sm">
                                             <span class="h-1.5 w-1.5 rounded-full bg-emerald-500 dark:bg-white"></span>
-                                            Active
+                                            {{ __('banners.active') }}
                                         </span>
                                     </div>
                                 @endif
@@ -48,9 +50,11 @@
                             <div class="p-5 space-y-3">
                                 <div>
                                     <h3 class="text-lg font-bold text-slate-900 dark:text-white line-clamp-1">
-                                        {{ $banner->title }}</h3>
+                                        {{ $banner->title }}
+                                    </h3>
                                     <p class="text-sm text-slate-500 dark:text-slate-400 line-clamp-1">
-                                        {{ $banner->subtitle ?? 'No subtitle' }}</p>
+                                        {{ $banner->subtitle ?? __('banners.no_subtitle') }}
+                                    </p>
                                 </div>
 
                                 @if($banner->link)
@@ -74,12 +78,11 @@
                                                     d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                             </svg>
                                         </a>
-                                        <button type="button" 
-                                            @click="$dispatch('open-delete-modal', { 
-                                                action: '{{ route('admin.banners.destroy', $banner) }}', 
-                                                title: 'Delete Banner', 
-                                                message: 'Are you sure you want to delete the banner &quot;{{ $banner->title }}&quot;? This action cannot be undone.' 
-                                            })"
+                                        <button type="button" @click="$dispatch('open-delete-modal', {
+                                                    action: '{{ route('admin.banners.destroy', $banner) }}',
+                                                    title: '{{ __('banners.delete_title') }}',
+                                                    message: '{{ __('banners.delete_message', ['name' => $banner->title]) }}'
+                                                })"
                                             class="p-2 text-slate-500 hover:text-red-600 dark:text-slate-400 dark:hover:text-red-400 transition-colors">
                                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -98,17 +101,19 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
-                            <h3 class="mt-2 text-sm font-medium text-slate-900 dark:text-white">No banners</h3>
-                            <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Get started by adding a new banner.
+                            <h3 class="mt-2 text-sm font-medium text-slate-900 dark:text-white">
+                                {{ __('banners.no_banners') }}</h3>
+                            <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">{{ __('banners.get_started') }}
                             </p>
                             <div class="mt-6">
                                 <a href="{{ route('admin.banners.create') }}"
                                     class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-xl text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-                                    <svg class="-ml-1 mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg class="-ml-1 rtl:ml-2 mr-2 rtl:mr-0 h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M12 4v16m8-8H4" />
                                     </svg>
-                                    New Banner
+                                    {{ __('banners.new_banner') }}
                                 </a>
                             </div>
                         </div>

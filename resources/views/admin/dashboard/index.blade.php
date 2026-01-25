@@ -8,10 +8,10 @@
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div>
                         <h2 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
-                            Hi, {{ auth()->user()->name }}
+                            {{ __('admin.welcome_message', ['name' => auth()->user()->name]) }}
                         </h2>
                         <p class="text-sm text-slate-500 dark:text-slate-400">
-                            Here's what's happening with your platform today.
+                            {{ __('admin.welcome_subtitle') }}
                         </p>
                     </div>
                     <div class="flex items-center gap-2">
@@ -22,11 +22,11 @@
                                     class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                                 <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                             </span>
-                            Live Updates
+                            {{ __('admin.live_updates') }}
                         </span>
                         <div
                             class="px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm text-slate-600 dark:text-slate-300 font-medium">
-                            {{ now()->format('M d, Y') }}
+                            {{ now()->translatedFormat('M d, Y') }}
                         </div>
                     </div>
                 </div>
@@ -44,7 +44,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <h3 class="text-sm font-medium text-slate-500 dark:text-slate-400">Total Revenue</h3>
+                        <h3 class="text-sm font-medium text-slate-500 dark:text-slate-400">
+                            {{ __('admin.total_revenue') }}</h3>
                         <p class="text-2xl font-bold text-slate-900 dark:text-white mt-1">
                             ${{ number_format($totalRevenue, 2) }}
                         </p>
@@ -61,7 +62,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <h3 class="text-sm font-medium text-slate-500 dark:text-slate-400">Total Orders</h3>
+                        <h3 class="text-sm font-medium text-slate-500 dark:text-slate-400">
+                            {{ __('admin.total_orders') }}</h3>
                         <p class="text-2xl font-bold text-slate-900 dark:text-white mt-1">
                             {{ number_format($totalOrders) }}
                         </p>
@@ -78,7 +80,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <h3 class="text-sm font-medium text-slate-500 dark:text-slate-400">Total Users</h3>
+                        <h3 class="text-sm font-medium text-slate-500 dark:text-slate-400">{{ __('admin.total_users') }}
+                        </h3>
                         <p class="text-2xl font-bold text-slate-900 dark:text-white mt-1">
                             {{ number_format($totalUsers) }}
                         </p>
@@ -96,7 +99,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <h3 class="text-sm font-medium text-slate-500 dark:text-slate-400">Total Products</h3>
+                        <h3 class="text-sm font-medium text-slate-500 dark:text-slate-400">
+                            {{ __('admin.total_products') }}</h3>
                         <p class="text-2xl font-bold text-slate-900 dark:text-white mt-1">
                             {{ number_format($totalProducts) }}
                         </p>
@@ -111,8 +115,10 @@
                         class="lg:col-span-2 p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm">
                         <div class="flex items-center justify-between mb-6">
                             <div>
-                                <h3 class="text-lg font-bold text-slate-900 dark:text-white">Revenue Overview</h3>
-                                <p class="text-sm text-slate-500 dark:text-slate-400">Gross earnings over time</p>
+                                <h3 class="text-lg font-bold text-slate-900 dark:text-white">
+                                    {{ __('admin.revenue_overview') }}</h3>
+                                <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('admin.revenue_subtitle') }}
+                                </p>
                             </div>
                         </div>
 
@@ -124,7 +130,8 @@
                     <!-- Recent Activity / Orders -->
                     <div
                         class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm">
-                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Recent Orders</h3>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">
+                            {{ __('admin.recent_orders') }}</h3>
 
                         <div class="flow-root">
                             <ul role="list" class="-my-5 divide-y divide-slate-100 dark:divide-slate-700">
@@ -139,10 +146,11 @@
                                             </div>
                                             <div class="flex-1 min-w-0">
                                                 <p class="text-sm font-medium text-slate-900 dark:text-white truncate">
-                                                    {{ $order->buyer?->name ?? 'Guest User' }}
+                                                    {{ $order->buyer?->name ?? __('admin.guest_user') }}
                                                 </p>
                                                 <p class="text-xs text-slate-500 dark:text-slate-400 truncate">
-                                                    Order #{{ $order->id }} &bull; {{ $order->created_at->diffForHumans() }}
+                                                    {{ __('admin.order_number', ['id' => $order->id]) }} &bull;
+                                                    {{ $order->created_at->diffForHumans() }}
                                                 </p>
                                             </div>
                                             <div
@@ -156,7 +164,8 @@
                                         </div>
                                     </li>
                                 @empty
-                                    <li class="py-4 text-center text-sm text-slate-500">No recent orders found.</li>
+                                    <li class="py-4 text-center text-sm text-slate-500">{{ __('admin.no_recent_orders') }}
+                                    </li>
                                 @endforelse
                             </ul>
                         </div>
@@ -164,7 +173,7 @@
                         <div class="mt-6">
                             <a href="#"
                                 class="block w-full py-2 px-4 border border-slate-300 dark:border-slate-600 rounded-lg text-center text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition">
-                                View All Orders
+                                {{ __('admin.view_all_orders') }}
                             </a>
                         </div>
                     </div>

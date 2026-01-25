@@ -1,6 +1,6 @@
 <x-layouts.admin-dashboard>
-    <x-slot:title>Order #{{ $order->id }}</x-slot>
-        <x-slot:header>Order Details</x-slot>
+    <x-slot:title>{{ __('orders.order_number') }}{{ $order->id }}</x-slot>
+        <x-slot:header>{{ __('orders.order_details') }}</x-slot>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
@@ -12,9 +12,10 @@
                         class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-sm overflow-hidden">
                         <div
                             class="px-6 py-4 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center">
-                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Order Items</h3>
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">{{ __('orders.order_items') }}
+                            </h3>
                             <span class="text-sm text-slate-500 dark:text-slate-400">{{ $order->items->count() }}
-                                Items</span>
+                                {{ __('categories.items') }}</span>
                         </div>
                         <ul role="list" class="divide-y divide-slate-100 dark:divide-slate-700">
                             @foreach($order->items as $item)
@@ -39,7 +40,8 @@
                                             {{ $item->product->name }}
                                         </h4>
                                         <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">
-                                            Qty: {{ $item->quantity }} &times; ${{ number_format((float) $item->price, 2) }}
+                                            {{ __('orders.qty') }}: {{ $item->quantity }} &times;
+                                            ${{ number_format((float) $item->price, 2) }}
                                         </p>
                                     </div>
                                     <div class="text-right">
@@ -52,7 +54,8 @@
                         </ul>
                         <div
                             class="bg-slate-50 dark:bg-slate-700/50 p-6 flex justify-between items-center border-t border-slate-200 dark:border-slate-700">
-                            <span class="text-base font-medium text-slate-900 dark:text-white">Total Amount</span>
+                            <span
+                                class="text-base font-medium text-slate-900 dark:text-white">{{ __('orders.total_amount') }}</span>
                             <span
                                 class="text-xl font-bold text-red-600 dark:text-red-400">${{ number_format((float) $order->total_amount, 2) }}</span>
                         </div>
@@ -61,32 +64,37 @@
                     <!-- Status Update -->
                     <div
                         class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-sm p-6">
-                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Update Status</h3>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">
+                            {{ __('orders.update_status') }}</h3>
                         <form action="{{ route('admin.orders.update', $order) }}" method="POST"
                             class="flex flex-col sm:flex-row gap-4 items-end">
                             @csrf
                             @method('PUT')
                             <div class="w-full sm:w-auto flex-1">
                                 <label for="status"
-                                    class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Order
-                                    Status</label>
+                                    class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{{ __('orders.status') }}</label>
                                 <select name="status" id="status"
                                     class="block w-full rounded-xl border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm">
-                                    <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>Pending
+                                    <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>
+                                        {{ __('orders.status_pending') }}
                                     </option>
                                     <option value="processing" {{ $order->status == 'processing' ? 'selected' : '' }}>
-                                        Processing</option>
-                                    <option value="shipped" {{ $order->status == 'shipped' ? 'selected' : '' }}>Shipped
+                                        {{ __('orders.status_processing') }}
+                                    </option>
+                                    <option value="shipped" {{ $order->status == 'shipped' ? 'selected' : '' }}>
+                                        {{ __('orders.status_shipped') }}
                                     </option>
                                     <option value="delivered" {{ $order->status == 'delivered' ? 'selected' : '' }}>
-                                        Delivered</option>
+                                        {{ __('orders.status_delivered') }}
+                                    </option>
                                     <option value="cancelled" {{ $order->status == 'cancelled' ? 'selected' : '' }}>
-                                        Cancelled</option>
+                                        {{ __('orders.status_cancelled') }}
+                                    </option>
                                 </select>
                             </div>
                             <button type="submit"
                                 class="w-full sm:w-auto px-6 py-2 border border-transparent rounded-xl shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors">
-                                Update Status
+                                {{ __('orders.update_status') }}
                             </button>
                         </form>
                     </div>
@@ -98,7 +106,8 @@
                     <!-- Customer Info -->
                     <div
                         class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-sm p-6">
-                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Customer Info</h3>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">
+                            {{ __('orders.customer_info') }}</h3>
                         <div class="flex items-center gap-4 mb-4">
                             <div
                                 class="h-12 w-12 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-500 dark:text-slate-300 font-bold text-lg">
@@ -106,10 +115,10 @@
                             </div>
                             <div>
                                 <p class="text-base font-medium text-slate-900 dark:text-white">
-                                    {{ $order->buyer?->name ?? 'Guest User' }}
+                                    {{ $order->buyer?->name ?? __('orders.guest_user') }}
                                 </p>
                                 <p class="text-sm text-slate-500 dark:text-slate-400">
-                                    {{ $order->buyer?->email ?? 'No email' }}
+                                    {{ $order->buyer?->email ?? __('orders.no_email') }}
                                 </p>
                             </div>
                         </div>
@@ -127,7 +136,8 @@
                     <!-- Delivery Address -->
                     <div
                         class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-sm p-6">
-                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Delivery Address</h3>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">
+                            {{ __('orders.delivery_address') }}</h3>
                         <div class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
                             @if($order->delivery_address)
                                 <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($order->delivery_address) }}"
@@ -136,7 +146,7 @@
                                     {{ $order->delivery_address }}
                                 </a>
                             @else
-                                <span class="italic text-slate-400">No delivery address provided.</span>
+                                <span class="italic text-slate-400">{{ __('orders.no_address') }}</span>
                             @endif
                         </div>
                     </div>
@@ -144,15 +154,16 @@
                     <!-- Order Metadata -->
                     <div
                         class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-sm p-6">
-                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Metadata</h3>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">{{ __('orders.metadata') }}
+                        </h3>
                         <div class="space-y-3">
                             <div class="flex justify-between text-sm">
-                                <span class="text-slate-500 dark:text-slate-400">Placed On</span>
+                                <span class="text-slate-500 dark:text-slate-400">{{ __('orders.placed_on') }}</span>
                                 <span
                                     class="font-medium text-slate-900 dark:text-white">{{ $order->created_at->format('M d, Y H:i') }}</span>
                             </div>
                             <div class="flex justify-between text-sm">
-                                <span class="text-slate-500 dark:text-slate-400">Last Updated</span>
+                                <span class="text-slate-500 dark:text-slate-400">{{ __('orders.last_updated') }}</span>
                                 <span
                                     class="font-medium text-slate-900 dark:text-white">{{ $order->updated_at->diffForHumans() }}</span>
                             </div>

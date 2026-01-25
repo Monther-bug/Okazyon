@@ -1,6 +1,6 @@
 <x-layouts.admin-dashboard>
-    <x-slot:title>Edit Banner</x-slot>
-        <x-slot:header>Edit Banner: {{ $banner->title }}</x-slot>
+    <x-slot:title>{{ __('banners.edit_banner') }}</x-slot>
+        <x-slot:header>{{ __('banners.edit_banner') }}: {{ $banner->title }}</x-slot>
 
             <div class="max-w-3xl mx-auto">
                 <form action="{{ route('admin.banners.update', $banner) }}" method="POST" enctype="multipart/form-data"
@@ -15,50 +15,47 @@
                         <!-- Title -->
                         <div>
                             <label for="title"
-                                class="block text-sm font-medium text-slate-700 dark:text-slate-300">Banner
-                                Title</label>
+                                class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ __('banners.banner_title') }}</label>
                             <div class="mt-1">
                                 <input type="text" name="title" id="title" required
                                     value="{{ old('title', $banner->title) }}"
                                     class="block w-full rounded-xl border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm"
-                                    placeholder="e.g. Big Winter Sale">
+                                    placeholder="{{ __('banners.banner_title_placeholder') }}">
                             </div>
                         </div>
 
                         <!-- Subtitle -->
                         <div>
                             <label for="subtitle"
-                                class="block text-sm font-medium text-slate-700 dark:text-slate-300">Subtitle
-                                (Optional)</label>
+                                class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ __('banners.subtitle') }}</label>
                             <div class="mt-1">
                                 <input type="text" name="subtitle" id="subtitle"
                                     value="{{ old('subtitle', $banner->subtitle) }}"
                                     class="block w-full rounded-xl border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm"
-                                    placeholder="e.g. Up to 50% Off">
+                                    placeholder="{{ __('banners.subtitle_placeholder') }}">
                             </div>
                         </div>
 
                         <!-- Link -->
                         <div>
                             <label for="link"
-                                class="block text-sm font-medium text-slate-700 dark:text-slate-300">Target Link
-                                (Optional)</label>
+                                class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ __('banners.target_link') }}</label>
                             <div class="mt-1">
                                 <input type="url" name="link" id="link" value="{{ old('link', $banner->link) }}"
                                     class="block w-full rounded-xl border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm"
-                                    placeholder="e.g. https://okazyon.com/categories/sale">
+                                    placeholder="{{ __('banners.target_link_placeholder') }}">
                             </div>
                         </div>
 
                         <!-- Image Upload -->
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Banner
-                                Image</label>
+                            <label
+                                class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ __('banners.banner_image') }}</label>
 
                             <div class="mt-2 mb-4">
                                 <img src="{{ asset('storage/' . $banner->image) }}" alt="Current Image"
                                     class="w-full h-48 object-cover rounded-lg border border-slate-200 dark:border-slate-600">
-                                <p class="mt-1 text-xs text-slate-500">Current Image</p>
+                                <p class="mt-1 text-xs text-slate-500">{{ __('banners.current_image') }}</p>
                             </div>
 
                             <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-slate-300 dark:border-slate-600 border-dashed rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors cursor-pointer group"
@@ -73,13 +70,13 @@
                                     <div class="flex text-sm text-slate-600 dark:text-slate-400 justify-center">
                                         <label for="image"
                                             class="relative cursor-pointer rounded-md font-medium text-red-600 dark:text-red-400 hover:text-red-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-red-500">
-                                            <span>Upload new file</span>
+                                            <span>{{ __('banners.upload_new_file') }}</span>
                                             <input id="image" name="image" type="file" class="sr-only" accept="image/*">
                                         </label>
-                                        <p class="pl-1">to replace</p>
+                                        <p class="pl-1">{{ __('banners.to_replace') }}</p>
                                     </div>
                                     <p class="text-xs text-slate-500 dark:text-slate-400">
-                                        PNG, JPG, GIF up to 2MB (High Resolution recommended)
+                                        {{ __('banners.file_help') }}
                                     </p>
                                 </div>
                             </div>
@@ -88,9 +85,10 @@
                         <!-- Status -->
                         <div class="flex items-center">
                             <input id="is_active" name="is_active" type="checkbox" value="1" {{ old('is_active', $banner->is_active) ? 'checked' : '' }}
-                                class="h-4 w-4 text-red-600 focus:ring-red-500 border-slate-300 rounded">
-                            <label for="is_active" class="ml-2 block text-sm text-slate-700 dark:text-slate-300">
-                                Set as Active Banner
+                                class="h-4 w-4 text-red-600 focus:ring-red-500 border-slate-300 rounded rtl:ml-2">
+                            <label for="is_active"
+                                class="ml-2 rtl:mr-2 block text-sm text-slate-700 dark:text-slate-300">
+                                {{ __('banners.set_active') }}
                             </label>
                         </div>
                     </div>
@@ -99,11 +97,11 @@
                     <div class="flex justify-end gap-3">
                         <a href="{{ route('admin.banners.index') }}"
                             class="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors">
-                            Cancel
+                            {{ __('banners.cancel') }}
                         </a>
                         <button type="submit"
                             class="px-6 py-2 border border-transparent rounded-xl shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors">
-                            Update Banner
+                            {{ __('banners.update_btn') }}
                         </button>
                     </div>
                 </form>

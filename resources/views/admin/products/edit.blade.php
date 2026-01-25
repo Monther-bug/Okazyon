@@ -1,6 +1,6 @@
 <x-layouts.admin-dashboard>
-    <x-slot:title>Review Product</x-slot>
-        <x-slot:header>Review Product: {{ $product->name }}</x-slot>
+    <x-slot:title>{{ __('products.review_product') }}</x-slot>
+        <x-slot:header>{{ __('products.review_product') }}: {{ $product->name }}</x-slot>
 
             <div class="max-w-4xl mx-auto space-y-6">
 
@@ -39,19 +39,23 @@
                                     <h3 class="text-xl font-bold text-slate-900 dark:text-white">{{ $product->name }}
                                     </h3>
                                     <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
-                                        Sold by <span
-                                            class="font-medium text-slate-700 dark:text-slate-300">{{ $product->user->name ?? 'Unknown' }}</span>
+                                        {{ __('products.sold_by') }} <span
+                                            class="font-medium text-slate-700 dark:text-slate-300">{{ $product->user->name ?? __('products.unknown') }}</span>
                                     </p>
                                 </div>
 
                                 <div class="grid grid-cols-2 gap-4">
                                     <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-700/50">
-                                        <p class="text-xs text-slate-500 uppercase tracking-wide">Price</p>
+                                        <p class="text-xs text-slate-500 uppercase tracking-wide">
+                                            {{ __('products.price') }}
+                                        </p>
                                         <p class="text-lg font-semibold text-slate-900 dark:text-white">
                                             ${{ number_format((float) $product->price, 2) }}</p>
                                     </div>
                                     <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-700/50">
-                                        <p class="text-xs text-slate-500 uppercase tracking-wide">Category</p>
+                                        <p class="text-xs text-slate-500 uppercase tracking-wide">
+                                            {{ __('products.category') }}
+                                        </p>
                                         <p class="text-lg font-semibold text-slate-900 dark:text-white">
                                             {{ $product->category->name ?? 'None' }}
                                         </p>
@@ -59,7 +63,9 @@
                                 </div>
 
                                 <div>
-                                    <h4 class="text-sm font-medium text-slate-900 dark:text-white">Description</h4>
+                                    <h4 class="text-sm font-medium text-slate-900 dark:text-white">
+                                        {{ __('products.description') }}
+                                    </h4>
                                     <div
                                         class="mt-2 text-sm text-slate-600 dark:text-slate-300 prose prose-sm dark:prose-invert max-w-none">
                                         {{ $product->description }}
@@ -68,7 +74,9 @@
 
                                 @if($product->expiration_date instanceof \DateTimeInterface)
                                     <div>
-                                        <h4 class="text-sm font-medium text-slate-900 dark:text-white">Expiration Date</h4>
+                                        <h4 class="text-sm font-medium text-slate-900 dark:text-white">
+                                            {{ __('products.expiration_date') }}
+                                        </h4>
                                         <p class="text-sm text-slate-600 dark:text-slate-300">
                                             {{ $product->expiration_date->format('M d, Y') }}
                                         </p>
@@ -85,36 +93,33 @@
                     @csrf
                     @method('PUT')
 
-                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Moderation Status</h3>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">
+                        {{ __('products.moderation_status') }}
+                    </h3>
 
                     <div class="space-y-6">
                         <div x-data="{ status: '{{ $product->status }}' }">
                             <div class="space-y-6">
                                 <div>
                                     <label for="status"
-                                        class="block text-sm font-medium text-slate-700 dark:text-slate-300">Product
-                                        Status</label>
-                                    <p class="text-xs text-slate-500 mb-2">Change the visibility of this product.</p>
+                                        class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ __('products.product_status') }}</label>
+                                    <p class="text-xs text-slate-500 mb-2">{{ __('products.visibility_help') }}</p>
                                     <select id="status" name="status" x-model="status"
                                         class="block w-full max-w-md rounded-xl border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm">
-                                        <option value="pending">Pending
-                                            Review</option>
-                                        <option value="approved">Approved
-                                            (Live)</option>
-                                        <option value="rejected">Rejected
-                                        </option>
+                                        <option value="pending">{{ __('products.status_pending_review') }}</option>
+                                        <option value="approved">{{ __('products.status_approved_live') }}</option>
+                                        <option value="rejected">{{ __('products.status_rejected') }}</option>
                                     </select>
                                 </div>
 
                                 <div x-show="status === 'rejected'" x-transition class="animate-fade-in-up">
                                     <label for="rejection_reason"
-                                        class="block text-sm font-medium text-slate-700 dark:text-slate-300">Rejection
-                                        Reason</label>
-                                    <p class="text-xs text-slate-500 mb-2">Please explain why this product is being
-                                        rejected.</p>
+                                        class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ __('products.rejection_reason_label') }}</label>
+                                    <p class="text-xs text-slate-500 mb-2">{{ __('products.rejection_reason_help') }}
+                                    </p>
                                     <textarea id="rejection_reason" name="rejection_reason" rows="3"
                                         class="block w-full rounded-xl border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm"
-                                        placeholder="e.g. Images are blurry, description is incomplete...">{{ old('rejection_reason', $product->rejection_reason) }}</textarea>
+                                        placeholder="{{ __('products.rejection_placeholder') }}">{{ old('rejection_reason', $product->rejection_reason) }}</textarea>
                                     @error('rejection_reason')
                                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
@@ -124,9 +129,10 @@
 
                         <div class="flex items-center">
                             <input id="is_featured" name="is_featured" type="checkbox" value="1" {{ $product->is_featured ? 'checked' : '' }}
-                                class="h-4 w-4 text-red-600 focus:ring-red-500 border-slate-300 rounded">
-                            <label for="is_featured" class="ml-2 block text-sm text-slate-700 dark:text-slate-300">
-                                Suggest as Featured Product
+                                class="h-4 w-4 text-red-600 focus:ring-red-500 border-slate-300 rounded rtl:ml-2">
+                            <label for="is_featured"
+                                class="ml-2 rtl:mr-2 block text-sm text-slate-700 dark:text-slate-300">
+                                {{ __('products.suggest_featured') }}
                             </label>
                         </div>
 
@@ -134,11 +140,11 @@
                             class="flex items-center justify-end gap-3 pt-4 border-t border-slate-100 dark:border-slate-700">
                             <a href="{{ route('admin.products.index') }}"
                                 class="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700">
-                                Cancel
+                                {{ __('products.cancel') }}
                             </a>
                             <button type="submit"
                                 class="px-6 py-2 border border-transparent rounded-xl shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors">
-                                Save Changes
+                                {{ __('products.save_changes') }}
                             </button>
                         </div>
                     </div>
