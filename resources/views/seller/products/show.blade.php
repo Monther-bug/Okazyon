@@ -53,13 +53,31 @@
                                 {{ __('dashboard.admin_approved') }}
                             </span>
                         @elseif($product->status === 'rejected')
-                            <span
-                                class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800/30 mb-4">
-                                <span class="relative flex h-2.5 w-2.5">
-                                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
+                            <div class="mb-6 animate-fade-in-up">
+                                <span
+                                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800/30 mb-4">
+                                    <span class="relative flex h-2.5 w-2.5">
+                                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
+                                    </span>
+                                    {{ __('dashboard.rejected') }}
                                 </span>
-                                {{ __('dashboard.rejected') }}
-                            </span>
+
+                                <div
+                                    class="p-4 rounded-2xl bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-900/30 text-red-800 dark:text-red-300">
+                                    <div class="flex items-start gap-3">
+                                        <svg class="w-5 h-5 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                        </svg>
+                                        <div>
+                                            <h4 class="text-sm font-bold mb-1">{{ __('products.rejection_title') }}</h4>
+                                            <p class="text-sm opacity-90 leading-relaxed">
+                                                {{ $product->rejection_reason ?? __('products.no_reason_provided') }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         @else
                             <span
                                 class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 border border-yellow-200 dark:border-yellow-800/30 mb-4">

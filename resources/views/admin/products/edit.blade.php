@@ -44,14 +44,27 @@
                                     </p>
                                 </div>
 
-                                <div class="grid grid-cols-2 gap-4">
+                                <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
                                     <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-700/50">
                                         <p class="text-xs text-slate-500 uppercase tracking-wide">
                                             {{ __('products.price') }}
                                         </p>
-                                        <p class="text-lg font-semibold text-slate-900 dark:text-white">
-                                            ${{ number_format((float) $product->price, 2) }}</p>
+                                        <p
+                                            class="text-lg font-semibold text-slate-900 dark:text-white {{ $product->discounted_price ? 'line-through text-sm text-slate-400 opacity-70' : '' }}">
+                                            ${{ number_format((float) $product->price, 2) }}
+                                        </p>
                                     </div>
+                                    @if($product->discounted_price)
+                                        <div
+                                            class="p-3 rounded-xl bg-red-50 dark:bg-red-500/10 border border-red-100 dark:border-red-500/20">
+                                            <p class="text-xs text-red-500 uppercase tracking-wide">
+                                                {{ __('products.discounted_price') }}
+                                            </p>
+                                            <p class="text-lg font-bold text-red-600 dark:text-red-400">
+                                                ${{ number_format((float) $product->discounted_price, 2) }}
+                                            </p>
+                                        </div>
+                                    @endif
                                     <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-700/50">
                                         <p class="text-xs text-slate-500 uppercase tracking-wide">
                                             {{ __('products.category') }}

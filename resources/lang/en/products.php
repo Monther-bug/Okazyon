@@ -12,6 +12,7 @@ return [
     'product' => 'Product',
     'category' => 'Category',
     'price' => 'Price',
+    'discounted_price' => 'Discounted Price',
     'stock' => 'Stock',
     'status' => 'Status',
     'actions' => 'Actions',

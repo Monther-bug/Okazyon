@@ -13,6 +13,7 @@ return [
     'seller' => 'البائع',
     'category' => 'الفئة',
     'price' => 'السعر',
+    'discounted_price' => 'السعر بعد الخصم',
     'stock' => 'المخزون',
     'status' => 'الحالة',
     'actions' => 'إجراءات',

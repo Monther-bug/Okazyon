@@ -28,6 +28,7 @@ class Product extends Model implements HasMedia
         'image_url',
         'status',
         'is_featured',
+        'rejection_reason',
         'expiration_date',
         'storage_instructions',
     ];

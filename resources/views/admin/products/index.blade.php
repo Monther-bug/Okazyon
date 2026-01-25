@@ -117,9 +117,21 @@
                                                 {{ $product->category->name ?? __('products.unknown') }}
                                             </span>
                                         </td>
-                                        <td
-                                            class="px-6 py-4 whitespace-nowrap text-center text-sm text-slate-500 dark:text-slate-400">
-                                            ${{ number_format($product->price, 2) }}
+                                        <td class="px-6 py-4 whitespace-nowrap text-center text-sm">
+                                            @if($product->discounted_price && $product->discounted_price < $product->price)
+                                                <div class="flex flex-col items-center">
+                                                    <span class="text-slate-400 line-through text-xs">
+                                                        ${{ number_format($product->price, 2) }}
+                                                    </span>
+                                                    <span class="text-red-600 font-bold">
+                                                        ${{ number_format($product->discounted_price, 2) }}
+                                                    </span>
+                                                </div>
+                                            @else
+                                                <span class="text-slate-900 dark:text-white font-medium">
+                                                    ${{ number_format($product->price, 2) }}
+                                                </span>
+                                            @endif
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-center">
                                             @if($product->status === 'approved')
@@ -147,10 +159,10 @@
                                                 <a href="{{ route('admin.products.edit', $product) }}"
                                                     class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">{{ __('products.review') }}</a>
                                                 <button type="button" @click="$dispatch('open-delete-modal', { 
-                                                                        action: '{{ route('admin.products.destroy', $product) }}', 
-                                                                        title: '{{ __('products.delete_confirm_title') }}', 
-                                                                        message: '{{ __('products.delete_confirm_message_named', ['name' => $product->name]) }}' 
-                                                                    })"
+                                                                            action: '{{ route('admin.products.destroy', $product) }}', 
+                                                                            title: '{{ __('products.delete_confirm_title') }}', 
+                                                                            message: '{{ __('products.delete_confirm_message_named', ['name' => $product->name]) }}' 
+                                                                        })"
                                                     class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">
                                                     {{ __('products.delete') }}
                                                 </button>
