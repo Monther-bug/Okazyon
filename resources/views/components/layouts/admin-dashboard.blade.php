@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" x-data="{ 
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}"
+    x-data="{ 
           darkMode: localStorage.getItem('theme') === 'dark',
           toggleTheme() {
               this.darkMode = !this.darkMode;
@@ -19,11 +20,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $title ?? 'Dashboard' }} - {{ config('app.name') }} Admin</title>
+    <title>{{ $title ?? __('admin.dashboard') }} - {{ __('admin.app_name') }} {{ __('admin.administration') }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=outfit:400,500,600,700|inter:400,500,600,700" rel="stylesheet" />
+    @if(app()->getLocale() === 'ar')
+        <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+        <style>
+            body {
+                font-family: 'Tajawal', sans-serif !important;
+            }
+        </style>
+    @endif
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -88,9 +97,10 @@
 
     <div class="flex h-screen overflow-hidden">
 
-        <!-- Sidebar (Dark Theme) -->
-        <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
-            class="fixed inset-y-0 left-0 z-50 w-72 bg-white dark:bg-slate-900 text-slate-900 dark:text-gray-100 border-r border-slate-200 dark:border-slate-800 transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-auto lg:flex lg:flex-col shadow-2xl lg:shadow-none">
+        <!-- Sidebar -->
+        <aside
+            :class="sidebarOpen ? 'translate-x-0' : (document.dir === 'rtl' ? 'translate-x-full' : '-translate-x-full')"
+            class="fixed inset-y-0 start-0 z-50 w-72 bg-white dark:bg-slate-900 text-slate-900 dark:text-gray-100 border-e border-slate-200 dark:border-slate-800 transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-auto lg:flex lg:flex-col shadow-2xl lg:shadow-none">
 
             <!-- Logo Area -->
             <div class="h-20 flex items-center px-8 border-b border-slate-100 dark:border-slate-800">
@@ -103,8 +113,12 @@
                         </svg>
                     </div>
                     <div>
-                        <h1 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Okazyon</h1>
-                        <p class="text-[10px] uppercase font-bold tracking-widest text-red-500">Administration</p>
+                        <h1 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
+                            {{ __('admin.app_name') }}
+                        </h1>
+                        <p class="text-[10px] uppercase font-bold tracking-widest text-red-500">
+                            {{ __('admin.administration') }}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -113,75 +127,79 @@
             <nav class="flex-1 overflow-y-auto py-6 px-4 space-y-1">
 
                 <div class="px-4 mb-2">
-                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Overview</p>
+                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">{{ __('admin.overview') }}
+                    </p>
                 </div>
 
                 <a href="{{ route('admin.dashboard') }}"
-                    class="flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-xl transition-all duration-300 ease-out group {{ request()->routeIs('admin.dashboard') ? 'bg-white dark:bg-slate-800 text-red-600 shadow-lg shadow-white/10 dark:shadow-none translate-x-1' : 'text-slate-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white hover:translate-x-1' }}">
+                    class="flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-xl transition-all duration-300 ease-out group {{ request()->routeIs('admin.dashboard') ? 'bg-white dark:bg-slate-800 text-red-600 shadow-lg shadow-white/10 dark:shadow-none rtl:-translate-x-1 ltr:translate-x-1' : 'text-slate-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white rtl:hover:-translate-x-1 ltr:hover:translate-x-1' }}">
                     <svg class="w-5 h-5 transition-colors duration-300 {{ request()->routeIs('admin.dashboard') ? 'text-red-600' : 'text-slate-500 group-hover:text-white' }}"
                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                     </svg>
-                    Dashboard
+                    {{ __('admin.dashboard') }}
                 </a>
 
                 <div class="px-4 mt-8 mb-2">
-                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Management</p>
+                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                        {{ __('admin.management') }}
+                    </p>
                 </div>
 
                 <a href="{{ route('admin.orders.index') }}"
-                    class="flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-xl transition-all duration-300 ease-out group {{ request()->routeIs('admin.orders.*') ? 'bg-white dark:bg-slate-800 text-red-600 shadow-lg shadow-white/10 dark:shadow-none translate-x-1' : 'text-slate-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white hover:translate-x-1' }}">
+                    class="flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-xl transition-all duration-300 ease-out group {{ request()->routeIs('admin.orders.*') ? 'bg-white dark:bg-slate-800 text-red-600 shadow-lg shadow-white/10 dark:shadow-none rtl:-translate-x-1 ltr:translate-x-1' : 'text-slate-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white rtl:hover:-translate-x-1 ltr:hover:translate-x-1' }}">
                     <svg class="w-5 h-5 transition-colors duration-300 {{ request()->routeIs('admin.orders.*') ? 'text-red-600' : 'text-slate-500 group-hover:text-white' }}"
                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M12 16h.01" />
                     </svg>
-                    Orders
+                    {{ __('admin.orders') }}
                 </a>
 
                 <a href="{{ route('admin.users.index') }}"
-                    class="flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-xl transition-all duration-300 ease-out group {{ request()->routeIs('admin.users.*') ? 'bg-white dark:bg-slate-800 text-red-600 shadow-lg shadow-white/10 dark:shadow-none translate-x-1' : 'text-slate-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white hover:translate-x-1' }}">
+                    class="flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-xl transition-all duration-300 ease-out group {{ request()->routeIs('admin.users.*') ? 'bg-white dark:bg-slate-800 text-red-600 shadow-lg shadow-white/10 dark:shadow-none rtl:-translate-x-1 ltr:translate-x-1' : 'text-slate-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white rtl:hover:-translate-x-1 ltr:hover:translate-x-1' }}">
                     <svg class="w-5 h-5 transition-colors duration-300 {{ request()->routeIs('admin.users.*') ? 'text-red-600' : 'text-slate-500 group-hover:text-white' }}"
                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                     </svg>
-                    Users
+                    {{ __('admin.users') }}
                 </a>
 
                 <a href="{{ route('admin.categories.index') }}"
-                    class="flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-xl transition-all duration-300 ease-out group {{ request()->routeIs('admin.categories.*') ? 'bg-white dark:bg-slate-800 text-red-600 shadow-lg shadow-white/10 dark:shadow-none translate-x-1' : 'text-slate-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white hover:translate-x-1' }}">
+                    class="flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-xl transition-all duration-300 ease-out group {{ request()->routeIs('admin.categories.*') ? 'bg-white dark:bg-slate-800 text-red-600 shadow-lg shadow-white/10 dark:shadow-none rtl:-translate-x-1 ltr:translate-x-1' : 'text-slate-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white rtl:hover:-translate-x-1 ltr:hover:translate-x-1' }}">
                     <svg class="w-5 h-5 transition-colors duration-300 {{ request()->routeIs('admin.categories.*') ? 'text-red-600' : 'text-slate-500 group-hover:text-white' }}"
                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
                     </svg>
-                    Categories
+                    {{ __('admin.categories') }}
                 </a>
 
                 <a href="{{ route('admin.products.index') }}"
-                    class="flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-xl transition-all duration-300 ease-out group {{ request()->routeIs('admin.products.*') ? 'bg-white dark:bg-slate-800 text-red-600 shadow-lg shadow-white/10 dark:shadow-none translate-x-1' : 'text-slate-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white hover:translate-x-1' }}">
+                    class="flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-xl transition-all duration-300 ease-out group {{ request()->routeIs('admin.products.*') ? 'bg-white dark:bg-slate-800 text-red-600 shadow-lg shadow-white/10 dark:shadow-none rtl:-translate-x-1 ltr:translate-x-1' : 'text-slate-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white rtl:hover:-translate-x-1 ltr:hover:translate-x-1' }}">
                     <svg class="w-5 h-5 transition-colors duration-300 {{ request()->routeIs('admin.products.*') ? 'text-red-600' : 'text-slate-500 group-hover:text-white' }}"
                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                     </svg>
-                    Products
+                    {{ __('admin.products') }}
                 </a>
 
                 <div class="px-4 mt-8 mb-2">
-                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Marketing</p>
+                    <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">{{ __('admin.marketing') }}
+                    </p>
                 </div>
 
                 <a href="{{ route('admin.banners.index') }}"
-                    class="flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-xl transition-all duration-300 ease-out group {{ request()->routeIs('admin.banners.*') ? 'bg-white dark:bg-slate-800 text-red-600 shadow-lg shadow-white/10 dark:shadow-none translate-x-1' : 'text-slate-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white hover:translate-x-1' }}">
+                    class="flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-xl transition-all duration-300 ease-out group {{ request()->routeIs('admin.banners.*') ? 'bg-white dark:bg-slate-800 text-red-600 shadow-lg shadow-white/10 dark:shadow-none rtl:-translate-x-1 ltr:translate-x-1' : 'text-slate-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white rtl:hover:-translate-x-1 ltr:hover:translate-x-1' }}">
                     <svg class="w-5 h-5 transition-colors duration-300 {{ request()->routeIs('admin.banners.*') ? 'text-red-600' : 'text-slate-500 group-hover:text-white' }}"
                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
-                    Banners
+                    {{ __('admin.banners') }}
                 </a>
 
             </nav>
@@ -199,7 +217,7 @@
                             {{ auth()->user()?->name ?? 'Administrator' }}
                         </p>
                         <p class="text-xs text-slate-500 truncate">
-                            Super Admin
+                            {{ __('admin.super_admin') }}
                         </p>
                     </div>
 
@@ -208,7 +226,7 @@
                         @csrf
                         <button type="button" onclick="confirmLogout()"
                             class="p-2 text-slate-400 hover:text-red-500 hover:bg-slate-700 rounded-lg transition-colors"
-                            title="Logout">
+                            title="{{ __('admin.logout') }}">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-6 0v-1m6 0H9" />
@@ -219,14 +237,14 @@
                     <script>
                         function confirmLogout() {
                             Swal.fire({
-                                title: 'Logging Out?',
-                                text: "Are you sure you want to end your session?",
+                                title: "{{ __('admin.logout_confirm_title') }}",
+                                text: "{{ __('admin.logout_confirm_message') }}",
                                 icon: 'warning',
                                 showCancelButton: true,
                                 confirmButtonColor: '#EF4444',
                                 cancelButtonColor: '#64748B',
-                                confirmButtonText: 'Yes, Logout',
-                                cancelButtonText: 'Cancel',
+                                confirmButtonText: "{{ __('admin.yes_logout') }}",
+                                cancelButtonText: "{{ __('admin.cancel') }}",
                                 customClass: {
                                     popup: 'dark:bg-slate-800 dark:text-white rounded-2xl',
                                     title: 'dark:text-white',
@@ -271,6 +289,19 @@
                 </div>
 
                 <div class="flex items-center gap-4">
+                    <!-- Language Switcher -->
+                    @if(config('app.locale') == 'ar')
+                        <a href="{{ url('lang/en') }}"
+                            class="p-2.5 rounded-xl text-slate-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors focus:outline-none font-bold text-sm">
+                            English
+                        </a>
+                    @else
+                        <a href="{{ url('lang/ar') }}"
+                            class="p-2.5 rounded-xl text-slate-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors focus:outline-none font-family-tajawal font-bold text-sm">
+                            العربية
+                        </a>
+                    @endif
+
                     <button @click="toggleTheme()"
                         class="p-2.5 rounded-xl text-slate-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500/20">
                         <svg x-show="!darkMode" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -283,14 +314,6 @@
                                 d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                         </svg>
                     </button>
-
-                    <!-- Notifications -->
-                    <button
-                        class="relative p-2.5 rounded-xl text-slate-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500/20">
-                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                        </svg>
                     </button>
                 </div>
             </header>
@@ -303,7 +326,7 @@
 
                 <!-- Footer -->
                 <div class="mt-12 text-center text-sm text-slate-500 dark:text-gray-400 pb-8">
-                    &copy; {{ date('Y') }} Okazyon. All rights reserved.
+                    &copy; {{ date('Y') }} {{ __('admin.app_name') }}. {{ __('admin.all_rights_reserved') }}
                 </div>
             </div>
         </main>
