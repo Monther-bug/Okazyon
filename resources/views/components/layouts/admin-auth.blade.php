@@ -87,7 +87,9 @@
         {{ $slot }}
 
         <div class="mt-8 text-center text-xs text-gray-400">
-            &copy; {{ date('Y') }} {{ config('app.name') }}. جميع الحقوق محفوظة.
+            <a href="https://okazyon.lovable.app/" class="hover:text-red-500 transition-colors">
+                &copy; {{ date('Y') }} {{ config('app.name') }}. جميع الحقوق محفوظة.
+            </a>
         </div>
     </div>
 

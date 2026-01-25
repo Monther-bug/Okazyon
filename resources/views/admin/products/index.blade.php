@@ -56,15 +56,15 @@
                                         {{ __('products.seller') }}
                                     </th>
                                     <th scope="col"
-                                        class="px-6 py-3 text-start text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                        class="px-6 py-3 text-center text-xs font-semibold text-slate-500 uppercase tracking-wider">
                                         {{ __('products.category') }}
                                     </th>
                                     <th scope="col"
-                                        class="px-6 py-3 text-start text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                        class="px-6 py-3 text-center text-xs font-semibold text-slate-500 uppercase tracking-wider">
                                         {{ __('products.price') }}
                                     </th>
                                     <th scope="col"
-                                        class="px-6 py-3 text-start text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                        class="px-6 py-3 text-center text-xs font-semibold text-slate-500 uppercase tracking-wider">
                                         {{ __('products.status') }}
                                     </th>
                                     <th scope="col" class="relative px-6 py-3">
@@ -76,7 +76,7 @@
                                 @forelse($products as $product)
                                     <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="flex items-center">
+                                            <div class="flex items-center gap-4">
                                                 <div class="flex-shrink-0 h-10 w-10">
                                                     @if($product->image_url)
                                                         <img class="h-10 w-10 rounded-lg object-cover border border-slate-200 dark:border-slate-600"
@@ -92,7 +92,7 @@
                                                         </div>
                                                     @endif
                                                 </div>
-                                                <div class="ml-4 rtl:mr-4 rtl:ml-0">
+                                                <div class="text-right">
                                                     <div class="text-sm font-medium text-slate-900 dark:text-white max-w-[200px] truncate"
                                                         title="{{ $product->name }}">
                                                         {{ $product->name }}
@@ -111,16 +111,17 @@
                                                 {{ $product->user->name ?? __('products.unknown') }}
                                             </div>
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
+                                        <td class="px-6 py-4 whitespace-nowrap text-center">
                                             <span
                                                 class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-800 dark:bg-slate-700 dark:text-slate-300">
                                                 {{ $product->category->name ?? __('products.unknown') }}
                                             </span>
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400">
+                                        <td
+                                            class="px-6 py-4 whitespace-nowrap text-center text-sm text-slate-500 dark:text-slate-400">
                                             ${{ number_format($product->price, 2) }}
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
+                                        <td class="px-6 py-4 whitespace-nowrap text-center">
                                             @if($product->status === 'approved')
                                                 <span
                                                     class="inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs font-medium bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400 rounded-full border border-emerald-200 dark:border-emerald-500/20">
@@ -146,10 +147,10 @@
                                                 <a href="{{ route('admin.products.edit', $product) }}"
                                                     class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">{{ __('products.review') }}</a>
                                                 <button type="button" @click="$dispatch('open-delete-modal', { 
-                                                                    action: '{{ route('admin.products.destroy', $product) }}', 
-                                                                    title: '{{ __('products.delete_confirm_title') }}', 
-                                                                    message: '{{ __('products.delete_confirm_message_named', ['name' => $product->name]) }}' 
-                                                                })"
+                                                                        action: '{{ route('admin.products.destroy', $product) }}', 
+                                                                        title: '{{ __('products.delete_confirm_title') }}', 
+                                                                        message: '{{ __('products.delete_confirm_message_named', ['name' => $product->name]) }}' 
+                                                                    })"
                                                     class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">
                                                     {{ __('products.delete') }}
                                                 </button>

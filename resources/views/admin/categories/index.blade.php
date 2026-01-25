@@ -46,15 +46,15 @@
                                         {{ __('categories.name') }}
                                     </th>
                                     <th scope="col"
-                                        class="px-6 py-3 text-start text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                        class="px-6 py-3 text-center text-xs font-semibold text-slate-500 uppercase tracking-wider">
                                         {{ __('categories.type') }}
                                     </th>
                                     <th scope="col"
-                                        class="px-6 py-3 text-start text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                        class="px-6 py-3 text-center text-xs font-semibold text-slate-500 uppercase tracking-wider">
                                         {{ __('categories.status') }}
                                     </th>
                                     <th scope="col"
-                                        class="px-6 py-3 text-start text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                        class="px-6 py-3 text-center text-xs font-semibold text-slate-500 uppercase tracking-wider">
                                         {{ __('categories.products') }}
                                     </th>
                                     <th scope="col" class="relative px-6 py-3">
@@ -66,7 +66,7 @@
                                 @forelse($categories as $category)
                                     <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="flex items-center">
+                                            <div class="flex items-center gap-4">
                                                 <div class="flex-shrink-0 h-10 w-10">
                                                     @if($category->image)
                                                         <img class="h-10 w-10 rounded-lg object-cover border border-slate-200 dark:border-slate-600"
@@ -79,7 +79,7 @@
                                                         </div>
                                                     @endif
                                                 </div>
-                                                <div class="ml-4 rtl:mr-4 rtl:ml-0">
+                                                <div class="text-right">
                                                     <div class="text-sm font-medium text-slate-900 dark:text-white">
                                                         {{ $category->name }}
                                                     </div>
@@ -89,13 +89,13 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
+                                        <td class="px-6 py-4 whitespace-nowrap text-center">
                                             <span
                                                 class="px-2.5 py-0.5 inline-flex text-xs leading-5 font-medium rounded-full bg-red-50 text-red-700 dark:bg-red-500/10 dark:text-red-400 border border-red-100 dark:border-red-500/20 capitalize">
                                                 {{ __('categories.type_' . $category->type) }}
                                             </span>
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
+                                        <td class="px-6 py-4 whitespace-nowrap text-center">
                                             @if($category->is_active)
                                                 <span
                                                     class="inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs font-medium bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400 rounded-full border border-emerald-200 dark:border-emerald-500/20">
@@ -110,7 +110,8 @@
                                                 </span>
                                             @endif
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400">
+                                        <td
+                                            class="px-6 py-4 whitespace-nowrap text-center text-sm text-slate-500 dark:text-slate-400">
                                             {{ $category->products_count ?? 0 }} {{ __('categories.items') }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
@@ -118,10 +119,10 @@
                                                 <a href="{{ route('admin.categories.edit', $category) }}"
                                                     class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">{{ __('categories.edit') }}</a>
                                                 <button type="button" @click="$dispatch('open-delete-modal', {
-                                                                            action: '{{ route('admin.categories.destroy', $category) }}',
-                                                                            title: '{{ __('categories.delete_title') }}',
-                                                                            message: '{{ __('categories.delete_message', ['name' => $category->name]) }}'
-                                                                        })"
+                                                                                    action: '{{ route('admin.categories.destroy', $category) }}',
+                                                                                    title: '{{ __('categories.delete_title') }}',
+                                                                                    message: '{{ __('categories.delete_message', ['name' => $category->name]) }}'
+                                                                                })"
                                                     class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">
                                                     {{ __('categories.delete') }}
                                                 </button>
