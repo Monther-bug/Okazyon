@@ -22,8 +22,8 @@ class SetLocale
         }
         // 2. Check header or others
         else {
-            // If it's an admin route, default to 'ar' unless explicitly changed
-            if ($request->is('admin') || $request->is('admin/*')) {
+            // If it's an admin or seller route, default to 'ar' unless explicitly changed
+            if ($request->is('admin') || $request->is('admin/*') || $request->is('seller') || $request->is('seller/*')) {
                 $locale = 'ar';
             } else {
                 $locale = $request->header('Accept-Language');
