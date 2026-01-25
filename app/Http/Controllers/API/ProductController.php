@@ -242,31 +242,49 @@ class ProductController extends Controller
             'total_reviews_count' => 0
         ];
 
-        // Only include reviews for non-food products
-        if ($product->category && $product->category->type !== 'food') {
-            $product->load([
-                'reviews' => function ($query) {
-                    $query->with('user:id,first_name,last_name')->orderBy('created_at', 'desc');
-                }
-            ]);
+        // 1. Load reviews regardless of category type
+        $product->load(['reviews.user']);
 
-            if ($product->reviews->count() > 0) {
-                $reviewData = [
-                    'reviews' => $product->reviews->map(function ($review) {
-                        return [
-                            'id' => $review->id,
-                            'rating' => $review->rating,
-                            'comment' => $review->comment,
-                            'user' => [
-                                'name' => trim($review->user->first_name . ' ' . $review->user->last_name),
-                            ],
-                            'created_at' => $review->created_at->diffForHumans(),
-                        ];
-                    }),
-                    'average_rating' => round($product->reviews->avg('rating'), 1),
-                    'total_reviews_count' => $product->reviews->count()
-                ];
-            }
+        if ($product->reviews->count() > 0) {
+            $reviewData = [
+                'reviews' => $product->reviews->map(function ($review) {
+                    return [
+                        'id' => $review->id,
+                        'rating' => $review->rating,
+                        'comment' => $review->comment,
+                        'user' => [
+                            'name' => trim($review->user->first_name . ' ' . $review->user->last_name),
+                        ],
+                        'created_at' => $review->created_at->diffForHumans(),
+                    ];
+                }),
+                'average_rating' => round($product->reviews->avg('rating'), 1),
+                'total_reviews_count' => $product->reviews->count()
+            ];
+        }
+
+        // Check purchase and review status for authenticated users
+        $hasPurchased = false;
+        $alreadyReviewed = false;
+
+        if (Auth::check()) {
+            // 2. Comprehensive hasPurchased check (any status except cancelled)
+            $hasPurchased = \App\Models\Order::where('buyer_id', Auth::id())
+                ->where('status', '!=', 'cancelled')
+                ->whereHas('products', function ($q) use ($product) {
+                    $q->where('product_id', $product->id);
+                })->exists();
+
+            // 3. Strict delivery check for reviewing
+            $isDelivered = \App\Models\Order::where('buyer_id', Auth::id())
+                ->where('status', 'delivered')
+                ->whereHas('products', function ($q) use ($product) {
+                    $q->where('product_id', $product->id);
+                })->exists();
+
+            $alreadyReviewed = \App\Models\Review::where('user_id', Auth::id())
+                ->where('product_id', $product->id)
+                ->exists();
         }
 
         // Check if product is favorited by authenticated user
@@ -292,6 +310,8 @@ class ProductController extends Controller
             'category' => $product->category,
             'seller' => $seller,
             'is_favorited' => $isFavorited,
+            'has_purchased' => $hasPurchased,
+            'can_review' => (isset($isDelivered) ? $isDelivered : false) && !$alreadyReviewed,
         ];
 
         // Merge review data
