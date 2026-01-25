@@ -1,6 +1,6 @@
 <x-layouts.admin-dashboard>
     <x-slot:title>Overview</x-slot>
-        <x-slot:header>{{ __('Dashboard') }}</x-slot>
+        <x-slot:header>{{ __('dashboard.dashboard') }}</x-slot>
 
             <div class="space-y-6 font-sans antialiased">
 

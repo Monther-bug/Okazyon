@@ -26,4 +26,7 @@ return [
     'your_products' => 'منتجاتك',
     'search' => 'بحث',
     'export' => 'تصدير',
+    'rejection_title' => 'تم رفض المنتج',
+    'rejection_reason_label' => 'سبب الرفض',
+    'no_reason_provided' => 'لم يتم تقديم سبب من قبل المسؤول.',
 ];

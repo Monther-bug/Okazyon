@@ -26,4 +26,7 @@ return [
     'your_products' => 'Your Products',
     'search' => 'Search',
     'export' => 'Export',
+    'rejection_title' => 'Product Rejected',
+    'rejection_reason_label' => 'Reason',
+    'no_reason_provided' => 'No reason provided by admin.',
 ];

@@ -13,7 +13,7 @@ class DashboardController extends Controller
         \Illuminate\Support\Facades\Log::info('DashboardController Auth ID: ' . $user->id);
 
         // 1. Total Stats
-        $totalProducts = $user->products()->count();
+        $totalProducts = $user->products()->where('status', 'approved')->count();
 
         $totalOrders = \App\Models\Order::whereHas('items.product', function ($query) use ($user) {
             $query->where('user_id', $user->id);
