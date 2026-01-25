@@ -21,13 +21,15 @@ class NotificationService
 
     protected function initializeFirebase()
     {
-        $credentialsPath = env('FIREBASE_CREDENTIALS');
+        // Use storage_path() to ensure the path is correctly resolved on both local and server environments
+        $credentialsPath = env('FIREBASE_CREDENTIALS', storage_path('app/firebase-auth.json'));
+
         if (file_exists($credentialsPath)) {
             $this->messaging = (new \Kreait\Firebase\Factory())
                 ->withServiceAccount($credentialsPath)
                 ->createMessaging();
         } else {
-            throw new \Exception("Firebase credentials file not found at: {$credentialsPath}");
+            throw new \Exception("Firebase credentials file not found at: {$credentialsPath}. Please ensure the file exists in storage/app/firebase-auth.json and is readable.");
         }
     }
 
