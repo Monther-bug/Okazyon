@@ -10,6 +10,31 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <!-- Left Column: Product Details -->
             <div class="lg:col-span-2 space-y-6">
+                <!-- Rejection Alert -->
+                @if($product->status === 'rejected' && $product->rejection_reason)
+                    <div class="bg-red-50 dark:bg-red-900/10 border-l-4 border-red-500 p-4 rounded-r-xl">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                    fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-sm font-bold text-red-800 dark:text-red-200">
+                                    {{ __('products.rejection_title') ?? 'Product Rejected' }}
+                                </h3>
+                                <div class="mt-2 text-sm text-red-700 dark:text-red-300">
+                                    <p class="font-medium">{{ __('products.rejection_reason_label') ?? 'Reason:' }}</p>
+                                    <p class="mt-1">{{ $product->rejection_reason }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
                 <!-- Basic Info -->
                 <div
                     class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
@@ -140,7 +165,8 @@
                 <div
                     class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
                     <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">
-                        {{ __('products_form.organization') }}</h3>
+                        {{ __('products_form.organization') }}
+                    </h3>
 
                     <div class="space-y-4">
                         <div>

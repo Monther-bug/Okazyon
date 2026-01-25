@@ -88,20 +88,38 @@
                     <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Moderation Status</h3>
 
                     <div class="space-y-6">
-                        <div>
-                            <label for="status"
-                                class="block text-sm font-medium text-slate-700 dark:text-slate-300">Product
-                                Status</label>
-                            <p class="text-xs text-slate-500 mb-2">Change the visibility of this product.</p>
-                            <select id="status" name="status"
-                                class="block w-full max-w-md rounded-xl border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm">
-                                <option value="pending" {{ $product->status === 'pending' ? 'selected' : '' }}>Pending
-                                    Review</option>
-                                <option value="approved" {{ $product->status === 'approved' ? 'selected' : '' }}>Approved
-                                    (Live)</option>
-                                <option value="rejected" {{ $product->status === 'rejected' ? 'selected' : '' }}>Rejected
-                                </option>
-                            </select>
+                        <div x-data="{ status: '{{ $product->status }}' }">
+                            <div class="space-y-6">
+                                <div>
+                                    <label for="status"
+                                        class="block text-sm font-medium text-slate-700 dark:text-slate-300">Product
+                                        Status</label>
+                                    <p class="text-xs text-slate-500 mb-2">Change the visibility of this product.</p>
+                                    <select id="status" name="status" x-model="status"
+                                        class="block w-full max-w-md rounded-xl border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm">
+                                        <option value="pending">Pending
+                                            Review</option>
+                                        <option value="approved">Approved
+                                            (Live)</option>
+                                        <option value="rejected">Rejected
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div x-show="status === 'rejected'" x-transition class="animate-fade-in-up">
+                                    <label for="rejection_reason"
+                                        class="block text-sm font-medium text-slate-700 dark:text-slate-300">Rejection
+                                        Reason</label>
+                                    <p class="text-xs text-slate-500 mb-2">Please explain why this product is being
+                                        rejected.</p>
+                                    <textarea id="rejection_reason" name="rejection_reason" rows="3"
+                                        class="block w-full rounded-xl border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm"
+                                        placeholder="e.g. Images are blurry, description is incomplete...">{{ old('rejection_reason', $product->rejection_reason) }}</textarea>
+                                    @error('rejection_reason')
+                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
 
                         <div class="flex items-center">

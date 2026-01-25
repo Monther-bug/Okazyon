@@ -44,6 +44,7 @@ class ProductController extends Controller
     {
         $validated = $request->validate([
             'status' => 'required|in:pending,approved,rejected',
+            'rejection_reason' => 'nullable|string|required_if:status,rejected',
             'is_featured' => 'boolean',
         ]);
 
@@ -51,6 +52,7 @@ class ProductController extends Controller
 
         $product->update([
             'status' => $validated['status'],
+            'rejection_reason' => $validated['status'] === 'rejected' ? $validated['rejection_reason'] : null,
             'is_featured' => $validated['is_featured'],
         ]);
 
