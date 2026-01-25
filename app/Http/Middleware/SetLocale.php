@@ -22,18 +22,23 @@ class SetLocale
         }
         // 2. Check header or others
         else {
-            $locale = $request->header('Accept-Language');
+            // If it's an admin route, default to 'ar' unless explicitly changed
+            if ($request->is('admin') || $request->is('admin/*')) {
+                $locale = 'ar';
+            } else {
+                $locale = $request->header('Accept-Language');
 
-            // Fallbacks
-            if (!$locale && $request->has('locale')) {
-                $locale = $request->get('locale');
-            }
-            if (!$locale && $request->query('locale')) {
-                $locale = $request->query('locale');
-            }
-            if (!$locale) {
-                // Default based on browser/config or just en
-                $locale = config('app.locale', 'en');
+                // Fallbacks
+                if (!$locale && $request->has('locale')) {
+                    $locale = $request->get('locale');
+                }
+                if (!$locale && $request->query('locale')) {
+                    $locale = $request->query('locale');
+                }
+                if (!$locale) {
+                    // Default based on browser/config or just en
+                    $locale = config('app.locale', 'ar');
+                }
             }
         }
 
