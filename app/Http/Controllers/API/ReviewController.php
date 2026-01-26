@@ -19,8 +19,9 @@ class ReviewController extends Controller
     {
         $user = Auth::user();
 
-        // Check if user has purchased this product
+        // Check if user has a delivered order for this product
         $hasPurchased = Order::where('buyer_id', $user->id)
+            ->where('status', 'delivered')
             ->whereHas('products', function ($query) use ($product) {
                 $query->where('product_id', $product->id);
             })

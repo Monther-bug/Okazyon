@@ -264,33 +264,32 @@ class ProductController extends Controller
         }
 
         // Check purchase and review status for authenticated users
+        $user = Auth::guard('sanctum')->user();
         $hasPurchased = false;
+        $isDelivered = false;
         $alreadyReviewed = false;
+        $isFavorited = false;
 
-        if (Auth::check()) {
+        if ($user) {
             // 2. Comprehensive hasPurchased check (any status except cancelled)
-            $hasPurchased = \App\Models\Order::where('buyer_id', Auth::id())
+            $hasPurchased = \App\Models\Order::where('buyer_id', $user->id)
                 ->where('status', '!=', 'cancelled')
                 ->whereHas('products', function ($q) use ($product) {
                     $q->where('product_id', $product->id);
                 })->exists();
 
             // 3. Strict delivery check for reviewing
-            $isDelivered = \App\Models\Order::where('buyer_id', Auth::id())
+            $isDelivered = \App\Models\Order::where('buyer_id', $user->id)
                 ->where('status', 'delivered')
                 ->whereHas('products', function ($q) use ($product) {
                     $q->where('product_id', $product->id);
                 })->exists();
 
-            $alreadyReviewed = \App\Models\Review::where('user_id', Auth::id())
+            $alreadyReviewed = \App\Models\Review::where('user_id', $user->id)
                 ->where('product_id', $product->id)
                 ->exists();
-        }
 
-        // Check if product is favorited by authenticated user
-        $isFavorited = false;
-        if (Auth::check()) {
-            $isFavorited = Auth::user()->favorites()->where('product_id', $product->id)->exists();
+            $isFavorited = $user->favorites()->where('product_id', $product->id)->exists();
         }
 
         // Prepare the complete response
