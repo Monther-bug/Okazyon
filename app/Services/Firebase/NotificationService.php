@@ -13,23 +13,37 @@ use Illuminate\Support\Facades\Log;
 
 class NotificationService
 {
-    protected Messaging $messaging;
+    protected ?Messaging $messaging = null;
+
     public function __construct()
     {
-        $this->initializeFirebase();
+        try {
+            $this->initializeFirebase();
+        } catch (\Exception $e) {
+            Log::error("Failed to initialize Firebase: " . $e->getMessage());
+        }
     }
 
     protected function initializeFirebase()
     {
-        // Use storage_path() to ensure the path is correctly resolved on both local and server environments
-        $credentialsPath = env('FIREBASE_CREDENTIALS', storage_path('app/firebase-auth.json'));
+        $credentialsPath = env('FIREBASE_CREDENTIALS');
+
+        // If not set in env, use default absolute path
+        if (!$credentialsPath) {
+            $credentialsPath = storage_path('app/firebase-auth.json');
+        } else {
+            // If it's a relative path, resolve it relative to base_path()
+            if (!str_starts_with($credentialsPath, '/') && !preg_match('/^[a-zA-Z]:\\\\/', $credentialsPath)) {
+                $credentialsPath = base_path($credentialsPath);
+            }
+        }
 
         if (file_exists($credentialsPath)) {
             $this->messaging = (new \Kreait\Firebase\Factory())
                 ->withServiceAccount($credentialsPath)
                 ->createMessaging();
         } else {
-            throw new \Exception("Firebase credentials file not found at: {$credentialsPath}. Please ensure the file exists in storage/app/firebase-auth.json and is readable.");
+            Log::warning("Firebase credentials file not found at: {$credentialsPath}. Notifications will be disabled.");
         }
     }
 
@@ -59,6 +73,12 @@ class NotificationService
                         ->toToken($tokenModel->token);
 
                     Log::info("Attempting to send notification via FCM to token for user ID: {$tokenModel->user_id} (Device Type: {$tokenModel->device_type})");
+
+                    if (!$this->messaging) {
+                        Log::warning("Skipping FCM send: Firebase messaging not initialized.");
+                        continue;
+                    }
+
                     $response = $this->messaging->send($message);
                     $responses[$tokenModel->device_type][] = $response;
                     Log::info("Successfully sent notification via FCM to user ID: {$tokenModel->user_id}");
@@ -94,6 +114,11 @@ class NotificationService
                 'body' => $notification->body,
             ])->toTopic($topic);
 
+        if (!$this->messaging) {
+            Log::warning("Skipping FCM topic send: Firebase messaging not initialized.");
+            return;
+        }
+
         $this->messaging->send($message);
     }
 
@@ -107,6 +132,10 @@ class NotificationService
         })->unique()->toArray();
 
         if (!empty($allTokens)) {
+            if (!$this->messaging) {
+                Log::warning("Skipping FCM topic subscription: Firebase messaging not initialized.");
+                return;
+            }
             $this->messaging->subscribeToTopic($topic, $allTokens);
         }
     }
