@@ -43,21 +43,7 @@
                             <div class="rounded-xl p-3"
                                 style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
                                 <!-- Iconax: Money Receive -->
-                                <svg class="h-6 w-6" style="color: white;" viewBox="0 0 24 24" fill="none">
-                                    <path
-                                        d="M9.5 13.75C9.5 14.72 10.25 15.5 11.17 15.5H13.05C13.85 15.5 14.5 14.82 14.5 13.97C14.5 13.06 14.1 12.73 13.51 12.52L10.5 11.47C9.91 11.26 9.51001 10.94 9.51001 10.02C9.51001 9.17999 10.16 8.48999 10.96 8.48999H12.84C13.76 8.48999 14.51 9.26999 14.51 10.24"
-                                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                    <path d="M12 7.5V16.5" stroke="currentColor" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2"
-                                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                    <path d="M17 3V7H21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                    <path d="M22 2L17 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
+                                <i class="iconsax text-2xl" icon-name="wallet-money" style="color: white;"></i>
                             </div>
                             <!-- Trends can be calculated later -->
                         </div>
@@ -78,20 +64,7 @@
                             <div class="rounded-xl p-3"
                                 style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
                                 <!-- Iconax: Shopping Bag -->
-                                <svg class="h-6 w-6" style="color: white;" viewBox="0 0 24 24" fill="none">
-                                    <path
-                                        d="M7.5 7.67001V6.70001C7.5 4.45001 9.31 2.24001 11.56 2.03001C14.24 1.77001 16.5 3.88001 16.5 6.51001V7.89001"
-                                        stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path
-                                        d="M9.00001 22H15C19.02 22 19.74 20.39 19.95 18.43L20.7 12.43C20.97 9.99 20.27 8 16 8H8.00001C3.73001 8 3.03001 9.99 3.30001 12.43L4.05001 18.43C4.26001 20.39 4.98001 22 9.00001 22Z"
-                                        stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M15.4955 12H15.5045" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M8.49451 12H8.50349" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
+                                <i class="iconsax text-2xl" icon-name="receipt-list" style="color: white;"></i>
                             </div>
                         </div>
 
@@ -112,18 +85,7 @@
                             <div class="rounded-xl p-3"
                                 style="background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);">
                                 <!-- Iconax: 3D Box -->
-                                <svg class="h-6 w-6" style="color: white;" viewBox="0 0 24 24" fill="none">
-                                    <path d="M3.16992 7.44L11.9999 12.55L20.7699 7.47" stroke="currentColor"
-                                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M12 21.61V12.54" stroke="currentColor" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path
-                                        d="M9.92999 2.48L4.58999 5.44C3.37999 6.11 2.38999 7.79 2.38999 9.17V14.82C2.38999 16.2 3.37999 17.88 4.58999 18.55L9.92999 21.52C11.07 22.15 12.94 22.15 14.08 21.52L19.42 18.55C20.63 17.88 21.62 16.2 21.62 14.82V9.17C21.62 7.79 20.63 6.11 19.42 5.44L14.08 2.47C12.93 1.84 11.07 1.84 9.92999 2.48Z"
-                                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                    <path d="M17 13.24V9.58L7.51001 4.09998" stroke="currentColor" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
+                                <i class="iconsax text-2xl" type="bulk" icon-name="box" style="color: white;"></i>
                             </div>
                         </div>
 
@@ -144,15 +106,7 @@
                             <div class="rounded-xl p-3"
                                 style="background: linear-gradient(135deg, #fad0c4 0%, #ffd1ff 100%);">
                                 <!-- Iconax: Clock -->
-                                <svg class="h-6 w-6" style="color: #d946ef;" viewBox="0 0 24 24" fill="none">
-                                    <path
-                                        d="M22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2C17.52 2 22 6.48 22 12Z"
-                                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                    <path d="M15.71 15.18L12.61 13.33C12.07 13.01 11.63 12.24 11.63 11.61V7.51001"
-                                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
+                                <i class="iconsax text-2xl" type="bulk" icon-name="clock"></i>
                             </div>
                         </div>
 
@@ -238,9 +192,9 @@
                                                         style="cursor: pointer;">
 
                                                         <div
-                                                            class="h-10 w-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-500 dark:text-slate-300 font-bold text-xs">
-                                                            {{ substr(($order->buyer->name ?? __('orders.unknown_user')), 0, 1) }}
-                                                        </div>
+                                    class="w-10 h-10 rounded-xl bg-gradient-to-br from-red-600 to-red-500 flex items-center justify-center text-white shadow-lg shadow-red-500/20 text-2xl">
+                                    <i class="iconsax" type="bulk" icon-name="shop"></i>
+                                </div>
                                                         <div class="flex-1 min-w-0">
                                                             <p class="text-sm font-medium text-slate-900 dark:text-white truncate">
                                                                 {{ $order->buyer->name ?? __('orders.unknown_user') }}

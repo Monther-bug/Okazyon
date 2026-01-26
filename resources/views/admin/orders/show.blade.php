@@ -65,7 +65,8 @@
                     <div
                         class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-sm p-6">
                         <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">
-                            {{ __('orders.update_status') }}</h3>
+                            {{ __('orders.update_status') }}
+                        </h3>
                         <form action="{{ route('admin.orders.update', $order) }}" method="POST"
                             class="flex flex-col sm:flex-row gap-4 items-end">
                             @csrf
@@ -107,7 +108,8 @@
                     <div
                         class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-sm p-6">
                         <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">
-                            {{ __('orders.customer_info') }}</h3>
+                            {{ __('orders.customer_info') }}
+                        </h3>
                         <div class="flex items-center gap-4 mb-4">
                             <div
                                 class="h-12 w-12 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-500 dark:text-slate-300 font-bold text-lg">
@@ -122,13 +124,10 @@
                                 </p>
                             </div>
                         </div>
-                        @if($order->buyer?->phone)
+                        @if($order->buyer?->phone_number)
                             <div class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 mt-2">
-                                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                                </svg>
-                                {{ $order->buyer->phone }}
+                                <i class="iconsax text-lg" icon-name="call"></i>
+                                {{ $order->buyer->phone_number }}
                             </div>
                         @endif
                     </div>
@@ -137,7 +136,8 @@
                     <div
                         class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-sm p-6">
                         <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">
-                            {{ __('orders.delivery_address') }}</h3>
+                            {{ __('orders.delivery_address') }}
+                        </h3>
                         <div class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
                             @if($order->delivery_address)
                                 <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($order->delivery_address) }}"

@@ -21,14 +21,17 @@
                     <select name="status" onchange="this.form.submit()"
                         class="appearance-none pl-4 pr-10 py-2.5 rounded-xl border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm font-bold shadow-sm focus:border-red-500 focus:ring-red-500">
                         <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>
-                            {{ __('orders.status_pending') }}</option>
+                            {{ __('orders.status_pending') }}
+                        </option>
                         <option value="processing" {{ $order->status == 'processing' ? 'selected' : '' }}>
                             {{ __('orders.status_processing') }}
                         </option>
                         <option value="delivered" {{ $order->status == 'delivered' ? 'selected' : '' }}>
-                            {{ __('orders.status_delivered') }}</option>
+                            {{ __('orders.status_delivered') }}
+                        </option>
                         <option value="cancelled" {{ $order->status == 'cancelled' ? 'selected' : '' }}>
-                            {{ __('orders.status_cancelled') }}</option>
+                            {{ __('orders.status_cancelled') }}
+                        </option>
                     </select>
                     <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-gray-500">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -93,7 +96,8 @@
                             <tfoot class="bg-gray-50 dark:bg-gray-900/50">
                                 <tr>
                                     <td class="px-8 py-4 font-bold text-gray-700 dark:text-gray-300 text-right">
-                                        {{ __('orders.subtotal') }}</td>
+                                        {{ __('orders.subtotal') }}
+                                    </td>
                                     <td class="px-8 py-4 font-bold text-xl text-red-600 dark:text-red-400 text-right">
                                         ${{ number_format($sellerItems->sum(fn($i) => $i->price * $i->quantity), 2) }}
                                     </td>
@@ -125,16 +129,16 @@
                     </div>
 
                     <div class="space-y-4 pt-4 border-t border-gray-100 dark:border-gray-800">
-                        <div>
-                            <p class="text-xs font-bold uppercase text-gray-400 mb-1">{{ __('orders.phone_number') }}
-                            </p>
+                        <div class="flex items-center gap-2">
+                            <i class="iconsax text-lg text-gray-400" icon-name="call"></i>
                             <p class="text-sm font-medium text-gray-700 dark:text-gray-300">
                                 {{ $order->buyer->phone_number ?? 'N/A' }}
                             </p>
                         </div>
                         <div>
                             <p class="text-xs font-bold uppercase text-gray-400 mb-1">
-                                {{ __('orders.delivery_address') }}</p>
+                                {{ __('orders.delivery_address') }}
+                            </p>
                             @if($order->delivery_address)
                                 <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($order->delivery_address) }}"
                                     target="_blank"

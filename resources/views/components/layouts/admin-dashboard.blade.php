@@ -39,6 +39,9 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    <!-- Iconsax -->
+    <link href="https://iconsax.gitlab.io/i/icons.css" rel="stylesheet">
+
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -129,11 +132,8 @@
             <div class="h-20 flex items-center px-8 border-b border-slate-100 dark:border-slate-800">
                 <div class="flex items-center gap-3">
                     <div
-                        class="w-10 h-10 rounded-xl bg-gradient-to-br from-red-500 to-orange-600 flex items-center justify-center text-white shadow-lg shadow-red-500/20">
-                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                        </svg>
+                        class="w-10 h-10 rounded-xl bg-gradient-to-br from-red-500 to-orange-600 flex items-center justify-center text-white shadow-lg shadow-red-500/20 text-2xl">
+                        <i class="iconsax" icon-name="grid-apps"></i>
                     </div>
                     <div>
                         <h1 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
@@ -156,11 +156,8 @@
 
                 <a href="{{ route('admin.dashboard') }}"
                     class="flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-xl transition-all duration-300 ease-out group {{ request()->routeIs('admin.dashboard') ? 'bg-white dark:bg-slate-800 text-red-600 shadow-lg shadow-white/10 dark:shadow-none rtl:-translate-x-1 ltr:translate-x-1' : 'text-slate-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white rtl:hover:-translate-x-1 ltr:hover:translate-x-1' }}">
-                    <svg class="w-5 h-5 transition-colors duration-300 {{ request()->routeIs('admin.dashboard') ? 'text-red-600' : 'text-slate-500 group-hover:text-white' }}"
-                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                    </svg>
+                    <i class="iconsax {{ request()->routeIs('admin.dashboard') ? 'text-red-600' : 'text-slate-500 group-hover:text-red-500' }} text-2xl"
+                        icon-name="grid-apps"></i>
                     {{ __('admin.dashboard') }}
                 </a>
 
@@ -172,41 +169,29 @@
 
                 <a href="{{ route('admin.orders.index') }}"
                     class="flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-xl transition-all duration-300 ease-out group {{ request()->routeIs('admin.orders.*') ? 'bg-white dark:bg-slate-800 text-red-600 shadow-lg shadow-white/10 dark:shadow-none rtl:-translate-x-1 ltr:translate-x-1' : 'text-slate-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white rtl:hover:-translate-x-1 ltr:hover:translate-x-1' }}">
-                    <svg class="w-5 h-5 transition-colors duration-300 {{ request()->routeIs('admin.orders.*') ? 'text-red-600' : 'text-slate-500 group-hover:text-white' }}"
-                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M12 16h.01" />
-                    </svg>
+                    <i class="iconsax {{ request()->routeIs('admin.orders.*') ? 'text-red-600' : 'text-slate-500 group-hover:text-red-500' }} text-2xl"
+                        icon-name="receipt-2"></i>
                     {{ __('admin.orders') }}
                 </a>
 
                 <a href="{{ route('admin.users.index') }}"
                     class="flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-xl transition-all duration-300 ease-out group {{ request()->routeIs('admin.users.*') ? 'bg-white dark:bg-slate-800 text-red-600 shadow-lg shadow-white/10 dark:shadow-none rtl:-translate-x-1 ltr:translate-x-1' : 'text-slate-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white rtl:hover:-translate-x-1 ltr:hover:translate-x-1' }}">
-                    <svg class="w-5 h-5 transition-colors duration-300 {{ request()->routeIs('admin.users.*') ? 'text-red-600' : 'text-slate-500 group-hover:text-white' }}"
-                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                    </svg>
+                    <i class="iconsax {{ request()->routeIs('admin.users.*') ? 'text-red-600' : 'text-slate-500 group-hover:text-red-500' }} text-2xl"
+                        icon-name="users"></i>
                     {{ __('admin.users') }}
                 </a>
 
                 <a href="{{ route('admin.categories.index') }}"
                     class="flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-xl transition-all duration-300 ease-out group {{ request()->routeIs('admin.categories.*') ? 'bg-white dark:bg-slate-800 text-red-600 shadow-lg shadow-white/10 dark:shadow-none rtl:-translate-x-1 ltr:translate-x-1' : 'text-slate-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white rtl:hover:-translate-x-1 ltr:hover:translate-x-1' }}">
-                    <svg class="w-5 h-5 transition-colors duration-300 {{ request()->routeIs('admin.categories.*') ? 'text-red-600' : 'text-slate-500 group-hover:text-white' }}"
-                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-                    </svg>
+                    <i class="iconsax {{ request()->routeIs('admin.categories.*') ? 'text-red-600' : 'text-slate-500 group-hover:text-red-500' }} text-2xl"
+                        icon-name="grid-apps-2"></i>
                     {{ __('admin.categories') }}
                 </a>
 
                 <a href="{{ route('admin.products.index') }}"
                     class="flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-xl transition-all duration-300 ease-out group {{ request()->routeIs('admin.products.*') ? 'bg-white dark:bg-slate-800 text-red-600 shadow-lg shadow-white/10 dark:shadow-none rtl:-translate-x-1 ltr:translate-x-1' : 'text-slate-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white rtl:hover:-translate-x-1 ltr:hover:translate-x-1' }}">
-                    <svg class="w-5 h-5 transition-colors duration-300 {{ request()->routeIs('admin.products.*') ? 'text-red-600' : 'text-slate-500 group-hover:text-white' }}"
-                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                    </svg>
+                    <i class="iconsax {{ request()->routeIs('admin.products.*') ? 'text-red-600' : 'text-slate-500 group-hover:text-red-500' }} text-2xl"
+                        icon-name="box"></i>
                     {{ __('admin.products') }}
                 </a>
 
@@ -217,11 +202,8 @@
 
                 <a href="{{ route('admin.banners.index') }}"
                     class="flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-xl transition-all duration-300 ease-out group {{ request()->routeIs('admin.banners.*') ? 'bg-white dark:bg-slate-800 text-red-600 shadow-lg shadow-white/10 dark:shadow-none rtl:-translate-x-1 ltr:translate-x-1' : 'text-slate-400 hover:bg-gray-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white rtl:hover:-translate-x-1 ltr:hover:translate-x-1' }}">
-                    <svg class="w-5 h-5 transition-colors duration-300 {{ request()->routeIs('admin.banners.*') ? 'text-red-600' : 'text-slate-500 group-hover:text-white' }}"
-                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
+                    <i class="iconsax {{ request()->routeIs('admin.banners.*') ? 'text-red-600' : 'text-slate-500 group-hover:text-red-500' }} text-2xl"
+                        icon-name="picture"></i>
                     {{ __('admin.banners') }}
                 </a>
 
@@ -250,10 +232,7 @@
                         <button type="button" onclick="confirmLogout()"
                             class="p-2 text-slate-400 hover:text-red-500 hover:bg-slate-700 rounded-lg transition-colors"
                             title="{{ __('admin.logout') }}">
-                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-6 0v-1m6 0H9" />
-                            </svg>
+                            <i class="iconsax text-slate-400 group-hover:text-red-500 text-2xl" icon-name="logout"></i>
                         </button>
                     </form>
 
@@ -293,11 +272,8 @@
 
                 <div class="flex items-center gap-4">
                     <button @click="sidebarOpen = true"
-                        class="lg:hidden p-2 -ml-2 text-slate-500 hover:text-slate-700 dark:text-gray-400 dark:hover:text-gray-200">
-                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
+                        class="lg:hidden p-2 -ml-2 text-slate-500 hover:text-slate-700 dark:text-gray-400 dark:hover:text-gray-200 text-2xl">
+                        <i class="iconsax" icon-name="menu-1"></i>
                     </button>
 
                     @if(isset($header))
@@ -326,16 +302,9 @@
                     @endif
 
                     <button @click="toggleTheme()"
-                        class="p-2.5 rounded-xl text-slate-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500/20">
-                        <svg x-show="!darkMode" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                        </svg>
-                        <svg x-show="darkMode" x-cloak class="w-5 h-5" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                        </svg>
+                        class="p-2.5 rounded-xl text-slate-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500/20 text-2xl">
+                        <i x-show="!darkMode" class="iconsax" icon-name="sun"></i>
+                        <i x-show="darkMode" x-cloak class="iconsax" icon-name="moon"></i>
                     </button>
                     </button>
                 </div>

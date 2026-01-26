@@ -38,14 +38,12 @@
                         class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow">
                         <div class="flex items-center justify-between mb-4">
                             <div class="p-2 rounded-lg bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400">
-                                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
+                                <i class="iconsax text-2xl" icon-name="wallet-money"></i>
                             </div>
                         </div>
                         <h3 class="text-sm font-medium text-slate-500 dark:text-slate-400">
-                            {{ __('admin.total_revenue') }}</h3>
+                            {{ __('admin.total_revenue') }}
+                        </h3>
                         <p class="text-2xl font-bold text-slate-900 dark:text-white mt-1">
                             ${{ number_format($totalRevenue, 2) }}
                         </p>
@@ -56,14 +54,12 @@
                         class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow">
                         <div class="flex items-center justify-between mb-4">
                             <div class="p-2 rounded-lg bg-sky-50 dark:bg-sky-500/10 text-sky-600 dark:text-sky-400">
-                                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                                </svg>
+                                <i class="iconsax text-2xl" icon-name="receipt-list"></i>
                             </div>
                         </div>
                         <h3 class="text-sm font-medium text-slate-500 dark:text-slate-400">
-                            {{ __('admin.total_orders') }}</h3>
+                            {{ __('admin.total_orders') }}
+                        </h3>
                         <p class="text-2xl font-bold text-slate-900 dark:text-white mt-1">
                             {{ number_format($totalOrders) }}
                         </p>
@@ -74,10 +70,7 @@
                         class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow">
                         <div class="flex items-center justify-between mb-4">
                             <div class="p-2 rounded-lg bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400">
-                                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                                </svg>
+                                <i class="iconsax text-2xl" icon-name="users"></i>
                             </div>
                         </div>
                         <h3 class="text-sm font-medium text-slate-500 dark:text-slate-400">{{ __('admin.total_users') }}
@@ -93,14 +86,12 @@
                         <div class="flex items-center justify-between mb-4">
                             <div
                                 class="p-2 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
-                                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                                </svg>
+                                <i class="iconsax text-2xl" type="bulk" icon-name="box"></i>
                             </div>
                         </div>
                         <h3 class="text-sm font-medium text-slate-500 dark:text-slate-400">
-                            {{ __('admin.total_products') }}</h3>
+                            {{ __('admin.total_products') }}
+                        </h3>
                         <p class="text-2xl font-bold text-slate-900 dark:text-white mt-1">
                             {{ number_format($totalProducts) }}
                         </p>
@@ -116,7 +107,8 @@
                         <div class="flex items-center justify-between mb-6">
                             <div>
                                 <h3 class="text-lg font-bold text-slate-900 dark:text-white">
-                                    {{ __('admin.revenue_overview') }}</h3>
+                                    {{ __('admin.revenue_overview') }}
+                                </h3>
                                 <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('admin.revenue_subtitle') }}
                                 </p>
                             </div>
@@ -131,7 +123,8 @@
                     <div
                         class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm">
                         <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">
-                            {{ __('admin.recent_orders') }}</h3>
+                            {{ __('admin.recent_orders') }}
+                        </h3>
 
                         <div class="flow-root">
                             <ul role="list" class="-my-5 divide-y divide-slate-100 dark:divide-slate-700">
