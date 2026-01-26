@@ -37,4 +37,6 @@ return [
     'no_recent_orders' => 'No recent orders found.',
     'view_all_orders' => 'View All Orders',
     'all_rights_reserved' => 'All rights reserved.',
+    'desktop_only' => 'Desktop Only',
+    'desktop_only_message' => 'Please use a desktop computer to access the administration dashboard for the best experience.',
 ];

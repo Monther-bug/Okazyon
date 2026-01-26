@@ -88,6 +88,29 @@
     class="font-sans antialiased bg-gray-50 dark:bg-gray-950 text-slate-800 dark:text-gray-100 overflow-hidden selection:bg-red-500 selection:text-white"
     x-data="{ sidebarOpen: false }">
 
+    <!-- Mobile Restriction Overlay -->
+    <div
+        class="fixed inset-0 z-[9999] lg:hidden bg-white dark:bg-slate-900 flex items-center justify-center p-6 text-center overflow-hidden">
+        <div class="max-w-xs scale-110">
+            <div
+                class="w-20 h-20 bg-red-500/10 text-red-500 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-red-500/10 border border-red-500/20">
+                <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+            </div>
+            <h2 class="text-slate-900 dark:text-white text-2xl font-black mb-3 tracking-tight">
+                {{ __('admin.desktop_only') }}
+            </h2>
+            <p class="text-slate-500 dark:text-slate-400 text-sm font-medium leading-relaxed">
+                {{ __('admin.desktop_only_message') }}
+            </p>
+            <div class="mt-8 flex justify-center">
+                <div class="h-1 w-12 bg-red-500/20 rounded-full"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- Mobile Sidebar Backdrop -->
     <div x-show="sidebarOpen" x-transition:enter="transition-opacity ease-linear duration-300"
         x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
